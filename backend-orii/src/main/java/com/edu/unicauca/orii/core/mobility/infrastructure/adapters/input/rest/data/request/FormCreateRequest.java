@@ -81,7 +81,6 @@ public class FormCreateRequest {
     @NotBlank(message = "The origin is required")
     private String origin;
 
-    @NotNull(message = "The agreement id is required")
     private Long agreementId;
     
     @Valid

@@ -34,7 +34,7 @@ public class GlobalExceptionHandler {
    * Handles exceptions.
    * Logs the error message and returns a response for this specific exception.
    *
-   * @param e The Exception instance.
+   * @param ex The Exception instance.
    * @return Response entity containing error details.
    */
   @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -49,7 +49,7 @@ public class GlobalExceptionHandler {
       return ResponseEntity.badRequest().body(errors);
   }
   
-  /*
+  /**
    * Handles exceptions.
    * Logs the error message and returns a response for this specific exception.
    * 

@@ -57,13 +57,16 @@ public class FormCommandJpaAdapter implements IFormCommandPersistencePort {
         @Override
         public Form createForm(Form form) {
 
-                AgreementEntity agreementEntity = agreementRepository
+                FormEntity formEntity = formAdapterMapper.toFormEntity(form);
+                formEntity.setAgreement(null);
+                
+                if (form.getAgreement().getAgreementId() != null) {
+                        AgreementEntity agreementEntity = agreementRepository
                         .findById(form.getAgreement().getAgreementId())
                         .orElseThrow(() -> new BusinessRuleException(HttpStatus.NOT_FOUND.value(),
                         MessageLoader.getInstance().getMessage(MessagesConstant.EM002,"Agreement" ,form.getAgreement().getAgreementId())));
-
-                FormEntity formEntity = formAdapterMapper.toFormEntity(form);
-                formEntity.setAgreement(agreementEntity);
+                        formEntity.setAgreement(agreementEntity);
+                }
 
                 EventEntity eventEntity = eventAdapterMapper.toEventEntity(form.getEvent());
                 EventTypeEntity eventTypeEntity = eventTypeRepository
@@ -102,13 +105,15 @@ public class FormCommandJpaAdapter implements IFormCommandPersistencePort {
                                 .orElseThrow(() -> new BusinessRuleException(HttpStatus.NOT_FOUND.value(), 
                                 MessageLoader.getInstance().getMessage(MessagesConstant.EM002, "Form", form.getId())));
 
-                if (formEntity.getAgreement().getAgreementId() != form.getAgreement().getAgreementId()) {
+                if (form.getAgreement().getAgreementId() != null) {
                         AgreementEntity agreementEntity = agreementRepository
-                                        .findById(form.getAgreement().getAgreementId())
-                                        .orElseThrow(() -> new BusinessRuleException(HttpStatus.NOT_FOUND.value(), 
-                                        MessageLoader.getInstance().getMessage(MessagesConstant.EM002, "Agreement", form.getAgreement().getAgreementId())));
+                        .findById(form.getAgreement().getAgreementId())
+                        .orElseThrow(() -> new BusinessRuleException(HttpStatus.NOT_FOUND.value(), 
+                        MessageLoader.getInstance().getMessage(MessagesConstant.EM002, "Agreement", form.getAgreement().getAgreementId())));
                         formEntity.setAgreement(agreementEntity);
-                }
+                }else {
+                        formEntity.setAgreement(null);
+                }   
 
                 if (formEntity.getEvent().getEventType().getEventTypeId() != form.getEvent().getEventType()
                                 .getEventTypeId()) {

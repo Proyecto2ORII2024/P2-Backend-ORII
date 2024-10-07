@@ -18,4 +18,4 @@ VALUES (1, 'ASISTENCIA A EVENTOS'),
        (17, 'ESTUDIOS DE POSTDOCTORADO'),
        (18, 'INTERNACIONALIZACION EN CASA'),
        (19, 'VOLUNTARIADO'),
-       (20, 'OTRO');      
+       (20, 'OTRO');

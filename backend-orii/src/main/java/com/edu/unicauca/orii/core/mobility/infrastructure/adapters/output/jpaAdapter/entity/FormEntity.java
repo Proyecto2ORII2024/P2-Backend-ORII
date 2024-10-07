@@ -91,7 +91,7 @@ public class FormEntity {
     private EventEntity event;
     
     @ManyToOne
-    @JoinColumn(name = "id_agreement")
+    @JoinColumn(name = "id_agreement", nullable = true)
     private AgreementEntity agreement;
 
     @ManyToOne(cascade = CascadeType.ALL)

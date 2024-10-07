@@ -13,7 +13,7 @@ import com.edu.unicauca.orii.core.mobility.domain.model.Agreement;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Implementación de servicio para la gestión de entidades {@link Acuerdo}.
+ * Implementación de servicio para la gestión de entidades {@link Agreement}.
  * <p>
  * Esta clase implementa la interfaz {@link IAgreementQueryPort} y
  * proporciona métodos
