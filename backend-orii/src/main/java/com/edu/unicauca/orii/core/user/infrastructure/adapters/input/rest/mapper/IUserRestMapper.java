@@ -12,9 +12,9 @@ import com.edu.unicauca.orii.core.user.infrastructure.adapters.input.rest.data.r
 @Mapper(componentModel = "spring")
 public interface IUserRestMapper {
 
-    @Mapping(target = "users", ignore = true)
     UserData toUserData(User user);
 
+    @Mapping(target = "updatePassword", ignore = true)
     User toUser(UserCreateRequest userCreateRequest);
 
     User toUser(UserData userData);

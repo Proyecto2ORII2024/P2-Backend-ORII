@@ -1,13 +1,11 @@
 package com.edu.unicauca.orii.core.user.application.ports.output;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-
+import java.util.List;
 import com.edu.unicauca.orii.core.user.domain.model.User;
 
 public interface IUserQueryPersistencePort {
 
-    Page<User> getUser(Pageable pageable);
+    List<User> getUser();
 
     User getUserById(Long userId);
 }

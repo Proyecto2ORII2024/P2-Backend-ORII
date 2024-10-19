@@ -20,15 +20,18 @@ import lombok.Setter;
 @NoArgsConstructor
 
 public class UserData {
-    private Long id;
+    private Long userId;
 
-    @NotNull(message = "The email is required")
+    @NotBlank(message = "The email is required")
     private String email;
 
-    @NotNull(message = "The password is required")
+    @NotBlank(message = "The password is required")
     private String password;
 
-    @NotBlank(message ="The role is required")
+    @NotNull(message = "The verify email is required")
+    private Boolean verifyEmail;
+
+    @NotNull(message ="The role is required")
     private RoleEnum role;
 
     @NotNull(message = "The update password is required")

@@ -12,7 +12,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,10 +20,8 @@ import lombok.Setter;
 @Table(name = "users")
 @Getter
 @Setter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
@@ -37,6 +34,9 @@ public class UserEntity {
 
     @Column(nullable = false, length = 255)
     private String password;
+
+    @Column(nullable = false)
+    private Boolean verifyEmail;
 
     @Column(name="user_role", nullable = false, length = 24)
     private RoleEnum role;

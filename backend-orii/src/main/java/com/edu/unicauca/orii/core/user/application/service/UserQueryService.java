@@ -1,6 +1,7 @@
 package com.edu.unicauca.orii.core.user.application.service;
 
-import org.springframework.data.domain.Pageable;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.edu.unicauca.orii.core.user.application.ports.output.IUserQueryPersistencePort;
@@ -14,8 +15,8 @@ public class UserQueryService {
     
     private final IUserQueryPersistencePort userQueryPersistencePort;
 
-    public org.springframework.data.domain.Page<User> getUser(Pageable pageable) {
-        return userQueryPersistencePort.getUser(pageable);
+    public List<User> getUser() {
+        return userQueryPersistencePort.getUser();
     }
 
     public User getUserById(Long userId) {

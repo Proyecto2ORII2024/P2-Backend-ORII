@@ -1,7 +1,6 @@
 package com.edu.unicauca.orii.core.user.infrastructure.adapters.output;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
@@ -24,14 +23,14 @@ public class UserQueryJpaAdapter implements IUserQueryPersistencePort {
     private final IUserRepository userRepository;
 
     @Override
-    public Page<User> getUser(Pageable pageable) {
-        Page<UserEntity> userEntities = userRepository.findAll(pageable);
-        if(userEntities.getContent().isEmpty()) {
+    public List<User> getUser() {
+        List<UserEntity> userEntities = userRepository.findAll();
+        if(userEntities.isEmpty()) {
              throw new BusinessRuleException(HttpStatus.NOT_FOUND.value(),
                         MessageLoader.getInstance().getMessage(MessagesConstant.EM014,"User" ));
         }
 
-        return userEntities.map(userAdapterMapper::toUser);
+        return userAdapterMapper.toUserList(userEntities);
     }
     @Override
     public User getUserById(Long userId) {

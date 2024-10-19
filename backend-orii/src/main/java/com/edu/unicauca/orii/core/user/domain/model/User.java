@@ -5,7 +5,6 @@ import java.util.Date;
 import com.edu.unicauca.orii.core.user.domain.enums.RoleEnum;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,12 +13,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@Builder
-
 public class User {
     private Long userId;
     private String email;
     private String password;
     private Date updatePassword;
+    private Boolean verifyEmail;
     private RoleEnum role;
+
 }
