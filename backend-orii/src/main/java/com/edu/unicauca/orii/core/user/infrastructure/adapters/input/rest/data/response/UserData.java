@@ -29,7 +29,7 @@ public class UserData {
     private String password;
 
     @NotNull(message = "The verify email is required")
-    private Boolean verifyEmail;
+    private Boolean EmailVerified;
 
     @NotNull(message ="The role is required")
     private RoleEnum role;

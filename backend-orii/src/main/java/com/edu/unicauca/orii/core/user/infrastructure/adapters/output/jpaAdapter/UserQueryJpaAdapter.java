@@ -1,4 +1,4 @@
-package com.edu.unicauca.orii.core.user.infrastructure.adapters.output;
+package com.edu.unicauca.orii.core.user.infrastructure.adapters.output.jpaAdapter;
 
 import java.util.List;
 import org.springframework.http.HttpStatus;

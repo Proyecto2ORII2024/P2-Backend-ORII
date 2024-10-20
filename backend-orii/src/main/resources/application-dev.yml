@@ -16,3 +16,27 @@ spring:
   sql:
     init:
       mode: always  
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${spring.mail.username}
+    password: ${spring.mail.password}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
+
+server:
+  servlet:
+    context-path: /api/v1
+
+api_url: http://localhost:8080${server.servlet.context-path}
