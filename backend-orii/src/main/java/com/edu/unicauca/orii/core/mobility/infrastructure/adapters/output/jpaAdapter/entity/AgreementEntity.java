@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.edu.unicauca.orii.core.mobility.domain.enums.ScopeEnum;
+import com.edu.unicauca.orii.core.mobility.domain.enums.StatusEnum;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -55,4 +56,7 @@ public class AgreementEntity {
     // Relationship with Form
     @OneToMany(mappedBy = "agreement")
     private List<FormEntity> forms;
+
+    @Column(nullable = false, length = 8)
+    private StatusEnum status;
 }
