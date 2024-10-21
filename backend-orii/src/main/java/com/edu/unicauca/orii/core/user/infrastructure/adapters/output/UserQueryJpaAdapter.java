@@ -4,9 +4,9 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
-import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.exception.BusinessRuleException;
-import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.exception.messages.MessageLoader;
-import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.exception.messages.MessagesConstant;
+import com.edu.unicauca.orii.core.common.exception.BusinessRuleException;
+import com.edu.unicauca.orii.core.common.exception.messages.MessageLoader;
+import com.edu.unicauca.orii.core.common.exception.messages.MessagesConstant;
 import com.edu.unicauca.orii.core.user.application.ports.output.IUserQueryPersistencePort;
 import com.edu.unicauca.orii.core.user.domain.model.User;
 import com.edu.unicauca.orii.core.user.infrastructure.adapters.output.jpaAdapter.entity.UserEntity;
