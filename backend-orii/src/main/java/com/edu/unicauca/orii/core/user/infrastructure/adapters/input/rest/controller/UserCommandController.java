@@ -20,7 +20,6 @@ import com.edu.unicauca.orii.core.user.infrastructure.adapters.input.rest.data.r
 import com.edu.unicauca.orii.core.user.infrastructure.adapters.input.rest.data.response.UserData;
 import com.edu.unicauca.orii.core.user.infrastructure.adapters.input.rest.mapper.IUserRestMapper;
 
-
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -36,7 +35,7 @@ public class UserCommandController {
     @PostMapping("/create")
     public ResponseEntity<UserData> createUser(@Valid @RequestBody UserCreateRequest userCreateRequest) {
         User user = userRestMapper.toUser(userCreateRequest);
-        user.setVerifyEmail(false);
+        user.setEmailVerified(false);
         LocalDateTime localDateTime = LocalDateTime.now(); // Fecha actual
         Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
         user.setUpdatePassword(date);
@@ -46,7 +45,7 @@ public class UserCommandController {
 
     @PutMapping("/update/{id}")
     public void updateUser(@Valid @RequestBody UserCreateRequest userCreateRequest) {
-
+        
     }
 
     @DeleteMapping("/delete/{id}")
