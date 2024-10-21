@@ -1,6 +1,5 @@
 package com.edu.unicauca.orii.core.user.infrastructure.adapters.input.rest.controller;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;

@@ -1,4 +1,4 @@
-package com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.exception.handler;
+package com.edu.unicauca.orii.core.common.exception.handler;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
-import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.exception.BusinessRuleException;
-import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.exception.common.ResponseDto;
-import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.exception.messages.MessageLoader;
-import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.exception.messages.MessagesConstant;
+import com.edu.unicauca.orii.core.common.exception.BusinessRuleException;
+import com.edu.unicauca.orii.core.common.exception.common.ResponseDto;
+import com.edu.unicauca.orii.core.common.exception.messages.MessageLoader;
+import com.edu.unicauca.orii.core.common.exception.messages.MessagesConstant;
 
 /**
  * Global Exception Handler to manage various exception types.
