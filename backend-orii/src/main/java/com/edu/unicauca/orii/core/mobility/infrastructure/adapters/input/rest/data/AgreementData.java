@@ -3,6 +3,7 @@ package com.edu.unicauca.orii.core.mobility.infrastructure.adapters.input.rest.d
 import java.util.Date;
 
 import com.edu.unicauca.orii.core.mobility.domain.enums.ScopeEnum;
+import com.edu.unicauca.orii.core.mobility.domain.enums.StatusEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.validation.constraints.NotBlank;
@@ -40,5 +41,8 @@ public class AgreementData {
     @NotNull(message = "The entry date is required")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date startDate;
+
+    @Builder.Default
+    private StatusEnum status = StatusEnum.ACTIVE;
 
 }

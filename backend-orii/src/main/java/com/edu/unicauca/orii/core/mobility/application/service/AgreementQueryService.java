@@ -53,6 +53,13 @@ public class AgreementQueryService implements IAgreementQueryPort {
     public List<Agreement> getAgreementByNumberOrName(String search) {
        return agreementQueryPersistencePort.getAgreementByNumberOrName(search);
     }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Agreement> getActiveAgreements() {
+        return agreementQueryPersistencePort.getAgreementsActives();
+    }
     
   
 }
