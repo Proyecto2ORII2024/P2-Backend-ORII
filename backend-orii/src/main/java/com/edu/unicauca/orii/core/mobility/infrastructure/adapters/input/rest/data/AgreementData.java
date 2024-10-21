@@ -42,7 +42,7 @@ public class AgreementData {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date startDate;
 
-    @NotNull(message = "The status is required")
-    private StatusEnum status;
+    @Builder.Default
+    private StatusEnum status = StatusEnum.ACTIVE;
 
 }
