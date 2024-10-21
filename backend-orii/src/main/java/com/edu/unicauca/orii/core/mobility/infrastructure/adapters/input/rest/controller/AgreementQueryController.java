@@ -63,5 +63,21 @@ public class AgreementQueryController {
         return ResponseEntity.ok(objResponse);
     }
     
+    /**
+     * Retrieves a list of active agreements.
+     * <p>
+     * This method handles HTTP GET requests to the "/active" endpoint and returns all agreements that are currently active.
+     * It calls the service layer to fetch active agreements and maps the result into a list of {@link AgreementData} to be returned in the response.
+     * </p>
+     *
+     * @return ResponseEntity containing a {@link List} of {@link AgreementData} representing the active agreements.
+     * The response has an HTTP status of 200 (OK) and includes the data of the active agreements.
+     */
+    @GetMapping("/active")
+    public ResponseEntity<List<AgreementData>> getActivesAgreement(){
+        List<Agreement> objAgreements = agreementQueryService.getActiveAgreements();
+        List<AgreementData> objResponse = agreementRestMapper.toListAgreementData(objAgreements);
+        return ResponseEntity.ok(objResponse);
+    }
 }
     

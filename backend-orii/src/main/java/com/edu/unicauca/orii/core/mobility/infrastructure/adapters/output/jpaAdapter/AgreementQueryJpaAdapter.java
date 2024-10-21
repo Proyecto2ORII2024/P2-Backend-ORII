@@ -72,5 +72,17 @@ public class AgreementQueryJpaAdapter implements IAgreementQueryPersistencePort{
         List<Agreement> listAgreement=agreementAdapterMapper.toAgreementList(agreementEntities);
         return listAgreement;
     }
+
+    @Override
+    public List<Agreement> getAgreementsActives() {
+        List<AgreementEntity> agreementEntities = agreementRepository.findActiveAgreements();
+        if(agreementEntities.isEmpty()){
+              throw new BusinessRuleException(HttpStatus.NOT_FOUND.value(),
+                        MessageLoader.getInstance().getMessage(MessagesConstant.EM014,"Agreement" ));
+        }
+
+        List<Agreement> listAgreement=agreementAdapterMapper.toAgreementList(agreementEntities);
+        return listAgreement;
+    }
     
 }
