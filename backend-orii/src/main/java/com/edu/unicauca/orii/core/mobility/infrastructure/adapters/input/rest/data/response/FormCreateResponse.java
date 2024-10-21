@@ -24,6 +24,7 @@ public class FormCreateResponse {
 
     private Boolean orii;
     private DirectionEnum direction;
+    private String gender;
     private Integer cta;
     private Date entryDate;
     private Date exitDate;

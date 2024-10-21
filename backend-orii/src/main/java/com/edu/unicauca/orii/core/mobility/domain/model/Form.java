@@ -21,6 +21,7 @@ public class Form {
     private Long id;
     private Boolean orii;
     private DirectionEnum direction;
+    private String gender;
     private Integer cta;
     private Date entryDate;
     private Date exitDate;

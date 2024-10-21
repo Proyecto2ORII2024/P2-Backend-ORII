@@ -5,6 +5,7 @@ import java.util.Date;
 
 import com.edu.unicauca.orii.core.mobility.domain.enums.DirectionEnum;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -42,6 +43,9 @@ public class FormEntity {
 
     @Column(length = 255)
     private DirectionEnum direction;
+
+    @Column(length = 100)
+    private String gender;
 
     private Integer cta;
 
@@ -82,15 +86,16 @@ public class FormEntity {
     private String origin;
     
     // Relationships with Agreement, Event, and Person
-    @ManyToOne
-    @JoinColumn(name = "id_agreement")
-    private AgreementEntity agreement;
-
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "id_event")
     private EventEntity event;
-
+    
     @ManyToOne
+    @JoinColumn(name = "id_agreement", nullable = true)
+    private AgreementEntity agreement;
+
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_person")
     private PersonEntity person;
+   
 }
