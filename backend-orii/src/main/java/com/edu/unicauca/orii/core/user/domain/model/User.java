@@ -18,7 +18,7 @@ public class User {
     private String email;
     private String password;
     private Date updatePassword;
-    private Boolean verifyEmail;
+    private Boolean EmailVerified;
     private RoleEnum role;
 
 }

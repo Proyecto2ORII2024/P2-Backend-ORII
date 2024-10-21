@@ -1,28 +1,4 @@
 spring:
-  application:
-    name: backend-orii
-
-  datasource:
-    url: ${DATABASE_URL}
-    username: ${DATABASE_USERNAME}
-    password: ${DATABASE_PASSWORD}
-    driver-class-name: oracle.jdbc.OracleDriver
-
-  jpa:
-    hibernate:
-      ddl-auto: create
-    show-sql: true  
-
-  jackson:
-    date-format: dd-MM-yyyy
-    time-zone: UTC
-
-springdoc:
-  swagger-ui:
-    path: /swagger-ui.html
-  api-docs:
-    path: /v3/api-docs
-
-server:
-  servlet:
-    context-path: /api/v1
+  profiles:
+    active:
+    - dev

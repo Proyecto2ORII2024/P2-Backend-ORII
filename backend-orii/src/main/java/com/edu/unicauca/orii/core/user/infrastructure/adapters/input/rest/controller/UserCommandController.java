@@ -35,7 +35,7 @@ public class UserCommandController {
     @PostMapping("/create")
     public ResponseEntity<UserData> createUser(@Valid @RequestBody UserCreateRequest userCreateRequest) {
         User user = userRestMapper.toUser(userCreateRequest);
-        user.setVerifyEmail(false);
+        user.setEmailVerified(false);
         LocalDateTime localDateTime = LocalDateTime.now(); // Fecha actual
         Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
         user.setUpdatePassword(date);
