@@ -59,6 +59,13 @@ public class AgreementCommandController {
         return ResponseEntity.ok(agreementRestMapper.toAgreementData(agreement));
     }
 
+    /**
+     * Deletes an agreement by its ID.
+     * 
+     * @param id The ID of the agreement to be deleted.
+     * @return A response entity with no content.
+     */
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteAgreement(@PathVariable Long id) {
         agreementCommandService.deleteAgreement(id);
