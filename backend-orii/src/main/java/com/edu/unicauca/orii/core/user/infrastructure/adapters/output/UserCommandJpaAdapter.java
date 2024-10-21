@@ -5,9 +5,9 @@ import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
-import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.exception.BusinessRuleException;
-import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.exception.messages.MessageLoader;
-import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.exception.messages.MessagesConstant;
+import com.edu.unicauca.orii.core.common.exception.BusinessRuleException;
+import com.edu.unicauca.orii.core.common.exception.messages.MessageLoader;
+import com.edu.unicauca.orii.core.common.exception.messages.MessagesConstant;
 import com.edu.unicauca.orii.core.user.application.ports.output.IUserCommandPersistencePort;
 import com.edu.unicauca.orii.core.user.domain.model.User;
 import com.edu.unicauca.orii.core.user.infrastructure.adapters.output.jpaAdapter.entity.UserEntity;
@@ -33,7 +33,7 @@ public class UserCommandJpaAdapter implements IUserCommandPersistencePort {
     public User updateUser(Long id, User user) {
         if(!userRepository.existsById(id)) {
               throw new BusinessRuleException(HttpStatus.NOT_FOUND.value(),
-                    MessageLoader.getInstance().getMessage(MessagesConstant.EM002, "Agreement", id));
+                    MessageLoader.getInstance().getMessage(MessagesConstant.EM002, "User", id));
         }
 
         return userAdapterMapper.toUser(userRepository.save(userAdapterMapper.toUserEntity(user)));
@@ -45,7 +45,7 @@ public class UserCommandJpaAdapter implements IUserCommandPersistencePort {
 
        if(userEntity.isEmpty()) {
            throw new BusinessRuleException(HttpStatus.NOT_FOUND.value(),
-                   MessageLoader.getInstance().getMessage(MessagesConstant.EM002, "Agreement", userId));
+                   MessageLoader.getInstance().getMessage(MessagesConstant.EM002, "User", userId));
        }
 
        userRepository.deleteById(userId);
