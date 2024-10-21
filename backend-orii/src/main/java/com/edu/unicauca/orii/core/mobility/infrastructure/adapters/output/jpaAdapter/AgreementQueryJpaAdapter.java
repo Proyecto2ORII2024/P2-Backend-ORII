@@ -7,11 +7,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
+import com.edu.unicauca.orii.core.common.exception.BusinessRuleException;
+import com.edu.unicauca.orii.core.common.exception.messages.MessageLoader;
+import com.edu.unicauca.orii.core.common.exception.messages.MessagesConstant;
 import com.edu.unicauca.orii.core.mobility.application.ports.output.IAgreementQueryPersistencePort;
 import com.edu.unicauca.orii.core.mobility.domain.model.Agreement;
-import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.exception.BusinessRuleException;
-import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.exception.messages.MessageLoader;
-import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.exception.messages.MessagesConstant;
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.entity.AgreementEntity;
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.mapper.IAgreementAdapterMapper;
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.repository.IAgreementRepository;
@@ -64,6 +64,18 @@ public class AgreementQueryJpaAdapter implements IAgreementQueryPersistencePort{
     @Override
     public List<Agreement> getAgreementByNumberOrName(String search){
         List<AgreementEntity> agreementEntities=agreementRepository.findByNumberOrName(search);
+        if(agreementEntities.isEmpty()){
+              throw new BusinessRuleException(HttpStatus.NOT_FOUND.value(),
+                        MessageLoader.getInstance().getMessage(MessagesConstant.EM014,"Agreement" ));
+        }
+
+        List<Agreement> listAgreement=agreementAdapterMapper.toAgreementList(agreementEntities);
+        return listAgreement;
+    }
+
+    @Override
+    public List<Agreement> getAgreementsActives() {
+        List<AgreementEntity> agreementEntities = agreementRepository.findActiveAgreements();
         if(agreementEntities.isEmpty()){
               throw new BusinessRuleException(HttpStatus.NOT_FOUND.value(),
                         MessageLoader.getInstance().getMessage(MessagesConstant.EM014,"Agreement" ));

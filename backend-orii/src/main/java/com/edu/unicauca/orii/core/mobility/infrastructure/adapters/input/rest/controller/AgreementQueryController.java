@@ -2,8 +2,6 @@ package com.edu.unicauca.orii.core.mobility.infrastructure.adapters.input.rest.c
 
 import java.util.List;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,6 +40,7 @@ public class AgreementQueryController {
      * @return ResponseEntity with the data of the agreements
      */
 
+     /* 
     @GetMapping("/all")
     public ResponseEntity<Page<AgreementData>> getAgreements(Pageable pageable) {
        Page<Agreement> objAgreement=agreementQueryService.getAgreement(pageable);
@@ -49,7 +48,8 @@ public class AgreementQueryController {
     
          return ResponseEntity.ok(objResponse);
 
-    }
+    }*/
+
     /**
      * It obtains all the conventions depending on the parameter that we send, if it is by its code or name, it will look for considerations in the characters of the code or characters of the name of the convention.
      *
@@ -63,5 +63,21 @@ public class AgreementQueryController {
         return ResponseEntity.ok(objResponse);
     }
     
+    /**
+     * Retrieves a list of active agreements.
+     * <p>
+     * This method handles HTTP GET requests to the "/active" endpoint and returns all agreements that are currently active.
+     * It calls the service layer to fetch active agreements and maps the result into a list of {@link AgreementData} to be returned in the response.
+     * </p>
+     *
+     * @return ResponseEntity containing a {@link List} of {@link AgreementData} representing the active agreements.
+     * The response has an HTTP status of 200 (OK) and includes the data of the active agreements.
+     */
+    @GetMapping("/all")
+    public ResponseEntity<List<AgreementData>> getActivesAgreement(){
+        List<Agreement> objAgreements = agreementQueryService.getActiveAgreements();
+        List<AgreementData> objResponse = agreementRestMapper.toListAgreementData(objAgreements);
+        return ResponseEntity.ok(objResponse);
+    }
 }
     

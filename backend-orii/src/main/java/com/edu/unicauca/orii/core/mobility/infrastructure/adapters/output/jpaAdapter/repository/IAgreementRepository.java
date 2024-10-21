@@ -15,4 +15,6 @@ public interface IAgreementRepository extends JpaRepository<AgreementEntity, Lon
     "OR UPPER(a.institution) LIKE UPPER(CONCAT('%', :search, '%'))")
     List<AgreementEntity>findByNumberOrName(@Param("search")String search);
     
+    @Query("SELECT a FROM AgreementEntity a WHERE a.status = 0")
+    List<AgreementEntity>findActiveAgreements();
 }

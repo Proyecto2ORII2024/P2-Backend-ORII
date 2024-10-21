@@ -3,6 +3,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.edu.unicauca.orii.core.mobility.domain.enums.ScopeEnum;
+import com.edu.unicauca.orii.core.mobility.domain.enums.StatusEnum;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -55,4 +56,7 @@ public class Agreement {
 
     /** A list of forms associated with the agreement. */
     private List<Form> forms;
+
+    /**The current state of agreement */
+    private StatusEnum status;
 }
