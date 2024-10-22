@@ -37,7 +37,7 @@ public class UserEntity {
     private String password;
 
     @Column(nullable = false)
-    private Boolean EmailVerified;
+    private Boolean emailVerified;
 
     @Column(name="user_role", nullable = false, length = 24)
     private RoleEnum role;
