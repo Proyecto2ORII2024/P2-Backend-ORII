@@ -1,6 +1,7 @@
 package com.edu.unicauca.orii.core.user.application.service;
 
 import org.springframework.stereotype.Service;
+
 import com.edu.unicauca.orii.core.user.application.ports.input.IUserCommandPort;
 import com.edu.unicauca.orii.core.user.application.ports.output.IEmailConfirmationOutput;
 import com.edu.unicauca.orii.core.user.application.ports.output.IEmailTokenOutput;
@@ -13,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class UserCommandService implements IUserCommandPort{
+public class UserCommandService implements IUserCommandPort {
 
     private final IUserCommandPersistencePort userCommandPersistencePort;
     private final IEmailConfirmationOutput emailConfirmationOutput;
@@ -25,14 +26,17 @@ public class UserCommandService implements IUserCommandPort{
 
         EmailToken emailToken = emailTokenOutput.generateToken(userCreated.getUserId());
         MailData mailData = MailData.builder()
-            .to(user.getEmail())
-            .subject("Confirm your email")
-            .text(emailToken.getToken()) // Token
-            .build();
-            emailConfirmationOutput.sendConfirmationEmail(mailData);
+                .to(user.getEmail())
+                .subject("Confirm your email")
+                .text(emailToken.getToken()) // Token
+                .build();
+        emailConfirmationOutput.sendConfirmationEmail(mailData);
         return userCreated;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public User updateUser(Long id, User user) {
         return userCommandPersistencePort.updateUser(id, user);
@@ -43,5 +47,4 @@ public class UserCommandService implements IUserCommandPort{
         userCommandPersistencePort.deleteUser(userId);
     }
 
-    
 }
