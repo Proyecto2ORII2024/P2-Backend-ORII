@@ -17,6 +17,18 @@ spring:
     date-format: dd-MM-yyyy
     time-zone: UTC
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${spring.mail.username}
+    password: ${spring.mail.password}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
@@ -26,3 +38,5 @@ springdoc:
 server:
   servlet:
     context-path: /api/v1
+
+api_url: http://localhost:8080${server.servlet.context-path}

@@ -1,4 +1,4 @@
-package com.edu.unicauca.orii.core.mobility.application.ports.output;
+package com.edu.unicauca.orii.core.common.formatter;
 
 public interface IFormFormatterResultOutputPort {
     public void returnResponseErrorTeacherRequired (String message);
