@@ -44,7 +44,7 @@ public class EmailTokenJpaAdapter implements IEmailTokenOutput{
     }
 
     @Override
-    public Boolean confirmToken(String token) {
+    public boolean confirmToken(String token) {
         EmailTokenEntity emailToken = emailTokenRepository.findByToken(token);
         UserEntity userEntity = emailToken.getUser();
 
@@ -56,6 +56,8 @@ public class EmailTokenJpaAdapter implements IEmailTokenOutput{
         userRepository.save(userEntity);
 
         emailTokenRepository.delete(emailToken);
+
+        return true;
     }
     
 }
