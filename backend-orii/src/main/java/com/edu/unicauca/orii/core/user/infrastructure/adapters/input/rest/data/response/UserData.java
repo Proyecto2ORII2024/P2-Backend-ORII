@@ -14,13 +14,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class UserData {
     private Long userId;
 
     private String email;
-
-    private String password;
 
     private Boolean emailVerified;
 

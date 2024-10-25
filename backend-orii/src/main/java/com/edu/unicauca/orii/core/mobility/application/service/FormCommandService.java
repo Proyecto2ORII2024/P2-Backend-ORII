@@ -2,9 +2,9 @@ package com.edu.unicauca.orii.core.mobility.application.service;
 
 import org.springframework.stereotype.Service;
 
+import com.edu.unicauca.orii.core.common.formatter.IFormFormatterResultOutputPort;
 import com.edu.unicauca.orii.core.mobility.application.ports.input.IFormCommandPort;
 import com.edu.unicauca.orii.core.mobility.application.ports.output.IFormCommandPersistencePort;
-import com.edu.unicauca.orii.core.mobility.application.ports.output.IFormFormatterResultOutputPort;
 import com.edu.unicauca.orii.core.mobility.domain.enums.DirectionEnum;
 import com.edu.unicauca.orii.core.mobility.domain.enums.PersonTypeEnum;
 import com.edu.unicauca.orii.core.mobility.domain.model.Form;

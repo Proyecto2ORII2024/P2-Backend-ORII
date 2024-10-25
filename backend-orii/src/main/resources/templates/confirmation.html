@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Confirmación de Email</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #eeebeb;
+        }
+        .container {
+            text-align: center;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .success {
+            color: #07184A;
+        }
+        .error {
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div th:if="${isValid}" class="success">
+            <h1>¡Email Confirmado!</h1>
+            <p>Tu dirección de email ha sido verificada exitosamente.</p>
+        </div>
+        <div th:unless="${isValid}" class="error">
+            <h1>Error de Confirmación</h1>
+            <p>Lo sentimos, el enlace de confirmación no es válido o ha expirado.</p>
+        </div>
+    </div>
+</body>
+</html>

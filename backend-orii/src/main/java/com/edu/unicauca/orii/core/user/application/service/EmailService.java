@@ -30,8 +30,8 @@ public class EmailService implements IEmailConfirmationInput , IEmailTokenInput 
     }
 
     @Override
-    public void confirmToken(String token) {
-        emailTokenOutput.confirmToken(token);
+    public boolean confirmToken(String token) {
+        return emailTokenOutput.confirmToken(token);
     }
     
 }
