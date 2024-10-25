@@ -3,6 +3,7 @@ package com.edu.unicauca.orii.core.user.infrastructure.adapters.output.jpaAdapte
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.edu.unicauca.orii.core.common.exception.BusinessRuleException;
@@ -24,8 +25,11 @@ public class UserCommandJpaAdapter implements IUserCommandPersistencePort {
 
     private final IUserAdapterMapper userAdapterMapper;
 
+    private final PasswordEncoder passwordEncoder;
+
     @Override
     public User createUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userAdapterMapper.toUser(userRepository.save(userAdapterMapper.toUserEntity(user)));
     }
 
@@ -35,7 +39,7 @@ public class UserCommandJpaAdapter implements IUserCommandPersistencePort {
               throw new BusinessRuleException(HttpStatus.NOT_FOUND.value(),
                     MessageLoader.getInstance().getMessage(MessagesConstant.EM002, "User", id));
         }
-
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userAdapterMapper.toUser(userRepository.save(userAdapterMapper.toUserEntity(user)));
     }
 
