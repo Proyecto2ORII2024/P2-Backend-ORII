@@ -16,17 +16,15 @@ public interface IUserRestMapper {
     UserData toUserData(User user);
 
     @Mapping(target = "updatePassword", ignore = true)
+    @Mapping(target = "emailVerified", ignore = true)
+    @Mapping(target = "password", ignore = true)
     User toUser(UserCreateRequest userCreateRequest);
 
     @Mapping(target = "userId", ignore = true)
     @Mapping(target = "password", ignore = true)
     @Mapping(target = "updatePassword", ignore = true)
-    @Mapping(target = "email", ignore = false)
     @Mapping(target = "emailVerified", ignore = true)
-    @Mapping(target = "role", ignore = false)
     User toUser(UserUpdateRequest userUpdateRequest);
-
-    User toUser(UserData userData);
 
     UserCreateRequest toUserCreateRequest(User user);
 
