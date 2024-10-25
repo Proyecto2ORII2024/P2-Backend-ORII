@@ -44,13 +44,12 @@ public class EmailTokenJpaAdapter implements IEmailTokenOutput{
     }
 
     @Override
-    public void confirmToken(String token) {
+    public Boolean confirmToken(String token) {
         EmailTokenEntity emailToken = emailTokenRepository.findByToken(token);
         UserEntity userEntity = emailToken.getUser();
 
         if (emailToken.getExpiresAt().isBefore(LocalDateTime.now())) {
-            throw new BusinessRuleException(HttpStatus.FORBIDDEN.value(), 
-            MessageLoader.getInstance().getMessage(MessagesConstant.EM002, "EmailToken", token));
+            return false;
         }
 
         userEntity.setEmailVerified(true);
