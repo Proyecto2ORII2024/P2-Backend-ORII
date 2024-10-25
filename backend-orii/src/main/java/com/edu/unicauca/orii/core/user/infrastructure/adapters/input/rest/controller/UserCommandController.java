@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.edu.unicauca.orii.core.user.application.service.UserCommandService;
 import com.edu.unicauca.orii.core.user.domain.model.User;
-import com.edu.unicauca.orii.core.user.infrastructure.adapters.input.rest.data.request.UserCreateRequest;
-import com.edu.unicauca.orii.core.user.infrastructure.adapters.input.rest.data.request.UserUpdateRequest;
+import com.edu.unicauca.orii.core.user.infrastructure.adapters.input.rest.data.request.UserCommonRequest;
 import com.edu.unicauca.orii.core.user.infrastructure.adapters.input.rest.data.response.UserData;
 import com.edu.unicauca.orii.core.user.infrastructure.adapters.input.rest.mapper.IUserRestMapper;
 
@@ -30,7 +29,7 @@ public class UserCommandController {
     private final IUserRestMapper userRestMapper;
 
     @PostMapping("/create")
-    public ResponseEntity<UserData> createUser(@Valid @RequestBody UserCreateRequest userCreateRequest) {
+    public ResponseEntity<UserData> createUser(@Valid @RequestBody UserCommonRequest userCreateRequest) {
         User user = userRestMapper.toUser(userCreateRequest);
         user = userCommandService.createUser(user);
         return ResponseEntity.created(null).body(userRestMapper.toUserData(user));
@@ -40,13 +39,13 @@ public class UserCommandController {
      * Updates the email and role of a user if their email is not verified.
      * 
      * @param id                the ID of the {@link User} to be updated
-     * @param userUpdateRequest the new email and role values encapsulated in a
-     *                          {@link UserUpdateRequest} object
+     * @param userCommonRequest the new email and role values encapsulated in a
+     *                          {@link userCommonRequest} object
      * @return a {@link ResponseEntity} containing the updated {@link UserData} object and a status of 200 OK      
      */
     @PutMapping("/update/{id}")
-    public ResponseEntity<UserData> updateUser(@PathVariable Long id,@Valid @RequestBody UserUpdateRequest userUpdateRequest) {
-        User user = userRestMapper.toUser(userUpdateRequest);
+    public ResponseEntity<UserData> updateUser(@PathVariable Long id,@Valid @RequestBody UserCommonRequest userCommonRequest) {
+        User user = userRestMapper.toUser(userCommonRequest);
         User updatedUser = userCommandService.updateUser(id, user);
 
         return ResponseEntity.ok(userRestMapper.toUserData(updatedUser));

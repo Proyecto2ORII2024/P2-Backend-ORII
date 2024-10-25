@@ -17,11 +17,13 @@ public class User {
     private String password;
     private Date updatePassword;
     private Boolean emailVerified;
+    private EmailToken emailToken;
+
     private RoleEnum role;
 
     public User() {
         initializeEmailVerified();
-        initializeUpdatePassword();
+        UpdateDatePassword();
     }
 
     public void initializeEmailVerified() {
@@ -30,7 +32,7 @@ public class User {
         }
     }
 
-    public void initializeUpdatePassword() {
+    public void UpdateDatePassword() {
         LocalDateTime localDateTime = LocalDateTime.now(); 
         Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
         this.updatePassword = date;
