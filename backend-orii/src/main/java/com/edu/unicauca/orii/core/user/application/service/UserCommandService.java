@@ -6,6 +6,7 @@ import com.edu.unicauca.orii.core.common.formatter.IFormFormatterResultOutputPor
 import com.edu.unicauca.orii.core.user.application.ports.input.IUserCommandPort;
 import com.edu.unicauca.orii.core.user.application.ports.output.IEmailConfirmationOutput;
 import com.edu.unicauca.orii.core.user.application.ports.output.IEmailTokenOutput;
+import com.edu.unicauca.orii.core.user.application.ports.output.IGeneratePasswordUtils;
 import com.edu.unicauca.orii.core.user.application.ports.output.IUserCommandPersistencePort;
 import com.edu.unicauca.orii.core.user.application.ports.output.IUserQueryPersistencePort;
 import com.edu.unicauca.orii.core.user.domain.model.EmailToken;
@@ -23,10 +24,12 @@ public class UserCommandService implements IUserCommandPort {
     private final IEmailConfirmationOutput emailConfirmationOutput;
     private final IEmailTokenOutput emailTokenOutput;
     private final IFormFormatterResultOutputPort formFormatterResultOutputPort;
+    private final IGeneratePasswordUtils generatePasswordUtils;
 
     @Override
     public User createUser(User user) {
-
+        String password =this.generatePasswordUtils.generatePassword();
+        user.setPassword(generatePasswordUtils.encryptionPassword(password));
         User userCreated = userCommandPersistencePort.createUser(user);
         sendConfirmationEmail(userCreated);
 
