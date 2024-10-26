@@ -23,5 +23,6 @@ public interface IUserRestMapper {
 
     UserCommonRequest toUserCreateRequest(User user);
 
+    @Mapping(target = "emailToken", ignore = true)
     List<UserData> toUserDataList(List<User> users);
 }
