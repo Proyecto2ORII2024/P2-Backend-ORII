@@ -17,15 +17,13 @@ public class EmailConfirmation {
 
     @GetMapping("/confirmEmail/{token}")
     public String confirmEmail(@PathVariable String token, Model model) {
-        emailTokenInput.confirmToken(token);
-        // Retorna el nombre de la plantilla HTML
+        model.addAttribute("isValid", emailTokenInput.confirmToken(token));
         return "confirmation";
     }
 
     //probar plantilla HTML
     @GetMapping("test")
     public String test(Model model) {
-        model.addAttribute("token", "123456");
         model.addAttribute("isValid", true);
         return "confirmation";
     }

@@ -1,6 +1,7 @@
 package com.edu.unicauca.orii.core.user.infrastructure.adapters.output.jpaAdapter;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
@@ -45,18 +46,23 @@ public class EmailTokenJpaAdapter implements IEmailTokenOutput{
 
     @Override
     public boolean confirmToken(String token) {
-        EmailTokenEntity emailToken = emailTokenRepository.findByToken(token);
-        UserEntity userEntity = emailToken.getUser();
+        Optional<EmailTokenEntity> optionalEmailToken = emailTokenRepository.findByToken(token);
 
+        if (!optionalEmailToken.isPresent()) {
+            return false;
+        }
+    
+        EmailTokenEntity emailToken = optionalEmailToken.get();
+        UserEntity userEntity = emailToken.getUser();
+    
         if (emailToken.getExpiresAt().isBefore(LocalDateTime.now())) {
             return false;
         }
-
+    
         userEntity.setEmailVerified(true);
         userRepository.save(userEntity);
-
         emailTokenRepository.delete(emailToken);
-
+    
         return true;
     }
     
