@@ -3,7 +3,6 @@ package com.edu.unicauca.orii.core.user.infrastructure.adapters.output.jpaAdapte
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.edu.unicauca.orii.core.common.exception.BusinessRuleException;
@@ -24,8 +23,6 @@ public class UserCommandJpaAdapter implements IUserCommandPersistencePort {
     private final IUserRepository userRepository;
 
     private final IUserAdapterMapper userAdapterMapper;
-
-    private final PasswordEncoder passwordEncoder;
 
     @Override
     public User createUser(User user) {
