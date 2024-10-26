@@ -29,7 +29,6 @@ public class UserCommandJpaAdapter implements IUserCommandPersistencePort {
 
     @Override
     public User createUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userAdapterMapper.toUser(userRepository.save(userAdapterMapper.toUserEntity(user)));
     }
 
@@ -39,7 +38,7 @@ public class UserCommandJpaAdapter implements IUserCommandPersistencePort {
               throw new BusinessRuleException(HttpStatus.NOT_FOUND.value(),
                     MessageLoader.getInstance().getMessage(MessagesConstant.EM002, "User", id));
         }
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
         return userAdapterMapper.toUser(userRepository.save(userAdapterMapper.toUserEntity(user)));
     }
 
