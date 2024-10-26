@@ -24,6 +24,4 @@ public interface IUserRestMapper {
     UserCommonRequest toUserCreateRequest(User user);
 
     List<UserData> toUserDataList(List<User> users);
-
-    List<User> toUserList(List<UserData> userDataList);  
 }
