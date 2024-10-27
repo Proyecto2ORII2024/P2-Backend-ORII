@@ -3,13 +3,15 @@ package com.edu.unicauca.orii.core.auth.util;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
 @Component
 public class JwtUtil {
-    private final String SECRET_KEY = "secret";
+    @Value("${jwt.secret}")
+    private String SECRET_KEY;
 
     // Método para generar el token
     public String generateToken(String email, String role) {

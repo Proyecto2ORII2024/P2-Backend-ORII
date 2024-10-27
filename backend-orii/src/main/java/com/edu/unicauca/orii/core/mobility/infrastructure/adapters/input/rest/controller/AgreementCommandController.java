@@ -1,6 +1,7 @@
 package com.edu.unicauca.orii.core.mobility.infrastructure.adapters.input.rest.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.edu.unicauca.orii.core.mobility.application.service.AgreementCommandService;
@@ -34,6 +35,7 @@ public class AgreementCommandController {
      * @return ResponseEntity containing the created agreement data
      */
     @PostMapping("/create")
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<AgreementData> createAgreement(@Valid 
             @RequestBody AgreementData agreementCreateRequest) {
 
@@ -50,6 +52,7 @@ public class AgreementCommandController {
      * @return A response entity containing the updated agreement data.
      */
     @PutMapping("/update/{id}")
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<AgreementData> updateAgreement(
             @PathVariable Long id, 
             @Valid @RequestBody AgreementData agreementUpdateRequest) {
@@ -67,6 +70,7 @@ public class AgreementCommandController {
      */
 
     @DeleteMapping("/delete/{id}")
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Void> deleteAgreement(@PathVariable Long id) {
         agreementCommandService.deleteAgreement(id);
         return ResponseEntity.noContent().build();
