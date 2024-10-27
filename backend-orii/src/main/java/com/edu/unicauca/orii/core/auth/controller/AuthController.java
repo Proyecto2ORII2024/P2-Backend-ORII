@@ -2,6 +2,8 @@ package com.edu.unicauca.orii.core.auth.controller;
 
 import com.edu.unicauca.orii.core.auth.dto.LoginRequest;
 import com.edu.unicauca.orii.core.auth.service.UserService;
+
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
@@ -20,7 +22,7 @@ public class AuthController {
     private final UserService userService;
 
     @PostMapping("/login")
-    public ResponseEntity<Map<String, String>> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<Map<String, String>> login(@Valid @RequestBody LoginRequest loginRequest) {
         Optional<String> token = userService.authenticate(loginRequest);
         
         if (token.isPresent()) {

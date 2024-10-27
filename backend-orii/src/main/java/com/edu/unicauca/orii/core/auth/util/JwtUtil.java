@@ -9,19 +9,24 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 @Component
-public class JwtUtil {
+public class JwtUtil implements IJwtUtils {
     @Value("${jwt.secret}")
     private String SECRET_KEY;
 
+    private String jwtToken;
+
     // Método para generar el token
     public String generateToken(String email, String role) {
-        return Jwts.builder()
+        String  token =  Jwts.builder()
                 .setSubject(email)
                 .claim("role", role)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10 horas de expiración
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
                 .compact();
+        
+        this.jwtToken = token;
+        return token;      
     }
 
     // Método para validar el token
@@ -45,5 +50,10 @@ public class JwtUtil {
 
     private boolean isTokenExpired(String token) {
         return extractClaims(token).getExpiration().before(new Date());
+    }
+
+    @Override
+    public String getEmail() {
+        return extractEmail(this.jwtToken);  
     }
 }

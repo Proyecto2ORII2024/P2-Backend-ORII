@@ -2,12 +2,15 @@ package com.edu.unicauca.orii.core.mobility.application.service;
 
 import org.springframework.stereotype.Service;
 
+import com.edu.unicauca.orii.core.auth.util.IJwtUtils;
 import com.edu.unicauca.orii.core.common.formatter.IFormFormatterResultOutputPort;
 import com.edu.unicauca.orii.core.mobility.application.ports.input.IFormCommandPort;
 import com.edu.unicauca.orii.core.mobility.application.ports.output.IFormCommandPersistencePort;
 import com.edu.unicauca.orii.core.mobility.domain.enums.DirectionEnum;
 import com.edu.unicauca.orii.core.mobility.domain.enums.PersonTypeEnum;
 import com.edu.unicauca.orii.core.mobility.domain.model.Form;
+import com.edu.unicauca.orii.core.user.application.ports.output.IUserQueryPersistencePort;
+import com.edu.unicauca.orii.core.user.domain.model.User;
 
 import lombok.RequiredArgsConstructor;
 /**
@@ -32,6 +35,8 @@ public class FormCommandService implements IFormCommandPort {
 
     private final IFormCommandPersistencePort persistencePort;
     private final IFormFormatterResultOutputPort formFormatterResultOutputPort;
+    private final IJwtUtils jwtUtils;
+    private final IUserQueryPersistencePort userQueryPersistencePort;
     /**
      * {@inheritDoc}
      * <p>This method delegates the creation of a {@link Form} to the persistence layer.</p>
@@ -48,7 +53,7 @@ public class FormCommandService implements IFormCommandPort {
      */
     @Override
     public Form createForm(Form form) {
- 
+
         if (form.getPerson() != null && form.getPerson().getPersonType() != null && form.getPerson().getPersonType().equals(PersonTypeEnum.STUDENT)) {
             if (form.getDirection().equals(DirectionEnum.INCOMING_IN_PERSON) || form.getDirection().equals(DirectionEnum.INCOMING_VIRTUAL)) {
                 if (form.getTeacher() == null || form.getTeacher().isEmpty()) {
@@ -60,6 +65,7 @@ public class FormCommandService implements IFormCommandPort {
             form.setTeacher("N.A.");
         }
 
+        form.setUser(getUserFromToken());
         return persistencePort.createForm(form);
     }
 
@@ -90,5 +96,10 @@ public class FormCommandService implements IFormCommandPort {
     @Override
     public void deleteForm(Long id) {
      persistencePort.deleteForm(id);
+    }
+
+    private User getUserFromToken(){
+        String email = jwtUtils.getEmail();
+        return userQueryPersistencePort.getUserByEmail(email);
     }
 }

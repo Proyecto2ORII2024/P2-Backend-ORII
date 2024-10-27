@@ -14,9 +14,9 @@ public interface IFormRestMapper {
     FormCreateResponse toFormCreateResponse(Form form);
 
     @Mapping(target = "agreement.agreementId", source = "agreementId")
-    @Mapping(target = "user.userId", source = "userId")
     @Mapping(target = "event.eventType.eventTypeId", source = "event.eventTypeId")  
     @Mapping(target = "event.forms", ignore = true) 
+    @Mapping(target = "user", ignore = true)
     Form toForm(FormCreateRequest formCreateRequest);
 
     FormResponse toFormResponse(Form form);

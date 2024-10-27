@@ -8,5 +8,7 @@ public interface IUserQueryPort {
     List<User> getUser();
 
     User getUserById(Long userId);
+
+    User getUserByEmail(String email);
     
 }
