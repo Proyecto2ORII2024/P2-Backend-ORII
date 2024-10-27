@@ -5,7 +5,7 @@ import java.util.Date;
 
 import com.edu.unicauca.orii.core.common.domain.enums.FacultyEnum;
 import com.edu.unicauca.orii.core.mobility.domain.enums.DirectionEnum;
-import com.edu.unicauca.orii.core.user.domain.model.User;
+import com.edu.unicauca.orii.core.user.infrastructure.adapters.output.jpaAdapter.entity.UserEntity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -102,6 +102,6 @@ public class FormEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_user", nullable = true)
-    private User user;
+    private UserEntity user;
    
 }
