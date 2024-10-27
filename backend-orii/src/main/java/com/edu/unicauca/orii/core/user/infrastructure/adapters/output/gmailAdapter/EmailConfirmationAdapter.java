@@ -5,7 +5,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 import com.edu.unicauca.orii.core.user.application.ports.output.IEmailConfirmationOutput;
-import com.edu.unicauca.orii.core.user.domain.model.MailData;
+import com.edu.unicauca.orii.core.user.domain.model.EmailToken;
+import com.edu.unicauca.orii.core.user.domain.model.User;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -40,12 +41,12 @@ public class EmailConfirmationAdapter implements IEmailConfirmationOutput {
     }
 
     @Override
-    public void sendConfirmationEmail(MailData mailData) {  
+    public void sendConfirmationEmail(User user, EmailToken token) { 
         try {
-            sendEmail(mailData.getTo(), mailData.getSubject(), buildEmailContent(mailData.getText()));
+            sendEmail(user.getEmail(), "Confirm your email", buildEmailContent(token.getToken()));
         } catch (MessagingException e) {
             e.printStackTrace();
-        }  
+        }
     }
 
     private String buildEmailContent(String token){

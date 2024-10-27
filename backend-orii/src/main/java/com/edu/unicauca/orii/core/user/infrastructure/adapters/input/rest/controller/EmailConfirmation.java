@@ -1,38 +1,46 @@
 package com.edu.unicauca.orii.core.user.infrastructure.adapters.input.rest.controller;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import com.edu.unicauca.orii.core.user.application.ports.input.IEmailConfirmationInput;
 import com.edu.unicauca.orii.core.user.application.ports.input.IEmailTokenInput;
-import com.edu.unicauca.orii.core.user.infrastructure.adapters.input.rest.data.request.MailRequest;
-import com.edu.unicauca.orii.core.user.infrastructure.adapters.input.rest.mapper.IMailRestMapper;
-import org.springframework.web.bind.annotation.RequestBody;
 import lombok.RequiredArgsConstructor;
 
-@RestController
+
+/**
+ * REST controller for handling email confirmation functionalities, such as 
+ * sending confirmation emails and confirming email tokens.
+ * 
+ * This controller defines endpoints to initiate email confirmation 
+ * processes and to confirm email tokens.
+ */
+
+@Controller
 @RequiredArgsConstructor
 @RequestMapping("/email")
-@CrossOrigin(origins = "http://localhost:5173/", allowCredentials = "true")
 public class EmailConfirmation {
 
-    private final IEmailConfirmationInput emailConfirmationInput;
     private final IEmailTokenInput emailTokenInput;
-    private final IMailRestMapper mailRestMapper;
-    
-    @PostMapping("/sendEmail")
-    public void sendEmail(@RequestBody MailRequest mailRequest) {
-        emailConfirmationInput.sendConfirmationEmail(mailRestMapper.toRequestMailData(mailRequest));
-        
+
+    /**
+     * Confirms a user's email by validating a token.
+     * 
+     * @param token the confirmation token sent to the user's email
+     */
+    @GetMapping("/confirmEmail/{token}")
+    public String confirmEmail(@PathVariable String token, Model model) {
+        model.addAttribute("isValid", emailTokenInput.confirmToken(token));
+        return "confirmation";
     }
 
-    @GetMapping("/confirmEmail/{token}")
-    public void confirmEmail(@PathVariable String token) {
-        emailTokenInput.confirmToken(token);
+    //probar plantilla HTML
+    @GetMapping("test")
+    public String test(Model model) {
+        model.addAttribute("isValid", true);
+        return "confirmation";
     }
 
 

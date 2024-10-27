@@ -15,9 +15,13 @@ services:
       - ORACLE_SID=${ORACLE_SID}
       - ORACLE_PDB=${ORACLE_PDB}
       - ORACLE_PWD=${ORACLE_PWD}
+      - ORACLE_USER=${ORACLE_USER}
+      - ORACLE_USER_PWD=${ORACLE_USER_PWD}
       - ORACLE_CHARACTERSET=AL32UTF8
     volumes:
       - oracle-data:/opt/oracle/oradata
+      - ./init.sql:/opt/oracle/scripts/setup/init.sql
+      - ./setup.sh:/opt/oracle/scripts/setup/setup.sh
     restart: always
 
 volumes:

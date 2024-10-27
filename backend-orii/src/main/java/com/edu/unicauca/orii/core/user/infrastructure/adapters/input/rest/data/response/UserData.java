@@ -2,6 +2,7 @@ package com.edu.unicauca.orii.core.user.infrastructure.adapters.input.rest.data.
 
 import java.util.Date;
 
+import com.edu.unicauca.orii.core.common.domain.enums.FacultyEnum;
 import com.edu.unicauca.orii.core.user.domain.enums.RoleEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,17 +15,16 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class UserData {
     private Long userId;
 
     private String email;
-
-    private String password;
 
     private Boolean emailVerified;
 
     private RoleEnum role;
 
     private Date updatePassword;
+
+    private FacultyEnum faculty;
 }

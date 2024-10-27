@@ -10,12 +10,25 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     show-sql: true  
 
   jackson:
     date-format: dd-MM-yyyy
     time-zone: UTC
+
+# Gmail configuration
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${spring.mail.username}
+    password: ${spring.mail.password}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 springdoc:
   swagger-ui:
@@ -26,3 +39,5 @@ springdoc:
 server:
   servlet:
     context-path: /api/v1
+
+api_url: http://localhost:8080${server.servlet.context-path}
