@@ -5,12 +5,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.edu.unicauca.orii.core.user.application.ports.input.IEmailTokenInput;
 import lombok.RequiredArgsConstructor;
 
-@Controller
+
 /**
  * REST controller for handling email confirmation functionalities, such as 
  * sending confirmation emails and confirming email tokens.
@@ -19,14 +18,14 @@ import lombok.RequiredArgsConstructor;
  * processes and to confirm email tokens.
  */
 
-@RestController
+@Controller
 @RequiredArgsConstructor
 @RequestMapping("/email")
 public class EmailConfirmation {
 
     private final IEmailTokenInput emailTokenInput;
 
-       /**
+    /**
      * Confirms a user's email by validating a token.
      * 
      * @param token the confirmation token sent to the user's email
