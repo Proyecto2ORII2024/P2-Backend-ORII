@@ -25,7 +25,8 @@ public class EmailService implements IEmailConfirmationInput , IEmailTokenInput 
     public void sendConfirmationEmail(User user) {
         System.out.println("Sending email confirmation");
         EmailToken emailToken = emailTokenOutput.generateToken(user.getUserId());
-        emailConfirmationOutput.sendConfirmationEmail(user, emailToken);
+        user.setEmailToken(emailToken);
+        emailConfirmationOutput.sendConfirmationEmail(user);
     }
 
     @Override

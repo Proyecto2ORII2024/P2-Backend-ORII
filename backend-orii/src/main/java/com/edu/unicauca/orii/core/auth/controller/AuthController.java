@@ -3,11 +3,14 @@ package com.edu.unicauca.orii.core.auth.controller;
 import com.edu.unicauca.orii.core.auth.dto.LoginRequest;
 import com.edu.unicauca.orii.core.auth.service.UserService;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import java.util.Map; 
+import java.util.HashMap;
 import java.util.Optional;
+import java.util.Collections;
 
 @RestController
 @RequestMapping("/auth")
@@ -17,12 +20,18 @@ public class AuthController {
     private final UserService userService;
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<Map<String, String>> login(@RequestBody LoginRequest loginRequest) {
         Optional<String> token = userService.authenticate(loginRequest);
+        
         if (token.isPresent()) {
-            return ResponseEntity.ok("Bearer " + token.get());
+            Map<String, String> response = new HashMap<>();
+            response.put("accessToken", token.get());
+            
+            return ResponseEntity.ok(response);
         }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                             .body(Collections.singletonMap("error", "Invalid credentials"));
     }
 
 }

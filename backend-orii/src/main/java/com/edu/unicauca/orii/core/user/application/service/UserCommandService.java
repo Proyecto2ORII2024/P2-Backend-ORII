@@ -29,6 +29,7 @@ public class UserCommandService implements IUserCommandPort {
         user.setPassword(generatePasswordUtils.encryptionPassword(password));
         User userCreated = userCommandPersistencePort.createUser(user);
         
+        userCreated.setPassword(password);
         emailConfirmationInput.sendConfirmationEmail(userCreated);
 
         return userCreated;

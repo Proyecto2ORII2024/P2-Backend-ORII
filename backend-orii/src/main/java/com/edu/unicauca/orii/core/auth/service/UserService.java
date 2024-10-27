@@ -2,7 +2,6 @@ package com.edu.unicauca.orii.core.auth.service;
 
 import com.edu.unicauca.orii.core.auth.dto.LoginRequest;
 import com.edu.unicauca.orii.core.auth.util.JwtUtil;
-import com.edu.unicauca.orii.core.user.domain.model.User;
 import com.edu.unicauca.orii.core.user.infrastructure.adapters.output.jpaAdapter.entity.UserEntity;
 import com.edu.unicauca.orii.core.user.infrastructure.adapters.output.jpaAdapter.repository.IUserRepository;
 import lombok.RequiredArgsConstructor;
