@@ -1,5 +1,6 @@
 package com.edu.unicauca.orii.core.mobility.infrastructure.adapters.input.rest.controller;
 
+import com.edu.unicauca.orii.core.common.domain.enums.FacultyEnum;
 import com.edu.unicauca.orii.core.mobility.domain.enums.DirectionEnum;
 import com.edu.unicauca.orii.core.mobility.domain.enums.IdentificationTypeEnum;
 import com.edu.unicauca.orii.core.mobility.domain.enums.PersonTypeEnum;
@@ -86,7 +87,7 @@ public class FormCommandControllerDeleteIntegrationTest {
                 .city("Bogotá")
                 .country("Colombia")
                 .teacher("Dr. Juan Pérez")
-                .faculty("Facultad de Ingeniería Electrónica y Telecomunicaciones")
+                .faculty(FacultyEnum.FIET)
                 .funding(BigDecimal.valueOf(2000))
                 .fundingSource("Beca Colciencias")
                 .destination("Universidad Nacional de Colombia")

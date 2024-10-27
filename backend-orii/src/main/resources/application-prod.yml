@@ -17,6 +17,7 @@ spring:
     date-format: dd-MM-yyyy
     time-zone: UTC
 
+# Gmail configuration
   mail:
     host: smtp.gmail.com
     port: 587

@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import com.edu.unicauca.orii.core.common.domain.enums.FacultyEnum;
 import com.edu.unicauca.orii.core.mobility.domain.enums.DirectionEnum;
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.input.rest.data.PersonData;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -57,7 +58,7 @@ public class FormCreateRequest {
     @NotBlank(message = "The destination program is required")
     private String destinationProgram;
 
-    @NotBlank(message = "The type of mobility is required")
+    @NotBlank(message = "The city is required")
     private String city;
 
     @NotBlank(message = "The country is required")
@@ -65,8 +66,8 @@ public class FormCreateRequest {
 
     private String teacher;
 
-    @NotBlank(message = "The city is required")
-    private String faculty;
+    @NotNull(message = "The faculty is required")
+    private FacultyEnum faculty;
 
     @NotNull(message = "The funding is required")
     @DecimalMin(value = "0.0", inclusive = true, message = "Funding must be a positive number")
@@ -87,4 +88,7 @@ public class FormCreateRequest {
     private EventRequest event;
     @Valid
     private PersonData person;
+
+    //This field will change in the future by the token. 
+    private Long userId;
 }
