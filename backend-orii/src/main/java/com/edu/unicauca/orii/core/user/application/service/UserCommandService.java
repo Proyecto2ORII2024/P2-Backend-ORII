@@ -25,6 +25,7 @@ public class UserCommandService implements IUserCommandPort {
     @Override
     public User createUser(User user) {
         String password =this.generatePasswordUtils.generatePassword();
+        System.out.println(password);
         user.setPassword(generatePasswordUtils.encryptionPassword(password));
         User userCreated = userCommandPersistencePort.createUser(user);
         
