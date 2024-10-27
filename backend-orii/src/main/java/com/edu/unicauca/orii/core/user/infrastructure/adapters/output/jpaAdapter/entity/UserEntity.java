@@ -1,7 +1,10 @@
 package com.edu.unicauca.orii.core.user.infrastructure.adapters.output.jpaAdapter.entity;
 
 import java.util.Date;
+import java.util.List;
 
+import com.edu.unicauca.orii.core.common.domain.enums.FacultyEnum;
+import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.entity.FormEntity;
 import com.edu.unicauca.orii.core.user.domain.enums.RoleEnum;
 
 import jakarta.persistence.Column;
@@ -9,6 +12,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
@@ -45,7 +49,14 @@ public class UserEntity {
     @Column(nullable = false)   
     private Date updatePassword;
 
+    @Column(name="faculty", nullable = false, length = 24)
+    private FacultyEnum faculty;
+
     @OneToOne(mappedBy = "user")
     EmailTokenEntity emailToken;
+
+        // Relationship with Form
+    @OneToMany(mappedBy = "user")
+    private List<FormEntity> forms;
 
 }

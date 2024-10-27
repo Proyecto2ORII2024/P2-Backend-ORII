@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import com.edu.unicauca.orii.core.common.domain.enums.FacultyEnum;
 import com.edu.unicauca.orii.core.user.domain.enums.RoleEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -31,5 +32,7 @@ public class UserCommonRequest {
 
     @NotNull(message ="The role is required")
     private RoleEnum role;
+
+    private FacultyEnum faculty;
 
 }

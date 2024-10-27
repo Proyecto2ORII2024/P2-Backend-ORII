@@ -3,7 +3,10 @@ package com.edu.unicauca.orii.core.user.domain.model;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 
+import com.edu.unicauca.orii.core.common.domain.enums.FacultyEnum;
+import com.edu.unicauca.orii.core.mobility.domain.model.Form;
 import com.edu.unicauca.orii.core.user.domain.enums.RoleEnum;
 
 import lombok.Getter;
@@ -18,8 +21,11 @@ public class User {
     private Date updatePassword;
     private Boolean emailVerified;
     private EmailToken emailToken;
+    private FacultyEnum faculty;
 
     private RoleEnum role;
+    /** A list of forms associated with the user. */
+    private List<Form> forms;
 
     public User() {
         initializeEmailVerified();
