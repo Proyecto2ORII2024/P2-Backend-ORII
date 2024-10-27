@@ -52,7 +52,7 @@ public class AgreementCommandJpaAdapter implements IAgreementCommandPersistenceP
 
     @Override
     public void deleteAgreement(Long id) {
-        /*
+        /**
          * Optional<AgreementEntity> agreementEntity =
          * this.agreementRepository.findById(id);
          * if (agreementEntity.isEmpty()) {
