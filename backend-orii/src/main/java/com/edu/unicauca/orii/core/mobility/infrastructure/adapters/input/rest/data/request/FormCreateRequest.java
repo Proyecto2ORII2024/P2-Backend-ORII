@@ -89,6 +89,6 @@ public class FormCreateRequest {
     @Valid
     private PersonData person;
 
-    //This field will change in the future by the token. 
+    @JsonIgnore
     private Long userId;
 }

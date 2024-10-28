@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Configuración completa del entorno Oracle
-export ORACLE_HOME=/opt/oracle/product/21c/dbhome_1  # o 19c según tu versión
+export ORACLE_HOME=/opt/oracle/product/21c/dbhome_1
 export ORACLE_BASE=/opt/oracle
 export PATH=$ORACLE_HOME/bin:$PATH
 export LD_LIBRARY_PATH=$ORACLE_HOME/lib:$LD_LIBRARY_PATH

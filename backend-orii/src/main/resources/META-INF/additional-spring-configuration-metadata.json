@@ -3,5 +3,10 @@
     "name": "api_url",
     "type": "java.lang.String",
     "description": "A description for 'api_url'"
+  },
+  {
+    "name": "jwt.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.secret'"
   }
 ]}

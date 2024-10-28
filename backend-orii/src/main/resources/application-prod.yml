@@ -10,7 +10,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: true  
 
   jackson:
@@ -41,3 +41,4 @@ server:
     context-path: /api/v1
 
 api_url: http://localhost:8080${server.servlet.context-path}
+jwt.secret: ${JWT_SECRET}

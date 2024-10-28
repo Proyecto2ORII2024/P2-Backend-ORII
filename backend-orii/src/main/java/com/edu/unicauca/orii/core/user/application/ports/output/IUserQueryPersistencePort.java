@@ -8,4 +8,7 @@ public interface IUserQueryPersistencePort {
     List<User> getUser();
 
     User getUserById(Long userId);
+
+    User getUserByEmail(String email);
+    
 }
