@@ -67,5 +67,27 @@ public class UserCommandService implements IUserCommandPort {
                 .build();
         emailConfirmationOutput.sendConfirmationEmail(mailData);
     }
+    private void sendPasswordEmail(String email,String password) {
+    
+        MailData mailData = MailData.builder()
+                .to(email)
+                .subject("reset password")
+                .text(password) 
+                .build();
+        emailConfirmationOutput.sendPasswordEmail(mailData);
+    }
+
+    @Override
+    public boolean forgotPassword(String email) {
+        boolean bandera=false;
+        if(userCommandPersistencePort.existByEmail(email)!=false){
+            String password =this.generatePasswordUtils.generatePassword();
+            sendPasswordEmail(email, password);
+            bandera=userCommandPersistencePort.forgotPassword(email,generatePasswordUtils.encryptionPassword(password));
+        }
+        return bandera;
+    }
+
+   
 
 }

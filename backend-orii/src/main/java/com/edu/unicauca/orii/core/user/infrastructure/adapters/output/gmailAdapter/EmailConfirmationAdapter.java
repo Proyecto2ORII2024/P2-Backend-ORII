@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
+
 import com.edu.unicauca.orii.core.user.application.ports.output.IEmailConfirmationOutput;
 import com.edu.unicauca.orii.core.user.domain.model.MailData;
 
@@ -46,6 +47,14 @@ public class EmailConfirmationAdapter implements IEmailConfirmationOutput {
         } catch (MessagingException e) {
             e.printStackTrace();
         }  
+    }
+     @Override
+    public void sendPasswordEmail(MailData mailData) {
+        try {
+            sendEmail(mailData.getTo(),mailData.getSubject(),buildForgotPasswordContent(mailData.getText()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private String buildEmailContent(String token){
@@ -91,5 +100,46 @@ public class EmailConfirmationAdapter implements IEmailConfirmationOutput {
                         "  </table>\n" + //
                         "</div>";
     }
+    private String buildForgotPasswordContent(String password){
+    return "<div style=\"font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; width: 100%;\">\n" +
+           "  <style>\n" +
+           "    @media screen and (-webkit-min-device-pixel-ratio: 0) {\n" +
+           "      a.email-button:hover {\n" +
+           "        background-color: white !important;\n" +
+           "        color: #07184a !important;\n" +
+           "        border: 2px solid #07184a !important;\n" +
+           "      }\n" +
+           "    }\n" +
+           "  </style>\n" +
+           "\n" +
+           "  <table style=\"border-spacing: 0; width: 100%; max-width: 600px; margin: 0 auto; background-color: #ffffff; border: 1px solid #e0e0e0;\">\n" +
+           "    <!-- Header -->\n" +
+           "    <tr>\n" +
+           "      <td style=\"background-color: #07184a; color: white; text-align: center; padding: 20px; font-size: 24px;\">\n" +
+           "        Restablecimiento de contraseña\n" +
+           "      </td>\n" +
+           "    </tr>\n" +
+           "    \n" +
+           "    <!-- Body -->\n" +
+           "    <tr>\n" +
+           "      <td style=\"padding: 20px; font-size: 16px; color: #333333;\">\n" +
+           "        <p>Este correo electrónico es para informarte que se ha generado una nueva contraseña temporal para tu cuenta en la página de la ORRI. Por favor, utiliza la siguiente contraseña para iniciar sesión y cambia tu contraseña una vez ingreses.</p>\n" +
+           "        <p><strong>Contraseña temporal:</strong> " + password + "</p>\n" +
+           "        <p>Si no solicitaste este cambio, ignora este correo o contacta con el soporte.</p>\n" +
+           "      </td>\n" +
+           "    </tr>\n" +
+           "    \n" +
+           "    <!-- Footer -->\n" +
+           "    <tr>\n" +
+           "      <td style=\"text-align: center; font-size: 12px; color: #777777; padding: 20px; background-color: #f4f4f4;\">\n" +
+           "        <p>Por favor no responda a este correo electrónico.</p>\n" +
+           "        <p>&copy; 2024 Universidad del Cauca. Todos los derechos reservados.</p>\n" +
+           "      </td>\n" +
+           "    </tr>\n" +
+           "  </table>\n" +
+           "</div>";
+}
+
+   
 
 }

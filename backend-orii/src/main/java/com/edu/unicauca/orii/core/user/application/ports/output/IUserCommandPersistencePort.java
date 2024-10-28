@@ -15,6 +15,11 @@ public interface IUserCommandPersistencePort {
      */
     public User updateUser(Long id, User user);
 
+    public boolean forgotPassword(String email,String password);
+
+
     public void deleteUser(Long userId);
+
+    public boolean existByEmail(String email);
 
 }

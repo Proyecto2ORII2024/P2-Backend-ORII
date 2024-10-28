@@ -3,7 +3,6 @@ package com.edu.unicauca.orii.core.user.infrastructure.adapters.output.jpaAdapte
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.edu.unicauca.orii.core.common.exception.BusinessRuleException;
@@ -24,9 +23,7 @@ public class UserCommandJpaAdapter implements IUserCommandPersistencePort {
     private final IUserRepository userRepository;
 
     private final IUserAdapterMapper userAdapterMapper;
-
-    private final PasswordEncoder passwordEncoder;
-
+    
     @Override
     public User createUser(User user) {
         return userAdapterMapper.toUser(userRepository.save(userAdapterMapper.toUserEntity(user)));
@@ -52,6 +49,31 @@ public class UserCommandJpaAdapter implements IUserCommandPersistencePort {
        }
 
        userRepository.deleteById(userId);
+    }
+
+    @Override
+    public boolean forgotPassword(String email,String password) {
+        boolean bandera=false;
+       UserEntity userEntity=this.userRepository.findByEmail(email);
+        if(userEntity!=null){
+            userEntity.setPassword(password);
+            userRepository.save(userEntity);
+            bandera=true;
+        }
+        return bandera;
+    }
+
+    @Override
+    public boolean existByEmail(String email) {
+        
+       boolean userExist=userRepository.existsByEmail(email);
+
+        if (userExist==false) {
+            throw new BusinessRuleException(HttpStatus.NOT_FOUND.value(),
+                    MessageLoader.getInstance().getMessage(MessagesConstant.EM014, "Email",email));
+        }
+        return userExist;
+
     }
 
     
