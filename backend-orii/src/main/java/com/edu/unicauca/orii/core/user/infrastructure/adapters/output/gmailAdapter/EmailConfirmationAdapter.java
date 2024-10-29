@@ -79,8 +79,8 @@ public class EmailConfirmationAdapter implements IEmailConfirmationOutput {
                         "\n" + //
                         "         <p> Contraseña temporal: "+password+"</p>\n" + //
                         "         <p> por seguridad, cambie su contraseña en la sección de Usuario</p>\n" + //
-                        "      </td>\n" + //
-                        "        <p>Si no eres tú quien se registró, por favor ignora este correo electrónico. No es necesario que tomes ninguna acción.</p>\n" + //
+                        "         <br>\n" + //
+                        "         <p>Si no eres tú quien se registró, por favor ignora este correo electrónico. No es necesario que tomes ninguna acción.</p>\n" + //
                         "      </td>\n" + //
                         "    </tr>\n" + //
                         "    \n" + //
