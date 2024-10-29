@@ -19,6 +19,16 @@ import com.edu.unicauca.orii.core.user.infrastructure.adapters.input.rest.mapper
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * REST controller for handling user commands such as creating, updating, 
+ * and deleting users.
+ * 
+ * This controller is responsible for handling incoming HTTP requests and 
+ * delegating the processing of user-related commands to the appropriate services.
+ * 
+ * It also provides CORS configuration to allow requests from specific origins.
+ */
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
@@ -28,6 +38,15 @@ public class UserCommandController {
     private final UserCommandService userCommandService;
     private final IUserRestMapper userRestMapper;
 
+     /**
+     * Creates a new user based on the information provided in the 
+     * {@link UserCreateRequest}.
+     * 
+     * @param userCreateRequest a request object containing user information such 
+     *                          as email, password, and role
+     * @return a {@link ResponseEntity} containing the created {@link UserData} 
+     *         object and a 201 Created status
+     */
     @PostMapping("/create")
     public ResponseEntity<UserData> createUser(@Valid @RequestBody UserCommonRequest userCreateRequest) {
         User user = userRestMapper.toUser(userCreateRequest);
@@ -51,6 +70,13 @@ public class UserCommandController {
         return ResponseEntity.ok(userRestMapper.toUserData(updatedUser));
     }
 
+      /**
+     * Deletes a user by their ID.
+     * 
+     * @param id the ID of the {@link User} to be deleted
+     * @return a {@link ResponseEntity} with a status of 200 OK if deletion was 
+     *         successful
+     */
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteUser(@Valid @PathVariable Long id) {
         userCommandService.deleteUser(id);

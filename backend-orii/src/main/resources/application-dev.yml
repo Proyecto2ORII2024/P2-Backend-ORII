@@ -16,12 +16,13 @@ spring:
   sql:
     init:
       mode: always  
-
+      
+# Maildev configuration
   mail:
-    host: smtp.gmail.com
-    port: 587
-    username: ${spring.mail.username}
-    password: ${spring.mail.password}
+    host: localhost
+    port: 1025
+    username: user
+    password: password
     properties:
       mail:
         smtp:
@@ -40,3 +41,4 @@ server:
     context-path: /api/v1
 
 api_url: http://localhost:8080${server.servlet.context-path}
+jwt.secret: ${JWT_SECRET}

@@ -3,7 +3,9 @@ package com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAd
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.edu.unicauca.orii.core.common.domain.enums.FacultyEnum;
 import com.edu.unicauca.orii.core.mobility.domain.enums.DirectionEnum;
+import com.edu.unicauca.orii.core.user.infrastructure.adapters.output.jpaAdapter.entity.UserEntity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -71,7 +73,7 @@ public class FormEntity {
     private String teacher;
 
     @Column(length = 150)
-    private String faculty;
+    private FacultyEnum faculty;
 
     @Column(precision = 10, scale = 2)
     private BigDecimal funding;
@@ -97,5 +99,9 @@ public class FormEntity {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_person")
     private PersonEntity person;
+
+    @ManyToOne
+    @JoinColumn(name = "id_user", nullable = true)
+    private UserEntity user;
    
 }

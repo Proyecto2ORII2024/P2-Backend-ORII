@@ -2,6 +2,8 @@ package com.edu.unicauca.orii.core.mobility.infrastructure.adapters.input.rest.c
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,15 +42,15 @@ public class AgreementQueryController {
      * @return ResponseEntity with the data of the agreements
      */
 
-     /* 
-    @GetMapping("/all")
+     
+    @GetMapping("/allAgreements")
     public ResponseEntity<Page<AgreementData>> getAgreements(Pageable pageable) {
        Page<Agreement> objAgreement=agreementQueryService.getAgreement(pageable);
            Page<AgreementData> objResponse = objAgreement.map(agreementRestMapper::toAgreementData);
     
          return ResponseEntity.ok(objResponse);
 
-    }*/
+    }
 
     /**
      * It obtains all the conventions depending on the parameter that we send, if it is by its code or name, it will look for considerations in the characters of the code or characters of the name of the convention.

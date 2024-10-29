@@ -1,7 +1,7 @@
 package com.edu.unicauca.orii.core.user.application.ports.input;
 
-import com.edu.unicauca.orii.core.user.domain.model.MailData;
+import com.edu.unicauca.orii.core.user.domain.model.User;
 
 public interface IEmailConfirmationInput {
-    void sendConfirmationEmail(MailData mailData);
+    void sendConfirmationEmail(User user);
 }

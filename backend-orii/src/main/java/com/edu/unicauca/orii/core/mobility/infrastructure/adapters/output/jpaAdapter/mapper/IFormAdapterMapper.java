@@ -18,6 +18,7 @@ public interface IFormAdapterMapper {
     @Mapping(target = "event.forms", ignore = true)
     @Mapping(target = "event.eventType.events", ignore = true)
     @Mapping(target = "person.forms", ignore = true)
+    @Mapping(target = "user.forms", ignore = true)
     Form toForm(FormEntity formEntity);
   
 }

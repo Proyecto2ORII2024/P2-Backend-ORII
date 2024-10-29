@@ -12,6 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+
+import com.edu.unicauca.orii.core.common.domain.enums.FacultyEnum;
 import com.edu.unicauca.orii.core.mobility.domain.enums.DirectionEnum;
 import com.edu.unicauca.orii.core.mobility.domain.enums.IdentificationTypeEnum;
 import com.edu.unicauca.orii.core.mobility.domain.enums.PersonTypeEnum;
@@ -95,7 +97,7 @@ public class FormCommandControllerCreateIntegrationTest {
         .city("Bogotá")
         .country("Colombia")
         .teacher("Dr. Juan Pérez")
-        .faculty("Facultad de Ingeniería Electrónica y Telecomunicaciones")
+        .faculty(FacultyEnum.FIET)
         .funding(BigDecimal.valueOf(2000))
         .fundingSource("Beca Colciencias")
         .destination("Universidad Nacional de Colombia")
@@ -134,7 +136,7 @@ public class FormCommandControllerCreateIntegrationTest {
         .city("Bogotá")
         .country("Colombia")
         .teacher("Dr. Juan Pérez")
-        .faculty("Facultad de Ingeniería Electrónica y Telecomunicaciones")
+        .faculty(FacultyEnum.FIET)
         .funding(BigDecimal.valueOf(2000))
         .fundingSource("Beca Colciencias")
         .destination("Universidad Nacional de Colombia")
@@ -174,7 +176,7 @@ public class FormCommandControllerCreateIntegrationTest {
         .city("Bogotá")
         .country("Colombia")
         .teacher("Dr. Juan Pérez")
-        .faculty("Facultad de Ingeniería Electrónica y Telecomunicaciones")
+        .faculty(FacultyEnum.FIET)
         .funding(BigDecimal.valueOf(2000))
         .fundingSource("Beca Colciencias")
         .destination("Universidad Nacional de Colombia")
@@ -214,7 +216,7 @@ public class FormCommandControllerCreateIntegrationTest {
         .city("Bogotá")
         .country("Colombia")
         .teacher("Dr. Juan Pérez")
-        .faculty("Facultad de Ingeniería Electrónica y Telecomunicaciones")
+        .faculty(FacultyEnum.FIET)
         .funding(BigDecimal.valueOf(2000))
         .fundingSource("Beca Colciencias")
         .destination("Universidad Nacional de Colombia")
@@ -253,7 +255,7 @@ public class FormCommandControllerCreateIntegrationTest {
         .city("Bogotá")
         .country("Colombia")
         .teacher("Dr. Juan Pérez")
-        .faculty("Facultad de Ingeniería Electrónica y Telecomunicaciones")
+        .faculty(FacultyEnum.FIET)
         .funding(BigDecimal.valueOf(2000))
         .fundingSource("Beca Colciencias")
         .destination("Universidad Nacional de Colombia")
@@ -292,7 +294,7 @@ public class FormCommandControllerCreateIntegrationTest {
         .city("") // Campo city vacío
         .country("Colombia")
         .teacher("Dr. Juan Pérez")
-        .faculty("Facultad de Ingeniería Electrónica y Telecomunicaciones")
+        .faculty(FacultyEnum.FIET)
         .funding(BigDecimal.valueOf(2000))
         .fundingSource("Beca Colciencias")
         .destination("Universidad Nacional de Colombia")
@@ -331,7 +333,7 @@ public class FormCommandControllerCreateIntegrationTest {
         .city("Bogotá")
         .country("") // Campo country vacío
         .teacher("Dr. Juan Pérez")
-        .faculty("Facultad de Ingeniería Electrónica y Telecomunicaciones")
+        .faculty(FacultyEnum.FIET)
         .funding(BigDecimal.valueOf(2000))
         .fundingSource("Beca Colciencias")
         .destination("Universidad Nacional de Colombia")
@@ -370,7 +372,7 @@ public class FormCommandControllerCreateIntegrationTest {
         .city("Bogotá")
         .country("Colombia")
         .teacher("")
-        .faculty("Facultad de Ingeniería Electrónica y Telecomunicaciones")
+        .faculty(FacultyEnum.FIET)
         .funding(BigDecimal.valueOf(2000))
         .fundingSource("Beca Colciencias")
         .destination("Universidad Nacional de Colombia")
@@ -409,7 +411,7 @@ public class FormCommandControllerCreateIntegrationTest {
         .city("Bogotá")
         .country("Colombia")
         .teacher("")
-        .faculty("Facultad de Ingeniería Electrónica y Telecomunicaciones")
+        .faculty(FacultyEnum.FIET)
         .funding(BigDecimal.valueOf(2000))
         .fundingSource("Beca Colciencias")
         .destination("Universidad Nacional de Colombia")
@@ -448,7 +450,7 @@ public class FormCommandControllerCreateIntegrationTest {
         .city("Bogotá")
         .country("Colombia")
         .teacher(null)
-        .faculty("Facultad de Ingeniería Electrónica y Telecomunicaciones")
+        .faculty(FacultyEnum.FIET)
         .funding(BigDecimal.valueOf(2000))
         .fundingSource("Beca Colciencias")
         .destination("Universidad Nacional de Colombia")
@@ -487,7 +489,7 @@ public class FormCommandControllerCreateIntegrationTest {
         .city("Bogotá")
         .country("Colombia")
         .teacher(null)
-        .faculty("Facultad de Ingeniería Electrónica y Telecomunicaciones")
+        .faculty(FacultyEnum.FIET)
         .funding(BigDecimal.valueOf(2000))
         .fundingSource("Beca Colciencias")
         .destination("Universidad Nacional de Colombia")
@@ -526,7 +528,7 @@ public class FormCommandControllerCreateIntegrationTest {
         .city("Bogotá")
         .country("Colombia")
         .teacher("")
-        .faculty("Facultad de Ingeniería Electrónica y Telecomunicaciones")
+        .faculty(FacultyEnum.FIET)
         .funding(BigDecimal.valueOf(2000))
         .fundingSource("Beca Colciencias")
         .destination("Universidad Nacional de Colombia")
@@ -565,7 +567,7 @@ public class FormCommandControllerCreateIntegrationTest {
         .city("Bogotá")
         .country("Colombia")
         .teacher(null)
-        .faculty("Facultad de Ingeniería Electrónica y Telecomunicaciones")
+        .faculty(FacultyEnum.FIET)
         .funding(BigDecimal.valueOf(2000))
         .fundingSource("Beca Colciencias")
         .destination("Universidad Nacional de Colombia")
@@ -605,7 +607,7 @@ public class FormCommandControllerCreateIntegrationTest {
         .city("Bogotá")
         .country("Colombia")
         .teacher("Dr. Juan Pérez")
-        .faculty("") // Campo faculty vacío
+        .faculty(null) // Campo faculty vacío
         .funding(BigDecimal.valueOf(2000))
         .fundingSource("Beca Colciencias")
         .destination("Universidad Nacional de Colombia")
@@ -644,7 +646,7 @@ public class FormCommandControllerCreateIntegrationTest {
         .city("Bogotá")
         .country("Colombia")
         .teacher("Dr. Juan Pérez")
-        .faculty("Facultad de Ingeniería Electrónica y Telecomunicaciones")
+        .faculty(FacultyEnum.FIET)
         .funding(BigDecimal.valueOf(2000))
         .fundingSource("") // Campo fundingSource vacío
         .destination("Universidad Nacional de Colombia")
@@ -683,7 +685,7 @@ public class FormCommandControllerCreateIntegrationTest {
         .city("Bogotá")
         .country("Colombia")
         .teacher("Dr. Juan Pérez")
-        .faculty("Facultad de Ingeniería Electrónica y Telecomunicaciones")
+        .faculty(FacultyEnum.FIET)
         .funding(BigDecimal.valueOf(2000))
         .fundingSource("Beca Colciencias")
         .destination("") // Campo destination vacío
@@ -722,7 +724,7 @@ public class FormCommandControllerCreateIntegrationTest {
         .city("Bogotá")
         .country("Colombia")
         .teacher("Dr. Juan Pérez")
-        .faculty("Facultad de Ingeniería Electrónica y Telecomunicaciones")
+        .faculty(FacultyEnum.FIET)
         .funding(BigDecimal.valueOf(2000))
         .fundingSource("Beca Colciencias")
         .destination("Universidad Nacional de Colombia")
@@ -761,7 +763,7 @@ public class FormCommandControllerCreateIntegrationTest {
         .city("Bogotá")
         .country("Colombia")
         .teacher("Dr. Juan Pérez")
-        .faculty("Facultad de Ingeniería Electrónica y Telecomunicaciones")
+        .faculty(FacultyEnum.FIET)
         .funding(BigDecimal.valueOf(2000))
         .fundingSource("Beca Colciencias")
         .destination("Universidad Nacional de Colombia")
@@ -800,7 +802,7 @@ public class FormCommandControllerCreateIntegrationTest {
         .city("Bogotá")
         .country("Colombia")
         .teacher("Dr. Juan Pérez")
-        .faculty("Facultad de Ingeniería Electrónica y Telecomunicaciones")
+        .faculty(FacultyEnum.FIET)
         .funding(BigDecimal.valueOf(2000))
         .fundingSource("Beca Colciencias")
         .destination("Universidad Nacional de Colombia")
@@ -839,7 +841,7 @@ public class FormCommandControllerCreateIntegrationTest {
         .city("Bogotá")
         .country("Colombia")
         .teacher("Dr. Juan Pérez")
-        .faculty("Facultad de Ingeniería Electrónica y Telecomunicaciones")
+        .faculty(FacultyEnum.FIET)
         .funding(BigDecimal.valueOf(2000))
         .fundingSource("Beca Colciencias")
         .destination("Universidad Nacional de Colombia")
@@ -878,7 +880,7 @@ public class FormCommandControllerCreateIntegrationTest {
         .city("Bogotá")
         .country("Colombia")
         .teacher("Dr. Juan Pérez")
-        .faculty("Facultad de Ingeniería Electrónica y Telecomunicaciones")
+        .faculty(FacultyEnum.FIET)
         .funding(BigDecimal.valueOf(2000))
         .fundingSource("Beca Colciencias")
         .destination("Universidad Nacional de Colombia")
@@ -917,7 +919,7 @@ public class FormCommandControllerCreateIntegrationTest {
         .city("Bogotá")
         .country("Colombia")
         .teacher("Dr. Juan Pérez")
-        .faculty("Facultad de Ingeniería Electrónica y Telecomunicaciones")
+        .faculty(FacultyEnum.FIET)
         .funding(BigDecimal.valueOf(2000))
         .fundingSource("Beca Colciencias")
         .destination("Universidad Nacional de Colombia")
@@ -956,7 +958,7 @@ public class FormCommandControllerCreateIntegrationTest {
         .city("Bogotá")
         .country("Colombia")
         .teacher("Dr. Juan Pérez")
-        .faculty("Facultad de Ingeniería Electrónica y Telecomunicaciones")
+        .faculty(FacultyEnum.FIET)
         .funding(BigDecimal.valueOf(2000))
         .fundingSource("Beca Colciencias")
         .destination("Universidad Nacional de Colombia")
@@ -995,7 +997,7 @@ public class FormCommandControllerCreateIntegrationTest {
         .city("Bogotá")
         .country("Colombia")
         .teacher("Dr. Juan Pérez")
-        .faculty("Facultad de Ingeniería Electrónica y Telecomunicaciones")
+        .faculty(FacultyEnum.FIET)
         .funding(BigDecimal.valueOf(2000))
         .fundingSource("Beca Colciencias")
         .destination("Universidad Nacional de Colombia")
@@ -1034,7 +1036,7 @@ public class FormCommandControllerCreateIntegrationTest {
         .city("Bogotá")
         .country("Colombia")
         .teacher("Dr. Juan Pérez")
-        .faculty("Facultad de Ingeniería Electrónica y Telecomunicaciones")
+        .faculty(FacultyEnum.FIET)
         .funding(BigDecimal.valueOf(2000))
         .fundingSource("Beca Colciencias")
         .destination("Universidad Nacional de Colombia")
@@ -1073,7 +1075,7 @@ public class FormCommandControllerCreateIntegrationTest {
         .city("Bogotá")
         .country("Colombia")
         .teacher("Dr. Juan Pérez")
-        .faculty("Facultad de Ingeniería Electrónica y Telecomunicaciones")
+        .faculty(FacultyEnum.FIET)
         .funding(BigDecimal.valueOf(2000))
         .fundingSource("Beca Colciencias")
         .destination("Universidad Nacional de Colombia")
@@ -1112,7 +1114,7 @@ public class FormCommandControllerCreateIntegrationTest {
         .city("Bogotá")
         .country("Colombia")
         .teacher("Dr. Juan Pérez")
-        .faculty("Facultad de Ingeniería Electrónica y Telecomunicaciones")
+        .faculty(FacultyEnum.FIET)
         .funding(BigDecimal.valueOf(2000))
         .fundingSource("Beca Colciencias")
         .destination("Universidad Nacional de Colombia")
@@ -1151,7 +1153,7 @@ public class FormCommandControllerCreateIntegrationTest {
         .city("Bogotá")
         .country("Colombia")
         .teacher("Dr. Juan Pérez")
-        .faculty("Facultad de Ingeniería Electrónica y Telecomunicaciones")
+        .faculty(FacultyEnum.FIET)
         .funding(BigDecimal.valueOf(2000))
         .fundingSource("Beca Colciencias")
         .destination("Universidad Nacional de Colombia")
@@ -1191,7 +1193,7 @@ public class FormCommandControllerCreateIntegrationTest {
         .city("Bogotá")
         .country("Colombia")
         .teacher("Dr. Juan Pérez")
-        .faculty("Facultad de Ingeniería Electrónica y Telecomunicaciones")
+        .faculty(FacultyEnum.FIET)
         .funding(null) // Campo funding nulo
         .fundingSource("Beca Colciencias")
         .destination("Universidad Nacional de Colombia")
@@ -1230,7 +1232,7 @@ public class FormCommandControllerCreateIntegrationTest {
         .city("Bogotá")
         .country("Colombia")
         .teacher("Dr. Juan Pérez")
-        .faculty("Facultad de Ingeniería Electrónica y Telecomunicaciones")
+        .faculty(FacultyEnum.FIET)
         .funding(BigDecimal.valueOf(2000))
         .fundingSource("Beca Colciencias")
         .destination("Universidad Nacional de Colombia")
@@ -1269,7 +1271,7 @@ public class FormCommandControllerCreateIntegrationTest {
         .city("Bogotá")
         .country("Colombia")
         .teacher("Dr. Juan Pérez")
-        .faculty("Facultad de Ingeniería Electrónica y Telecomunicaciones")
+        .faculty(FacultyEnum.FIET)
         .funding(BigDecimal.valueOf(2000))
         .fundingSource("Beca Colciencias")
         .destination("Universidad Nacional de Colombia")
@@ -1308,7 +1310,7 @@ public class FormCommandControllerCreateIntegrationTest {
         .city("Bogotá")
         .country("Colombia")
         .teacher("Dr. Juan Pérez")
-        .faculty("Facultad de Ingeniería Electrónica y Telecomunicaciones")
+        .faculty(FacultyEnum.FIET)
         .funding(BigDecimal.valueOf(2000))
         .fundingSource("Beca Colciencias")
         .destination("Universidad Nacional de Colombia")
@@ -1347,7 +1349,7 @@ public class FormCommandControllerCreateIntegrationTest {
         .city("Bogotá")
         .country("Colombia")
         .teacher("Dr. Juan Pérez")
-        .faculty("Facultad de Ingeniería Electrónica y Telecomunicaciones")
+        .faculty(FacultyEnum.FIET)
         .funding(BigDecimal.valueOf(2000))
         .fundingSource("Beca Colciencias")
         .destination("Universidad Nacional de Colombia")
@@ -1386,7 +1388,7 @@ public class FormCommandControllerCreateIntegrationTest {
         .city("Bogotá")
         .country("Colombia")
         .teacher("Dr. Juan Pérez")
-        .faculty("Facultad de Ingeniería Electrónica y Telecomunicaciones")
+        .faculty(FacultyEnum.FIET)
         .funding(BigDecimal.valueOf(2000))
         .fundingSource("Beca Colciencias")
         .destination("Universidad Nacional de Colombia")
@@ -1425,7 +1427,7 @@ public class FormCommandControllerCreateIntegrationTest {
         .city("Bogotá")
         .country("Colombia")
         .teacher("Dr. Juan Pérez")
-        .faculty("Facultad de Ingeniería Electrónica y Telecomunicaciones")
+        .faculty(FacultyEnum.FIET)
         .funding(BigDecimal.valueOf(2000))
         .fundingSource("Beca Colciencias")
         .destination("Universidad Nacional de Colombia")
@@ -1465,7 +1467,7 @@ public class FormCommandControllerCreateIntegrationTest {
             "city": "Bogotá",
             "country": "Colombia",
             "teacher": "Dr. Juan Pérez",
-            "faculty": "Facultad de Ingeniería Electrónica y Telecomunicaciones",
+            "faculty": FacultyEnum.FIET,
             "funding": 2000,
             "fundingSource": "Beca Colciencias",
             "destination": "Universidad Nacional de Colombia",
@@ -1505,7 +1507,7 @@ public class FormCommandControllerCreateIntegrationTest {
         .city("Bogotá")
         .country("Colombia")
         .teacher("Dr. Juan Pérez")
-        .faculty("Facultad de Ingeniería Electrónica y Telecomunicaciones")
+        .faculty(FacultyEnum.FIET)
         .funding(BigDecimal.valueOf(2000))
         .fundingSource("Beca Colciencias")
         .destination("Universidad Nacional de Colombia")
@@ -1545,7 +1547,7 @@ public class FormCommandControllerCreateIntegrationTest {
             "city": "Bogotá",
             "country": "Colombia",
             "teacher": "Dr. Juan Pérez",
-            "faculty": "Facultad de Ingeniería Electrónica y Telecomunicaciones",
+            "faculty": FacultyEnum.FIET,
             "funding": 2000,
             "fundingSource": "Beca Colciencias",
             "destination": "Universidad Nacional de Colombia",
@@ -1585,7 +1587,7 @@ public class FormCommandControllerCreateIntegrationTest {
         .city("Bogotá")
         .country("Colombia")
         .teacher("Dr. Juan Pérez")
-        .faculty("Facultad de Ingeniería Electrónica y Telecomunicaciones")
+        .faculty(FacultyEnum.FIET)
         .funding(BigDecimal.valueOf(2000))
         .fundingSource("Beca Colciencias")
         .destination("Universidad Nacional de Colombia")
@@ -1625,7 +1627,7 @@ public class FormCommandControllerCreateIntegrationTest {
             "city": "Bogotá",
             "country": "Colombia",
             "teacher": "Dr. Juan Pérez",
-            "faculty": "Facultad de Ingeniería Electrónica y Telecomunicaciones",
+            "faculty": FacultyEnum.FIET,
             "funding": 2000,
             "fundingSource": "Beca Colciencias",
             "destination": "Universidad Nacional de Colombia",

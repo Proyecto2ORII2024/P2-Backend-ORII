@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.edu.unicauca.orii.core.user.application.ports.output.IEmailConfirmationOutput;
 import com.edu.unicauca.orii.core.user.domain.model.MailData;
+import com.edu.unicauca.orii.core.user.domain.model.User;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -41,12 +42,12 @@ public class EmailConfirmationAdapter implements IEmailConfirmationOutput {
     }
 
     @Override
-    public void sendConfirmationEmail(MailData mailData) {  
+    public void sendConfirmationEmail(User user) { 
         try {
-            sendEmail(mailData.getTo(), mailData.getSubject(), buildEmailContent(mailData.getText()));
+            sendEmail(user.getEmail(), "Confirm your email", buildEmailContent(user.getEmailToken().getToken(),user.getPassword()));
         } catch (MessagingException e) {
             e.printStackTrace();
-        }  
+        }
     }
      @Override
     public void sendPasswordEmail(MailData mailData) {
@@ -57,7 +58,7 @@ public class EmailConfirmationAdapter implements IEmailConfirmationOutput {
         }
     }
 
-    private String buildEmailContent(String token){
+    private String buildEmailContent(String token,String password) {
         return "<div style=\"font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; width: 100%;\">\n" + //
                         "  <style>\n" + //
                         "    @media screen and (-webkit-min-device-pixel-ratio: 0) {\n" + //
@@ -86,6 +87,9 @@ public class EmailConfirmationAdapter implements IEmailConfirmationOutput {
                         "\n" + //
                         "        <a href=\"" + apiUrl + "/email/confirmEmail/" + token + "\" class=\"email-button\" style=\"display: inline-block; padding: 10px 20px; margin-top: 20px; background-color: #07184a; color: white; text-decoration: none; border-radius: 5px; border: 2px solid #07184a;\">Verificar mi cuenta</a>\n" + //
                         "\n" + //
+                        "         <p> Contraseña temporal: "+password+"</p>\n" + //
+                        "         <p> por seguridad, cambie su contraseña en la sección de Usuario</p>\n" + //
+                        "      </td>\n" + //
                         "        <p>Si no eres tú quien se registró, por favor ignora este correo electrónico. No es necesario que tomes ninguna acción.</p>\n" + //
                         "      </td>\n" + //
                         "    </tr>\n" + //

@@ -1,5 +1,6 @@
 package com.edu.unicauca.orii.core.user.application.service;
 
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.edu.unicauca.orii.core.user.application.ports.input.IEmailConfirmationInput;
@@ -7,7 +8,7 @@ import com.edu.unicauca.orii.core.user.application.ports.input.IEmailTokenInput;
 import com.edu.unicauca.orii.core.user.application.ports.output.IEmailConfirmationOutput;
 import com.edu.unicauca.orii.core.user.application.ports.output.IEmailTokenOutput;
 import com.edu.unicauca.orii.core.user.domain.model.EmailToken;
-import com.edu.unicauca.orii.core.user.domain.model.MailData;
+import com.edu.unicauca.orii.core.user.domain.model.User;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,8 +21,12 @@ public class EmailService implements IEmailConfirmationInput , IEmailTokenInput 
     private final IEmailConfirmationOutput emailConfirmationOutput;
 
     @Override
-    public void sendConfirmationEmail(MailData mailData) {
-        emailConfirmationOutput.sendConfirmationEmail(mailData);
+    @Async
+    public void sendConfirmationEmail(User user) {
+        System.out.println("Sending email confirmation");
+        EmailToken emailToken = emailTokenOutput.generateToken(user.getUserId());
+        user.setEmailToken(emailToken);
+        emailConfirmationOutput.sendConfirmationEmail(user);
     }
 
     @Override

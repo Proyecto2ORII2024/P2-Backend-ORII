@@ -17,6 +17,7 @@ spring:
     date-format: dd-MM-yyyy
     time-zone: UTC
 
+# Gmail configuration
   mail:
     host: smtp.gmail.com
     port: 587
@@ -40,3 +41,4 @@ server:
     context-path: /api/v1
 
 api_url: http://localhost:8080${server.servlet.context-path}
+jwt.secret: ${JWT_SECRET}

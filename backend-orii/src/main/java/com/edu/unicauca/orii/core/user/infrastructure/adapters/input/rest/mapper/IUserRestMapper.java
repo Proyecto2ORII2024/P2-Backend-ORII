@@ -18,12 +18,12 @@ public interface IUserRestMapper {
     @Mapping(target = "updatePassword", ignore = true)
     @Mapping(target = "emailVerified", ignore = true)
     @Mapping(target = "password", ignore = true)
+    @Mapping(target = "emailToken", ignore = true)
+    @Mapping(target = "forms", ignore = true)
     User toUser(UserCommonRequest userCreateRequest);
 
     UserCommonRequest toUserCreateRequest(User user);
 
+    @Mapping(target = "emailToken", ignore = true)
     List<UserData> toUserDataList(List<User> users);
-
-    List<User> toUserList(List<UserData> userDataList);
-    
 }
