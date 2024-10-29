@@ -18,6 +18,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import com.edu.unicauca.orii.core.common.exception.BusinessRuleException;
+import com.edu.unicauca.orii.core.common.exception.EmailNotVerifiedException;
 import com.edu.unicauca.orii.core.common.exception.common.ResponseDto;
 import com.edu.unicauca.orii.core.common.exception.messages.MessageLoader;
 import com.edu.unicauca.orii.core.common.exception.messages.MessagesConstant;
@@ -25,6 +26,7 @@ import com.edu.unicauca.orii.core.common.exception.messages.MessagesConstant;
 /**
  * Global Exception Handler to manage various exception types.
  * @author JulianRuano
+ * @author JhossefCons
  */
 
 @RestControllerAdvice
@@ -70,6 +72,18 @@ public class GlobalExceptionHandler {
    */
   @ExceptionHandler(BusinessRuleException.class)
   public ResponseEntity<ResponseDto<Object>> handleBusinessRuleException(BusinessRuleException e) {
+    return new ResponseDto<>(e.getStatus(), e.getMessage()).of();
+  }
+
+  /**
+   * Handles exceptions.
+   * Logs the error message and returns a response for this specific exception.
+   *
+   * @param e The EmailNotVerifiedException instance.
+   * @return Response entity containing error details.
+   */
+  @ExceptionHandler(EmailNotVerifiedException.class)
+  public ResponseEntity<ResponseDto<Object>> handleEmailNotVerifiedException(EmailNotVerifiedException e){
     return new ResponseDto<>(e.getStatus(), e.getMessage()).of();
   }
 
