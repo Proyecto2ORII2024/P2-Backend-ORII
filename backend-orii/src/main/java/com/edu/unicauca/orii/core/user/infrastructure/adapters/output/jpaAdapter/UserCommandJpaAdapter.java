@@ -23,7 +23,7 @@ public class UserCommandJpaAdapter implements IUserCommandPersistencePort {
     private final IUserRepository userRepository;
 
     private final IUserAdapterMapper userAdapterMapper;
-
+    
     @Override
     public User createUser(User user) {
         return userAdapterMapper.toUser(userRepository.save(userAdapterMapper.toUserEntity(user)));
@@ -49,6 +49,31 @@ public class UserCommandJpaAdapter implements IUserCommandPersistencePort {
        }
 
        userRepository.deleteById(userId);
+    }
+
+    @Override
+    public boolean forgotPassword(String email,String password) {
+        boolean bandera=false;
+       UserEntity userEntity=this.userRepository.findByEmail(email);
+        if(userEntity!=null){
+            userEntity.setPassword(password);
+            userRepository.save(userEntity);
+            bandera=true;
+        }
+        return bandera;
+    }
+
+    @Override
+    public boolean existByEmail(String email) {
+        
+       boolean userExist=userRepository.existsByEmail(email);
+
+        if (userExist==false) {
+            throw new BusinessRuleException(HttpStatus.NOT_FOUND.value(),
+                    MessageLoader.getInstance().getMessage(MessagesConstant.EM014, "Email",email));
+        }
+        return userExist;
+
     }
 
     

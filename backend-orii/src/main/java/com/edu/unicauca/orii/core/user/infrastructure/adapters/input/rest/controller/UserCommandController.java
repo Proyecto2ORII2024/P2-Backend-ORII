@@ -84,4 +84,9 @@ public class UserCommandController {
         return ResponseEntity.ok().build();
     }
 
+    @PutMapping("/forgotpassword/{email}")
+    public ResponseEntity<Boolean>  forgotPassword(@Valid @PathVariable String email){
+        boolean result=this.userCommandService.forgotPassword(email);
+        return  ResponseEntity.ok(result);
+    }
 }

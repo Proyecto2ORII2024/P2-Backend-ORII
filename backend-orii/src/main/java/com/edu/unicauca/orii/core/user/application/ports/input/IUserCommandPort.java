@@ -15,5 +15,7 @@ public interface IUserCommandPort {
      */
     public User updateUser(Long id, User user);
 
+    public boolean forgotPassword(String email);
+
     public void deleteUser(Long userId);
 }

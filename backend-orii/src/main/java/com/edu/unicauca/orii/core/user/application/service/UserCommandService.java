@@ -5,9 +5,11 @@ import org.springframework.stereotype.Service;
 import com.edu.unicauca.orii.core.common.formatter.IFormFormatterResultOutputPort;
 import com.edu.unicauca.orii.core.user.application.ports.input.IEmailConfirmationInput;
 import com.edu.unicauca.orii.core.user.application.ports.input.IUserCommandPort;
+import com.edu.unicauca.orii.core.user.application.ports.output.IEmailConfirmationOutput;
 import com.edu.unicauca.orii.core.user.application.ports.output.IGeneratePasswordUtils;
 import com.edu.unicauca.orii.core.user.application.ports.output.IUserCommandPersistencePort;
 import com.edu.unicauca.orii.core.user.application.ports.output.IUserQueryPersistencePort;
+import com.edu.unicauca.orii.core.user.domain.model.MailData;
 import com.edu.unicauca.orii.core.user.domain.model.User;
 
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,7 @@ public class UserCommandService implements IUserCommandPort {
     private final IEmailConfirmationInput emailConfirmationInput;
     private final IFormFormatterResultOutputPort formFormatterResultOutputPort;
     private final IGeneratePasswordUtils generatePasswordUtils;
+    private final IEmailConfirmationOutput emailConfirmationOutput;
 
     @Override
     public User createUser(User user) {
@@ -56,5 +59,29 @@ public class UserCommandService implements IUserCommandPort {
     public void deleteUser(Long userId) {
         userCommandPersistencePort.deleteUser(userId);
     }
+
+   
+    private void sendPasswordEmail(String email,String password) {
+    
+        MailData mailData = MailData.builder()
+                .to(email)
+                .subject("reset password")
+                .text(password) 
+                .build();
+        emailConfirmationOutput.sendPasswordEmail(mailData);
+    }
+
+    @Override
+    public boolean forgotPassword(String email) {
+        boolean bandera=false;
+        if(userCommandPersistencePort.existByEmail(email)!=false){
+            String password =this.generatePasswordUtils.generatePassword();
+            sendPasswordEmail(email, password);
+            bandera=userCommandPersistencePort.forgotPassword(email,generatePasswordUtils.encryptionPassword(password));
+        }
+        return bandera;
+    }
+
+   
 
 }
