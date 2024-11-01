@@ -31,19 +31,21 @@ public class FormCommandController {
     private final IFormRestMapper formRestMapper;
 
     @PostMapping("/create")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('USER')")
     public ResponseEntity<FormCreateResponse> createForm(@Valid @RequestBody FormCreateRequest formCreateRequest) {
         Form form = formRestMapper.toForm(formCreateRequest);
         form = formCommandService.createForm(form);
         return ResponseEntity.created(null).body(formRestMapper.toFormCreateResponse(form));
     }
-    
+
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteForm(@PathVariable Long id) {
         formCommandService.deleteForm(id);
         return ResponseEntity.noContent().build();
     }
-
+    
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update/{id}")
     public ResponseEntity<FormCreateResponse> updateForm(@PathVariable Long id, @Valid @RequestBody FormCreateRequest formCreateRequest) {
         Form form = formRestMapper.toForm(formCreateRequest); 

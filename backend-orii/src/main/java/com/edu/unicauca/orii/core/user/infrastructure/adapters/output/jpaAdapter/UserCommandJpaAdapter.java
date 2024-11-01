@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import com.edu.unicauca.orii.core.common.exception.BusinessRuleException;
 import com.edu.unicauca.orii.core.common.exception.messages.MessageLoader;
 import com.edu.unicauca.orii.core.common.exception.messages.MessagesConstant;
+import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.repository.IFormRepository;
 import com.edu.unicauca.orii.core.user.application.ports.output.IUserCommandPersistencePort;
 import com.edu.unicauca.orii.core.user.domain.model.User;
 import com.edu.unicauca.orii.core.user.infrastructure.adapters.output.jpaAdapter.entity.UserEntity;
@@ -21,8 +22,8 @@ import lombok.RequiredArgsConstructor;
 public class UserCommandJpaAdapter implements IUserCommandPersistencePort {
 
     private final IUserRepository userRepository;
-
     private final IUserAdapterMapper userAdapterMapper;
+    private final IFormRepository formRepository;
     
     @Override
     public User createUser(User user) {
@@ -47,7 +48,8 @@ public class UserCommandJpaAdapter implements IUserCommandPersistencePort {
            throw new BusinessRuleException(HttpStatus.NOT_FOUND.value(),
                    MessageLoader.getInstance().getMessage(MessagesConstant.EM002, "User", userId));
        }
-
+       
+       formRepository.updateFormUser(userId);
        userRepository.deleteById(userId);
     }
 

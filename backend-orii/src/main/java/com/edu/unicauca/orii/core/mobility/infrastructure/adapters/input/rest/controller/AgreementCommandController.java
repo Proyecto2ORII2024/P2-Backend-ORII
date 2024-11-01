@@ -52,7 +52,7 @@ public class AgreementCommandController {
      * @return A response entity containing the updated agreement data.
      */
     @PutMapping("/update/{id}")
-    //@PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<AgreementData> updateAgreement(
             @PathVariable Long id, 
             @Valid @RequestBody AgreementData agreementUpdateRequest) {
@@ -70,7 +70,7 @@ public class AgreementCommandController {
      */
 
     @DeleteMapping("/delete/{id}")
-    //@PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteAgreement(@PathVariable Long id) {
         agreementCommandService.deleteAgreement(id);
         return ResponseEntity.noContent().build();
