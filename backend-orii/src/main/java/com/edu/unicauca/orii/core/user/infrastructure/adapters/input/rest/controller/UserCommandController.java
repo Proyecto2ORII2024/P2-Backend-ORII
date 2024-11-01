@@ -1,6 +1,7 @@
 package com.edu.unicauca.orii.core.user.infrastructure.adapters.input.rest.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,6 +49,7 @@ public class UserCommandController {
      * @return a {@link ResponseEntity} containing the created {@link UserData} 
      *         object and a 201 Created status
      */
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/create")
     public ResponseEntity<UserData> createUser(@Valid @RequestBody UserCommonRequest userCreateRequest) {
         User user = userRestMapper.toUser(userCreateRequest);
@@ -63,6 +65,7 @@ public class UserCommandController {
      *                          {@link userCommonRequest} object
      * @return a {@link ResponseEntity} containing the updated {@link UserData} object and a status of 200 OK      
      */
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update/{id}")
     public ResponseEntity<UserData> updateUser(@PathVariable Long id,@Valid @RequestBody UserCommonRequest userCommonRequest) {
         User user = userRestMapper.toUser(userCommonRequest);
@@ -78,6 +81,7 @@ public class UserCommandController {
      * @return a {@link ResponseEntity} with a status of 200 OK if deletion was 
      *         successful
      */
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteUser(@Valid @PathVariable Long id) {
         userCommandService.deleteUser(id);
@@ -85,7 +89,6 @@ public class UserCommandController {
         return ResponseEntity.ok().build();
     }
 
-    
     @PostMapping("/forgotpassword")
     public ResponseEntity<Boolean>  forgotPassword(@Valid @RequestBody  ForgotPasswordRequest forgotPasswordRequest){
         boolean result=this.userCommandService.forgotPassword(forgotPasswordRequest.getEmail());
