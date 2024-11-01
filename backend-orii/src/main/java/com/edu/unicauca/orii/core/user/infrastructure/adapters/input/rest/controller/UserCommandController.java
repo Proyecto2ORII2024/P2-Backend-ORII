@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.edu.unicauca.orii.core.user.application.service.UserCommandService;
 import com.edu.unicauca.orii.core.user.domain.model.User;
+import com.edu.unicauca.orii.core.user.infrastructure.adapters.input.rest.data.request.ForgotPasswordRequest;
 import com.edu.unicauca.orii.core.user.infrastructure.adapters.input.rest.data.request.UserCommonRequest;
 import com.edu.unicauca.orii.core.user.infrastructure.adapters.input.rest.data.response.UserData;
 import com.edu.unicauca.orii.core.user.infrastructure.adapters.input.rest.mapper.IUserRestMapper;
@@ -84,9 +85,10 @@ public class UserCommandController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/forgotpassword/{email}")
-    public ResponseEntity<Boolean>  forgotPassword(@Valid @PathVariable String email){
-        boolean result=this.userCommandService.forgotPassword(email);
+    
+    @PostMapping("/forgotpassword")
+    public ResponseEntity<Boolean>  forgotPassword(@Valid @RequestBody  ForgotPasswordRequest forgotPasswordRequest){
+        boolean result=this.userCommandService.forgotPassword(forgotPasswordRequest.getEmail());
         return  ResponseEntity.ok(result);
     }
 }
