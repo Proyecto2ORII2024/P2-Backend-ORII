@@ -2,11 +2,15 @@ package com.edu.unicauca.orii.core.mobility.infrastructure.adapters.input.rest.c
 
 import java.text.SimpleDateFormat;
 
+import com.edu.unicauca.orii.core.user.application.ports.output.IEmailConfirmationOutput;
+import com.edu.unicauca.orii.core.user.application.service.EmailService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -19,7 +23,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
+@WithMockUser(username = "admin", roles = {"ADMIN"})
 public class AgreementCommandControllerCreateIntegrationTest {
+    @MockBean
+    protected EmailService emailService;
+
+    @MockBean
+    protected IEmailConfirmationOutput emailConfirmationOutput;
 
     @Autowired
     MockMvc mockMvc;
