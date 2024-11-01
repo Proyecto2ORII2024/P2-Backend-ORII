@@ -1,6 +1,7 @@
 package com.edu.unicauca.orii.core.user.infrastructure.adapters.input.rest.controller;
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,7 @@ public class UserQueryCommand {
      * @return List of users
      * 
      */
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/get")
     public List<UserData> getUsers() {
         List<User> users = userQueryService.getUser();
@@ -39,6 +41,7 @@ public class UserQueryCommand {
      * @param id The ID of the user to be retrieved
      * @return The user with the given ID
      */
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/get/{id}")
     public UserData getUserById(@PathVariable Long id) {
         User user = userQueryService.getUserById(id);

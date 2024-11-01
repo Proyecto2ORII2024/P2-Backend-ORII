@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,6 +45,7 @@ public class AgreementQueryController {
 
      
     @GetMapping("/allAgreements")
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('USER')")
     public ResponseEntity<Page<AgreementData>> getAgreements(Pageable pageable) {
        Page<Agreement> objAgreement=agreementQueryService.getAgreement(pageable);
            Page<AgreementData> objResponse = objAgreement.map(agreementRestMapper::toAgreementData);
@@ -59,6 +61,7 @@ public class AgreementQueryController {
      * @return ResponseEntity with the data of the agreements or agreement that you send in the parameter
      */
     @GetMapping("filterbynumberorname/{search}")
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('USER')")
     public ResponseEntity<List<AgreementData>> getAgreenmentByNumberOrName(@PathVariable String search) {
         List<Agreement> objAgreements=agreementQueryService.getAgreementByNumberOrName(search);
         List<AgreementData> objResponse=agreementRestMapper.toListAgreementData(objAgreements);
@@ -76,6 +79,7 @@ public class AgreementQueryController {
      * The response has an HTTP status of 200 (OK) and includes the data of the active agreements.
      */
     @GetMapping("/all")
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('USER')")
     public ResponseEntity<List<AgreementData>> getActivesAgreement(){
         List<Agreement> objAgreements = agreementQueryService.getActiveAgreements();
         List<AgreementData> objResponse = agreementRestMapper.toListAgreementData(objAgreements);

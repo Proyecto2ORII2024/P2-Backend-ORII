@@ -13,11 +13,14 @@ import com.edu.unicauca.orii.core.user.infrastructure.adapters.output.jpaAdapter
 public interface IUserAdapterMapper {
     
     @Mapping(target = "emailToken", ignore = true)
+    @Mapping(target = "forms", ignore = true)
     User toUser(UserEntity userEntity);
 
     @Mapping(target = "emailToken", ignore = true)
+    @Mapping(target = "forms", ignore = true)
     UserEntity toUserEntity(User user);
 
     @Mapping(target = "emailToken", ignore = true)
+    @Mapping(target = "forms", ignore = true)
     List<User> toUserList(List<UserEntity> userEntities);
 }
