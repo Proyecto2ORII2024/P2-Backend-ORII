@@ -1,4 +1,4 @@
-package com.edu.unicauca.orii.core.user.infrastructure.adapters.output.gmailAdapter;
+package com.edu.unicauca.orii.core.user.infrastructure.adapters.output.mailAdapter;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
