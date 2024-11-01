@@ -18,7 +18,7 @@ public class GeneratePasswordUtilsAdapter implements IGeneratePasswordUtils{
     private static final String UPPERCASE="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String LOWERCASE="abcdefghijklmnopqrstuvwxyz";
     private static final String DIGITS="0123456789";
-    private static final String SPECIALCHARACTERS="@$!%*?&^#()_-+=<>";
+    private static final String SPECIALCHARACTERS="@$!*?&^#()_-+=";
     private static final String ALLCHARACTERS=UPPERCASE+LOWERCASE+DIGITS+SPECIALCHARACTERS;
     private static final  int passwordLenght=12;
     private static final SecureRandom random = new SecureRandom();
