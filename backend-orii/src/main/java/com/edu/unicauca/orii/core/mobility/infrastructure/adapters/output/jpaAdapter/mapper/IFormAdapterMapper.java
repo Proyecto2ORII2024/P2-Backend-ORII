@@ -9,9 +9,9 @@ import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAda
 @Mapper(componentModel = "spring")
 public interface IFormAdapterMapper {
 
-    @Mapping(target = "agreement", ignore = true)
-    @Mapping(target = "event", ignore = true)
-    @Mapping(target = "person", ignore = true)
+    @Mapping(target = "agreement.forms", ignore = true)
+    @Mapping(target = "event.forms", ignore = true)
+    @Mapping(target = "person.forms", ignore = true)
     FormEntity toFormEntity(Form form);
 
     @Mapping(target = "agreement.forms", ignore = true)

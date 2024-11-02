@@ -3,6 +3,7 @@ package com.edu.unicauca.orii.core.mobility.infrastructure.adapters.input.rest.c
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,11 +38,13 @@ public class FormQueryController {
      * @param pageable the pagination information
      * @return a page of forms
      */
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/allForms")
     public Page<Form> findAllForms(Pageable pageable) {
      return formQueryService.findAllForms(pageable);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{Id}")
     public ResponseEntity<FormResponse> findFormById(@PathVariable Long Id) {
         Form form = formQueryService.findFormById(Id);

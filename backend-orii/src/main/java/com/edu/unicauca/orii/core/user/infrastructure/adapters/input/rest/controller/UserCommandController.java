@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.edu.unicauca.orii.core.user.application.service.UserCommandService;
 import com.edu.unicauca.orii.core.user.domain.model.User;
+import com.edu.unicauca.orii.core.user.infrastructure.adapters.input.rest.data.request.ForgotPasswordRequest;
 import com.edu.unicauca.orii.core.user.infrastructure.adapters.input.rest.data.request.UserCommonRequest;
 import com.edu.unicauca.orii.core.user.infrastructure.adapters.input.rest.data.response.UserData;
 import com.edu.unicauca.orii.core.user.infrastructure.adapters.input.rest.mapper.IUserRestMapper;
@@ -48,6 +49,7 @@ public class UserCommandController {
      * @return a {@link ResponseEntity} containing the created {@link UserData} 
      *         object and a 201 Created status
      */
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/create")
     public ResponseEntity<UserData> createUser(@Valid @RequestBody UserCommonRequest userCreateRequest) {
         User user = userRestMapper.toUser(userCreateRequest);
@@ -60,9 +62,10 @@ public class UserCommandController {
      * 
      * @param id                the ID of the {@link User} to be updated
      * @param userCommonRequest the new email and role values encapsulated in a
-     *                          {@link userCommonRequest} object
+     *                          {@link UserCommonRequest} object
      * @return a {@link ResponseEntity} containing the updated {@link UserData} object and a status of 200 OK      
      */
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update/{id}")
     public ResponseEntity<UserData> updateUser(@PathVariable Long id,@Valid @RequestBody UserCommonRequest userCommonRequest) {
         User user = userRestMapper.toUser(userCommonRequest);
@@ -78,6 +81,7 @@ public class UserCommandController {
      * @return a {@link ResponseEntity} with a status of 200 OK if deletion was 
      *         successful
      */
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteUser(@Valid @PathVariable Long id) {
         userCommandService.deleteUser(id);
@@ -87,8 +91,12 @@ public class UserCommandController {
 
     @PutMapping("/forgotpassword/{email}")
     @PreAuthorize("hasAnyAuthority('ROLE_USER')")
-    public ResponseEntity<Boolean>  forgotPassword(@Valid @PathVariable String email){
-        boolean result=this.userCommandService.forgotPassword(email);
+    public ResponseEntity<Boolean>  forgotPassword(@Valid @PathVariable String email) {
+        boolean result = this.userCommandService.forgotPassword(email);
+    }
+    @PostMapping("/forgotpassword")
+    public ResponseEntity<Boolean>  forgotPassword(@Valid @RequestBody  ForgotPasswordRequest forgotPasswordRequest){
+        boolean result=this.userCommandService.forgotPassword(forgotPasswordRequest.getEmail());
         return  ResponseEntity.ok(result);
     }
 }
