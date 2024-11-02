@@ -24,11 +24,12 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable()) // Nueva configuración para deshabilitar CSRF
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/users/**").hasRole("ADMIN")
                         .requestMatchers("/agreement/**").hasRole("ADMIN")
                         .requestMatchers("/form/**").hasRole("ADMIN")
                         .requestMatchers("/form/**").hasRole("USER")
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/users/**").permitAll()
+                        //.requestMatchers("/users/**").permitAll()
                         .requestMatchers("/email/confirmEmail/**").permitAll()
                         .anyRequest().authenticated()
                 )
