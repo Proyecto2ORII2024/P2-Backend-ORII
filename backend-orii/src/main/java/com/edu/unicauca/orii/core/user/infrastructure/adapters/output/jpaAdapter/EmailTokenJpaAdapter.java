@@ -67,8 +67,8 @@ public class EmailTokenJpaAdapter implements IEmailTokenOutput{
     }
 
     @Override
-    public boolean deleteToken(Long token) {
-        Optional<EmailTokenEntity> optionalEmailToken = emailTokenRepository.findByUser_UserId(token);
+    public boolean deleteToken(Long userId) {
+        Optional<EmailTokenEntity> optionalEmailToken = emailTokenRepository.findByUser_UserId(userId);
 
         if (!optionalEmailToken.isPresent()) {
             return false;
