@@ -7,5 +7,6 @@ import com.edu.unicauca.orii.core.user.infrastructure.adapters.output.jpaAdapter
 
 public interface IEmailTokenRepository extends JpaRepository<EmailTokenEntity, Long> {
     Optional<EmailTokenEntity> findByToken(String token);
+    Optional<EmailTokenEntity> findByUser_UserId(Long idUser);
 
 }
