@@ -1,6 +1,7 @@
 package com.edu.unicauca.orii.core.mobility.infrastructure.adapters.input.rest.controller;
 
 import com.edu.unicauca.orii.core.mobility.domain.enums.ScopeEnum;
+import com.edu.unicauca.orii.core.mobility.domain.enums.StatusEnum;
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.entity.AgreementEntity;
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.repository.IAgreementRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -20,7 +22,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-public class AgreementCommandControllerDeleteIntegrationTest {
+@WithMockUser(username = "admin", roles = {"ADMIN"})
+public class AgreementCommandControllerDeleteIntegrationTest extends BaseTest{
 
     @Autowired
     private MockMvc mockMvc;
@@ -40,6 +43,7 @@ public class AgreementCommandControllerDeleteIntegrationTest {
                 .description("Intercambio")
                 .scope(ScopeEnum.INTERNATIONAL)
                 .startDate(new Date())  // Current date
+                .status(StatusEnum.ACTIVE)
                 .build();
 
         initialAgreementEntity = agreementRepository.save(initialAgreementEntity);  // Save and get ID

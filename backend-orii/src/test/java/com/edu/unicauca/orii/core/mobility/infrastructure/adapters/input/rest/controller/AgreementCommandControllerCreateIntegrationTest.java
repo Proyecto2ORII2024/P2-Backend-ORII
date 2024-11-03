@@ -24,12 +24,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @WithMockUser(username = "admin", roles = {"ADMIN"})
-public class AgreementCommandControllerCreateIntegrationTest {
-    @MockBean
-    protected EmailService emailService;
-
-    @MockBean
-    protected IEmailConfirmationOutput emailConfirmationOutput;
+public class AgreementCommandControllerCreateIntegrationTest extends BaseTest {
 
     @Autowired
     MockMvc mockMvc;
