@@ -1,8 +1,4 @@
 spring:
   profiles:
     active:
-<<<<<<< HEAD
-    - dev
-=======
-    - dev
->>>>>>> 09846fc (implementation of update password)
+    - ${profile}
