@@ -35,6 +35,7 @@ public class AgreementCommandController {
      * @param agreementCreateRequest the request containing agreement data to create
      * @return ResponseEntity containing the created agreement data
      */
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/create")
     public ResponseEntity<AgreementData> createAgreement(@Valid 
             @RequestBody AgreementData agreementCreateRequest) {
@@ -51,6 +52,7 @@ public class AgreementCommandController {
      * @param agreementUpdateRequest The updated data for the agreement.
      * @return A response entity containing the updated agreement data.
      */
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update/{id}")
     public ResponseEntity<AgreementData> updateAgreement(
             @PathVariable Long id, 
@@ -67,7 +69,7 @@ public class AgreementCommandController {
      * @param id The ID of the agreement to be deleted.
      * @return A response entity with no content.
      */
-
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteAgreement(@PathVariable Long id) {
         agreementCommandService.deleteAgreement(id);
