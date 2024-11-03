@@ -123,7 +123,8 @@ public class UserCommandService implements IUserCommandPort {
 
         User existingUser = userQueryPersistencePort.getUserById(id);
         if (generatePasswordUtils.comparePasswords(existingUser.getPassword(), actualPassword)) {
-            return userCommandPersistencePort.updatePassword(id, newPassword);
+            userCommandPersistencePort.updatePassword(id, newPassword);
+            return true;
         }
         formFormatterResultOutputPort.returnResponseErrorTeacherRequired("Password actual incorrect");
         return false;

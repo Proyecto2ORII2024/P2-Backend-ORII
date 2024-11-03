@@ -1,6 +1,7 @@
 package com.edu.unicauca.orii.core.user.infrastructure.adapters.input.rest.data.request;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,8 +17,8 @@ import lombok.Setter;
 
 public class UpdatePasswordRequest {
 
-    @NotBlank(message = "The id user is required")
-    private long id;
+    @NotNull(message = "The id user is required")
+    private long userId;
 
     @NotBlank(message = "The actual password is required")
     private String actualPassword;
