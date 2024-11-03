@@ -2,13 +2,14 @@ package com.edu.unicauca.orii.core.user.application.service;
 
 import org.springframework.stereotype.Service;
 
-import com.edu.unicauca.orii.core.common.formatter.IFormFormatterResultOutputPort;
+import com.edu.unicauca.orii.core.common.domain.enums.FacultyEnum;
 import com.edu.unicauca.orii.core.user.application.ports.input.IEmailConfirmationInput;
 import com.edu.unicauca.orii.core.user.application.ports.input.IUserCommandPort;
 import com.edu.unicauca.orii.core.user.application.ports.output.IEmailConfirmationOutput;
 import com.edu.unicauca.orii.core.user.application.ports.output.IGeneratePasswordUtils;
 import com.edu.unicauca.orii.core.user.application.ports.output.IUserCommandPersistencePort;
 import com.edu.unicauca.orii.core.user.application.ports.output.IUserQueryPersistencePort;
+import com.edu.unicauca.orii.core.user.domain.enums.RoleEnum;
 import com.edu.unicauca.orii.core.user.domain.model.MailData;
 import com.edu.unicauca.orii.core.user.domain.model.User;
 
@@ -21,17 +22,16 @@ public class UserCommandService implements IUserCommandPort {
     private final IUserCommandPersistencePort userCommandPersistencePort;
     private final IUserQueryPersistencePort userQueryPersistencePort;
     private final IEmailConfirmationInput emailConfirmationInput;
-    private final IFormFormatterResultOutputPort formFormatterResultOutputPort;
     private final IGeneratePasswordUtils generatePasswordUtils;
     private final IEmailConfirmationOutput emailConfirmationOutput;
 
     @Override
     public User createUser(User user) {
-        String password =this.generatePasswordUtils.generatePassword();
+        String password = this.generatePasswordUtils.generatePassword();
         System.out.println(password);
         user.setPassword(generatePasswordUtils.encryptionPassword(password));
         User userCreated = userCommandPersistencePort.createUser(user);
-        
+
         userCreated.setPassword(password);
         emailConfirmationInput.sendConfirmationEmail(userCreated);
 
@@ -46,13 +46,23 @@ public class UserCommandService implements IUserCommandPort {
         User existingUser = userQueryPersistencePort.getUserById(id);
 
         if (Boolean.TRUE.equals(existingUser.getEmailVerified())) {
-            formFormatterResultOutputPort.returnResponseErrorTeacherRequired("User email is verified, cannot update.");
+            existingUser.setRole(user.getRole());
+            existingUser.setFaculty(user.getFaculty());
+        } else {
+            existingUser.setRole(user.getRole());
+            existingUser.setFaculty(user.getFaculty());
+            if (!existingUser.getEmail().equals(user.getEmail())) {
+                existingUser.setEmail(user.getEmail());
+                // TODO: Actualizar/Eliminar el token existente. Enviar mail de verificación al nuevo email
+                emailConfirmationInput.sendConfirmationEmail(existingUser);
+            }
         }
 
-        existingUser.setEmail(user.getEmail());
-        existingUser.setRole(user.getRole());
+        if (RoleEnum.ADMIN.equals(user.getRole())) {
+            existingUser.setFaculty(null);
+        }
 
-        return userCommandPersistencePort.updateUser(id, user);
+        return userCommandPersistencePort.updateUser(id, existingUser);
     }
 
     @Override
@@ -60,28 +70,26 @@ public class UserCommandService implements IUserCommandPort {
         userCommandPersistencePort.deleteUser(userId);
     }
 
-   
-    private void sendPasswordEmail(String email,String password) {
-    
+    private void sendPasswordEmail(String email, String password) {
+
         MailData mailData = MailData.builder()
                 .to(email)
                 .subject("reset password")
-                .text(password) 
+                .text(password)
                 .build();
         emailConfirmationOutput.sendPasswordEmail(mailData);
     }
 
     @Override
     public boolean forgotPassword(String email) {
-        boolean bandera=false;
-        if(userCommandPersistencePort.existByEmail(email)!=false){
-            String password =this.generatePasswordUtils.generatePassword();
+        boolean bandera = false;
+        if (userCommandPersistencePort.existByEmail(email) != false) {
+            String password = this.generatePasswordUtils.generatePassword();
             sendPasswordEmail(email, password);
-            bandera=userCommandPersistencePort.forgotPassword(email,generatePasswordUtils.encryptionPassword(password));
+            bandera = userCommandPersistencePort.forgotPassword(email,
+                    generatePasswordUtils.encryptionPassword(password));
         }
         return bandera;
     }
-
-   
 
 }
