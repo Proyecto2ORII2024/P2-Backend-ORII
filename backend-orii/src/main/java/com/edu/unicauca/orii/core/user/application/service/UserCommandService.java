@@ -1,11 +1,10 @@
 package com.edu.unicauca.orii.core.user.application.service;
 
 import org.springframework.stereotype.Service;
-
-import com.edu.unicauca.orii.core.common.domain.enums.FacultyEnum;
 import com.edu.unicauca.orii.core.user.application.ports.input.IEmailConfirmationInput;
 import com.edu.unicauca.orii.core.user.application.ports.input.IUserCommandPort;
 import com.edu.unicauca.orii.core.user.application.ports.output.IEmailConfirmationOutput;
+import com.edu.unicauca.orii.core.user.application.ports.output.IEmailTokenOutput;
 import com.edu.unicauca.orii.core.user.application.ports.output.IGeneratePasswordUtils;
 import com.edu.unicauca.orii.core.user.application.ports.output.IUserCommandPersistencePort;
 import com.edu.unicauca.orii.core.user.application.ports.output.IUserQueryPersistencePort;
@@ -24,6 +23,7 @@ public class UserCommandService implements IUserCommandPort {
     private final IEmailConfirmationInput emailConfirmationInput;
     private final IGeneratePasswordUtils generatePasswordUtils;
     private final IEmailConfirmationOutput emailConfirmationOutput;
+    private final IEmailTokenOutput emailTokenOutput;
 
     @Override
     public User createUser(User user) {
@@ -52,9 +52,17 @@ public class UserCommandService implements IUserCommandPort {
             existingUser.setRole(user.getRole());
             existingUser.setFaculty(user.getFaculty());
             if (!existingUser.getEmail().equals(user.getEmail())) {
+                //delete token if exists
+                emailTokenOutput.deleteToken(id);
+
                 existingUser.setEmail(user.getEmail());
-                // TODO: Actualizar/Eliminar el token existente. Enviar mail de verificación al nuevo email
-                emailConfirmationInput.sendConfirmationEmail(existingUser);
+                String password = this.generatePasswordUtils.generatePassword();
+                existingUser.setPassword(generatePasswordUtils.encryptionPassword(password));
+
+                User userUpdate= userCommandPersistencePort.updateUser(id, existingUser);
+                userUpdate.setPassword(password);
+
+                emailConfirmationInput.sendConfirmationEmail(userUpdate);
             }
         }
 
