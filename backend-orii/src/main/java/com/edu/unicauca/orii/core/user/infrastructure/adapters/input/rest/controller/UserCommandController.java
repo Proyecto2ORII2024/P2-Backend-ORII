@@ -50,7 +50,7 @@ public class UserCommandController {
      * @return a {@link ResponseEntity} containing the created {@link UserData} 
      *         object and a 201 Created status
      */
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/create")
     public ResponseEntity<UserData> createUser(@Valid @RequestBody UserCommonRequest userCreateRequest) {
         User user = userRestMapper.toUser(userCreateRequest);
@@ -66,7 +66,7 @@ public class UserCommandController {
      *                          {@link userCommonRequest} object
      * @return a {@link ResponseEntity} containing the updated {@link UserData} object and a status of 200 OK      
      */
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/update/{id}")
     public ResponseEntity<UserData> updateUser(@PathVariable Long id,@Valid @RequestBody UserCommonRequest userCommonRequest) {
         User user = userRestMapper.toUser(userCommonRequest);
@@ -82,7 +82,7 @@ public class UserCommandController {
      * @return a {@link ResponseEntity} with a status of 200 OK if deletion was 
      *         successful
      */
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteUser(@Valid @PathVariable Long id) {
         userCommandService.deleteUser(id);
@@ -96,10 +96,9 @@ public class UserCommandController {
         return  ResponseEntity.ok(result);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN', 'ROLE_USER')")
-    @PutMapping("/updatepassword")
+    @PostMapping("/updatepassword")
     public ResponseEntity<Boolean> updatePassword(@Valid @RequestBody UpdatePasswordRequest updatePasswordRequest) {
-        boolean result = this.userCommandService.updatePassword(updatePasswordRequest.getId(), updatePasswordRequest.getActualPassword(), updatePasswordRequest.getNewPassword());
+        boolean result = this.userCommandService.updatePassword(updatePasswordRequest.getUserId(), updatePasswordRequest.getActualPassword(), updatePasswordRequest.getNewPassword());
         return ResponseEntity.ok(result);
     }
 }
