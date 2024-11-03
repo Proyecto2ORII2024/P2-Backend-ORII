@@ -53,7 +53,7 @@ public class UserCommandService implements IUserCommandPort {
             existingUser.setFaculty(user.getFaculty());
             if (!existingUser.getEmail().equals(user.getEmail())) {
                 existingUser.setEmail(user.getEmail());
-                // TO DO: Actualizar/Eliminar el token existente. Enviar mail de verificación al nuevo email
+                // TODO: Actualizar/Eliminar el token existente. Enviar mail de verificación al nuevo email
                 emailConfirmationInput.sendConfirmationEmail(existingUser);
             }
         }
