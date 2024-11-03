@@ -31,7 +31,7 @@ public class FormQueryController {
     
     private final FormQueryService formQueryService;
     private final IFormRestMapper formRestMapper;
-
+ 
     /**
      * Retrieves a paginated list of all forms.
      * 

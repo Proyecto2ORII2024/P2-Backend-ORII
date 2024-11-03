@@ -18,4 +18,6 @@ public interface IUserCommandPort {
     public boolean forgotPassword(String email);
 
     public void deleteUser(Long userId);
+
+    public boolean updatePassword(Long id, String actualPassword, String newPassword);
 }

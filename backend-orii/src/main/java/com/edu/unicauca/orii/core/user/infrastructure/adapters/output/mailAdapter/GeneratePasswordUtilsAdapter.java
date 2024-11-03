@@ -56,5 +56,11 @@ public class GeneratePasswordUtilsAdapter implements IGeneratePasswordUtils{
         Random random = new Random();
         return random.nextInt(9) + 8; 
     }
+
+    @Override
+    public boolean comparePasswords(String encryptedPassword, String plainPassword) {
+        return passwordEncoder.matches(plainPassword, encryptedPassword);
+    }
+    
     
 }

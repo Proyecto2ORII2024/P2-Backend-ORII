@@ -22,4 +22,6 @@ public interface IUserCommandPersistencePort {
 
     public boolean existByEmail(String email);
 
+    public boolean updatePassword(Long id, String newPassword);
+
 }
