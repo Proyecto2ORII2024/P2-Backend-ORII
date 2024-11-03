@@ -29,7 +29,7 @@ public class UserQueryCommand {
      * @return List of users
      * 
      */
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/get")
     public List<UserData> getUsers() {
         List<User> users = userQueryService.getUser();
@@ -41,7 +41,7 @@ public class UserQueryCommand {
      * @param id The ID of the user to be retrieved
      * @return The user with the given ID
      */
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/get/{id}")
     public UserData getUserById(@PathVariable Long id) {
         User user = userQueryService.getUserById(id);

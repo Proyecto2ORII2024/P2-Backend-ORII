@@ -14,7 +14,7 @@ public interface IUserRepository extends JpaRepository<UserEntity, Long> {
 
     @Modifying
     @Transactional
-    @Query("UPDATE UserEntity u SET u.password = :newPassword WHERE u.id = :id")
+    @Query("UPDATE UserEntity u SET u.password = :newPassword, u.updatePassword = CURRENT_TIMESTAMP WHERE u.userId = :id")
     void updatePassword(Long id, String newPassword);
 
 }
