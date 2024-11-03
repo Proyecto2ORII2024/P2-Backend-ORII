@@ -6,7 +6,9 @@ import com.edu.unicauca.orii.core.user.application.ports.output.IEmailConfirmati
 import com.edu.unicauca.orii.core.user.application.service.EmailService;
 import com.edu.unicauca.orii.core.user.domain.enums.RoleEnum;
 import com.edu.unicauca.orii.core.user.infrastructure.adapters.input.rest.data.request.UserCommonRequest;
+import com.edu.unicauca.orii.core.user.infrastructure.adapters.output.jpaAdapter.repository.IUserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -38,10 +40,18 @@ public class UserCommandControllerCreateIntegrationTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private IUserRepository userRepository;
+
     private String ENDPOINT = "/users/create";
 
     private String toJson(UserCommonRequest data) throws Exception {
         return objectMapper.writeValueAsString(data);
+    }
+
+    @AfterEach
+    public void tearDown() {
+        userRepository.deleteAll();
     }
 
     @Test
