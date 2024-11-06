@@ -13,7 +13,9 @@ import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -28,13 +30,22 @@ import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAda
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.mapper.IAgreementAdapterMapper;
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.repository.IAgreementRepository;
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.repository.IFormRepository;
+import com.edu.unicauca.orii.core.user.application.ports.output.IEmailConfirmationOutput;
+import com.edu.unicauca.orii.core.user.application.service.EmailService;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
+@WithMockUser(username="user",roles={"USER"})
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class AgreementCommandControllerQueryIntegrationTest {
     
+    @MockBean
+    protected EmailService emailService;
+
+    @MockBean
+    protected IEmailConfirmationOutput emailConfirmationOutput;
+
     @Autowired
     MockMvc mockMvc;
 
