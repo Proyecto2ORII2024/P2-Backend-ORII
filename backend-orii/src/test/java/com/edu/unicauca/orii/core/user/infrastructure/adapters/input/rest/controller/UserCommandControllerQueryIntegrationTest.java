@@ -60,13 +60,13 @@ public class UserCommandControllerQueryIntegrationTest {
 
     private List<UserData> lstUsersData = new ArrayList<>();
 
-    private final String DATE_TEST = "06-11-2024";
     private final String END_POINT = "/users";
 
     @BeforeAll
     public void setUp() throws ParseException {
         this.userRepository.deleteAll();
-        Date dateTest = new SimpleDateFormat("dd-MM-yyyy").parse(this.DATE_TEST);
+        String DATE_TEST = "06-11-2024";
+        Date dateTest = new SimpleDateFormat("dd-MM-yyyy").parse(DATE_TEST);
 
         // Crear usuarios de prueba
         UserEntity user1 = new UserEntity();
