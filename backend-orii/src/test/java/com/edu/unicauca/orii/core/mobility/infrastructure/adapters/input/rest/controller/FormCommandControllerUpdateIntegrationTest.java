@@ -4,7 +4,8 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import com.edu.unicauca.orii.core.mobility.domain.enums.ScopeEnum;
+
+import com.edu.unicauca.orii.core.mobility.domain.enums.*;
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.entity.AgreementEntity;
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.entity.EventEntity;
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.entity.EventTypeEntity;
@@ -19,13 +20,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.edu.unicauca.orii.core.common.domain.enums.FacultyEnum;
-import com.edu.unicauca.orii.core.mobility.domain.enums.DirectionEnum;
-import com.edu.unicauca.orii.core.mobility.domain.enums.IdentificationTypeEnum;
-import com.edu.unicauca.orii.core.mobility.domain.enums.PersonTypeEnum;
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.input.rest.data.PersonData;
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.input.rest.data.request.EventRequest;
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.input.rest.data.request.FormCreateRequest;
@@ -37,8 +36,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-
-public class FormCommandControllerUpdateIntegrationTest {
+@WithMockUser(username = "admin", roles = {"ADMIN"})
+public class FormCommandControllerUpdateIntegrationTest extends BaseTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -76,6 +75,7 @@ public class FormCommandControllerUpdateIntegrationTest {
                 .country("Colombia")
                 .description("Intercambio")
                 .scope(ScopeEnum.NATIONAL)
+                .status(StatusEnum.ACTIVE)
                 .startDate(new Date())  // Current date
                 .build();
 
