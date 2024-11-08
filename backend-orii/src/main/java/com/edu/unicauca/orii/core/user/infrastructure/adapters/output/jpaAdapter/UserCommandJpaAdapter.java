@@ -68,7 +68,7 @@ public class UserCommandJpaAdapter implements IUserCommandPersistencePort {
     @Override
     public boolean existByEmail(String email) {
         
-       boolean userExist=userRepository.existsByEmail(email);
+       boolean userExist=userRepository.existsByEmailAndEmailVerifiedTrue(email);
 
         if (userExist==false) {
             throw new BusinessRuleException(HttpStatus.NOT_FOUND.value(),

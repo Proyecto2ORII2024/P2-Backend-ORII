@@ -89,6 +89,14 @@ public class UserCommandController {
 
         return ResponseEntity.ok().build();
     }
+       /**
+     * 
+     *   recover password by email
+     * 
+     * @param ForgotPasswordRequest the email of the {@link User} who will recover your password
+     * @return a {@link ResponseEntity} with a status of 200 OK If the password was recovered correctly
+     * 
+     */
 
     @PostMapping("/forgotpassword")
     public ResponseEntity<Boolean>  forgotPassword(@Valid @RequestBody  ForgotPasswordRequest forgotPasswordRequest){

@@ -8,9 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.edu.unicauca.orii.core.user.infrastructure.adapters.output.jpaAdapter.entity.UserEntity;
 
 public interface IUserRepository extends JpaRepository<UserEntity, Long> {
-    UserEntity findByEmail(String email);
-
-    boolean existsByEmail(String email);
+     UserEntity findByEmail(String email);
+     
+    boolean existsByEmailAndEmailVerifiedTrue(String email);
 
     @Modifying
     @Transactional
