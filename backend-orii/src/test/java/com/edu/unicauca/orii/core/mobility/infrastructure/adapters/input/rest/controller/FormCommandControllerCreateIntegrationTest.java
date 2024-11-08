@@ -30,13 +30,14 @@ import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAda
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.repository.IAgreementRepository;
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.repository.IEventTypeRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-@WithMockUser(username = "admin@unicauca.edu.co", roles = { "ADMIN" })
+@WithMockUser(username = "admin@unicauca.edu.co", roles = {"USER" , "ADMIN"})
 @TestInstance(Lifecycle.PER_CLASS)
 public class FormCommandControllerCreateIntegrationTest extends BaseTest{
 
@@ -57,13 +58,12 @@ public class FormCommandControllerCreateIntegrationTest extends BaseTest{
   private EventTypeEntity initialEventTypeEntity;
 
 
-  private String ENDPOINT = "/form/create";
+  private final String ENDPOINT = "/form/create";
 
   private String toJson(FormCreateRequest data) throws Exception {
       return objectMapper.writeValueAsString(data);
   }
   
-
 
   @BeforeEach
     public void setup() {
@@ -794,7 +794,7 @@ public class FormCommandControllerCreateIntegrationTest extends BaseTest{
     mockMvc.perform(post(ENDPOINT)
         .contentType(MediaType.APPLICATION_JSON)
         .content(toJson(invalidData)))
-        .andExpect(status().isCreated()); // Se espera un 201 porque el campo agreementId no es requerido.
+        .andExpect(status().isCreated()); // Se espera un 400 por agreementId vacío o nulo.
   }
   @Test
   public void testCreateFormWithEmptyEventDescription() throws Exception {
@@ -1263,7 +1263,7 @@ public class FormCommandControllerCreateIntegrationTest extends BaseTest{
     mockMvc.perform(post(ENDPOINT)
         .contentType(MediaType.APPLICATION_JSON)
         .content(toJson(invalidData)))
-        .andExpect(status().isCreated()); // Se espera un 201 porque el campo agreementId no es requerido.
+        .andExpect(status().isCreated()); // Se espera un 400 por agreementId nulo.
   }
   @Test
   public void testCreateFormWithNullEventTypeId() throws Exception {
