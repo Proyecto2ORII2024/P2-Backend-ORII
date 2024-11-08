@@ -4,9 +4,6 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.edu.unicauca.orii.core.auth.filter.JwtFilter;
-import com.edu.unicauca.orii.core.auth.util.IJwtUtils;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -14,7 +11,6 @@ import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
@@ -33,13 +29,8 @@ import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAda
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.entity.EventTypeEntity;
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.repository.IAgreementRepository;
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.repository.IEventTypeRepository;
-import com.edu.unicauca.orii.core.user.domain.enums.RoleEnum;
-import com.edu.unicauca.orii.core.user.infrastructure.adapters.output.jpaAdapter.entity.UserEntity;
-import com.edu.unicauca.orii.core.user.infrastructure.adapters.output.jpaAdapter.repository.IUserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -66,14 +57,6 @@ public class FormCommandControllerCreateIntegrationTest extends BaseTest{
 
   private EventTypeEntity initialEventTypeEntity;
 
-  @Autowired
-  private IUserRepository userRepository;
-
-  private UserEntity initialUserEntity;
-
-
-
-
 
   private final String ENDPOINT = "/form/create";
 
@@ -81,9 +64,6 @@ public class FormCommandControllerCreateIntegrationTest extends BaseTest{
       return objectMapper.writeValueAsString(data);
   }
   
-
-
-
 
   @BeforeEach
     public void setup() {

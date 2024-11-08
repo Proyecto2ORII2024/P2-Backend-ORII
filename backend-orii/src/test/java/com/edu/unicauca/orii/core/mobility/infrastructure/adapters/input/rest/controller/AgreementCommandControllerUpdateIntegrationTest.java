@@ -364,7 +364,7 @@ public class AgreementCommandControllerUpdateIntegrationTest extends BaseTest{
         mockMvc.perform(put(ENDPOINT+"/{id}", initialAgreementEntity.getAgreementId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(toJson(invalidData)))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isOk()); // Si se envía null, se toma el valor por defecto
     }
 
     @Test

@@ -87,7 +87,7 @@ public class UserCommandController {
     public ResponseEntity<Void> deleteUser(@Valid @PathVariable Long id) {
         userCommandService.deleteUser(id);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
        /**
      * 

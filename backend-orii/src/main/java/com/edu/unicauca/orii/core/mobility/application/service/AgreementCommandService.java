@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.edu.unicauca.orii.core.mobility.application.ports.input.IAgreementCommandPort;
 import com.edu.unicauca.orii.core.mobility.application.ports.output.IAgreementCommandPersistencePort;
+import com.edu.unicauca.orii.core.mobility.domain.enums.StatusEnum;
 import com.edu.unicauca.orii.core.mobility.domain.model.Agreement;
 
 import lombok.RequiredArgsConstructor;
@@ -54,6 +55,9 @@ public class AgreementCommandService implements IAgreementCommandPort {
      */
     @Override
     public Agreement updateAgreement(Long id, Agreement agreement) {
+        if (agreement.getStatus() == null) {
+            agreement.setStatus(StatusEnum.ACTIVE);   
+        }
         return persistencePort.updateAgreement(id, agreement);
     }
 
