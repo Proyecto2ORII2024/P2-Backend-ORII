@@ -7,6 +7,6 @@ import com.edu.unicauca.orii.core.user.infrastructure.adapters.output.jpaAdapter
 
 public interface IUserRepository extends JpaRepository<UserEntity, Long> {
  UserEntity findByEmail(String email);
- boolean existsByEmail(String email);
+ boolean existsByEmailAndEmailVerifiedTrue(String email);
 
 }

@@ -88,6 +88,13 @@ public class UserCommandController {
 
         return ResponseEntity.ok().build();
     }
+       /**
+     * Deletes a user by their ID.
+     * 
+     * @param id the ID of the {@link User} to be deleted
+     * @return a {@link ResponseEntity} with a status of 200 OK if deletion was 
+     *         successful
+     */
 
     @PostMapping("/forgotpassword")
     public ResponseEntity<Boolean>  forgotPassword(@Valid @RequestBody  ForgotPasswordRequest forgotPasswordRequest){
