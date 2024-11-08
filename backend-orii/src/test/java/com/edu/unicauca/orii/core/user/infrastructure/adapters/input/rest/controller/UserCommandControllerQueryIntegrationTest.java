@@ -107,7 +107,7 @@ public class UserCommandControllerQueryIntegrationTest {
             response
                     .andExpect(jsonPath("$[" + i + "].email").value(this.lstUsersData.get(i).getEmail()))
                     .andExpect(jsonPath("$[" + i + "].role").value(this.lstUsersData.get(i).getRole().toString()))
-                    .andExpect(jsonPath("$[" + i + "].faculty").value(this.lstUsersData.get(i).getFaculty().getDisplayName()));
+                    .andExpect(jsonPath("$[" + i + "].faculty").value(this.lstUsersData.get(i).getFaculty().name()));
         }
     }
 
@@ -127,7 +127,7 @@ public class UserCommandControllerQueryIntegrationTest {
         response
                 .andExpect(jsonPath("$.email").value(expectedUser.getEmail()))
                 .andExpect(jsonPath("$.role").value(expectedUser.getRole().toString()))
-                .andExpect(jsonPath("$.faculty").value(expectedUser.getFaculty().getDisplayName()));
+                .andExpect(jsonPath("$.faculty").value(expectedUser.getFaculty().name()));
     }
 
     @Test
