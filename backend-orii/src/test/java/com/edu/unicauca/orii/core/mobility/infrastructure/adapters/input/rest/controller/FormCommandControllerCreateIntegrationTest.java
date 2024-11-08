@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -30,9 +29,6 @@ import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAda
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.entity.EventTypeEntity;
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.repository.IAgreementRepository;
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.repository.IEventTypeRepository;
-import com.edu.unicauca.orii.core.user.domain.enums.RoleEnum;
-import com.edu.unicauca.orii.core.user.infrastructure.adapters.output.jpaAdapter.entity.UserEntity;
-import com.edu.unicauca.orii.core.user.infrastructure.adapters.output.jpaAdapter.repository.IUserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -40,7 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-@WithMockUser(username = "admin@unicauca.edu.co", roles = { "ADMIN, USER" })
+@WithMockUser(username = "admin@unicauca.edu.co", roles = { "ADMIN" })
 @TestInstance(Lifecycle.PER_CLASS)
 public class FormCommandControllerCreateIntegrationTest extends BaseTest{
 
@@ -60,12 +56,6 @@ public class FormCommandControllerCreateIntegrationTest extends BaseTest{
 
   private EventTypeEntity initialEventTypeEntity;
 
-  @Autowired
-  private IUserRepository userRepository;
-
-  private UserEntity initialUserEntity;
-
-
 
   private String ENDPOINT = "/form/create";
 
@@ -73,20 +63,7 @@ public class FormCommandControllerCreateIntegrationTest extends BaseTest{
       return objectMapper.writeValueAsString(data);
   }
   
-  @BeforeAll
-    public void setupAll() {
-        UserEntity user = new UserEntity();
-        
-        user.setFaculty(FacultyEnum.FIET);
-        user.setEmail("admin@unicauca.edu.co");
-        user.setPassword("User1234!");
-        user.setRole(RoleEnum.USER);
-        user.setEmailVerified(true);
-        user.setUpdatePassword(new Date(4000000));
 
-        this.initialUserEntity = this.userRepository.save(user);
-                
-    }
 
   @BeforeEach
     public void setup() {
@@ -817,7 +794,7 @@ public class FormCommandControllerCreateIntegrationTest extends BaseTest{
     mockMvc.perform(post(ENDPOINT)
         .contentType(MediaType.APPLICATION_JSON)
         .content(toJson(invalidData)))
-        .andExpect(status().isBadRequest()); // Se espera un 400 por agreementId vacío o nulo.
+        .andExpect(status().isCreated()); // Se espera un 201 porque el campo agreementId no es requerido.
   }
   @Test
   public void testCreateFormWithEmptyEventDescription() throws Exception {
@@ -1286,7 +1263,7 @@ public class FormCommandControllerCreateIntegrationTest extends BaseTest{
     mockMvc.perform(post(ENDPOINT)
         .contentType(MediaType.APPLICATION_JSON)
         .content(toJson(invalidData)))
-        .andExpect(status().isBadRequest()); // Se espera un 400 por agreementId nulo.
+        .andExpect(status().isCreated()); // Se espera un 201 porque el campo agreementId no es requerido.
   }
   @Test
   public void testCreateFormWithNullEventTypeId() throws Exception {
