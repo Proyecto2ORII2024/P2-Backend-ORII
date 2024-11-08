@@ -15,20 +15,20 @@ public class JwtUtil {
     @Value("${jwt.secret}")
     private String SECRET_KEY;
 
-
     // Método para generar el token
-    public String generateToken(String email, String role) {
+    public String generateToken(String email, String role, Long id) {
         Key signingKey = new SecretKeySpec(SECRET_KEY.getBytes(), SignatureAlgorithm.HS256.getJcaName());
-    
+
         String token = Jwts.builder()
+                .claim("userId", id)
                 .setSubject(email)
                 .claim("role", role)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10 horas de expiración
                 .signWith(signingKey)
                 .compact();
-    
-        return token;      
+
+        return token;
     }
 
     // Método para validar el token
@@ -48,10 +48,10 @@ public class JwtUtil {
 
     private Claims extractClaims(String token) {
         return Jwts.parserBuilder()
-                   .setSigningKey(SECRET_KEY.getBytes())
-                   .build()
-                   .parseClaimsJws(token)
-                   .getBody();
+                .setSigningKey(SECRET_KEY.getBytes())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 
     private boolean isTokenExpired(String token) {
