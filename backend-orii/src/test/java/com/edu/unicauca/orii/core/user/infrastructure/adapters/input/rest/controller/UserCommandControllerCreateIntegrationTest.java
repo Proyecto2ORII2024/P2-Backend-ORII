@@ -157,7 +157,7 @@ public class UserCommandControllerCreateIntegrationTest {
         mockMvc.perform(post(ENDPOINT)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(toJson(invalidData)))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isCreated()); // the administrator has no faculty
     }
 
 
