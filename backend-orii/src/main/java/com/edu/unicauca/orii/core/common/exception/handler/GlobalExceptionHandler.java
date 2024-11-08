@@ -7,6 +7,8 @@ import java.util.Objects;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -144,6 +146,17 @@ public class GlobalExceptionHandler {
     return new ResponseDto<>(HttpStatus.BAD_REQUEST.value(),
         MessageLoader.getInstance().getMessage(MessagesConstant.EM011, ex.getPropertyName(),
             Objects.requireNonNull(ex.getRequiredType()).getSimpleName()));
+  }
+
+
+  @ExceptionHandler(AccessDeniedException.class)
+  public ResponseEntity<ResponseDto<Object>> handleAccessDeniedException(AccessDeniedException e) {
+    return new ResponseDto<>(HttpStatus.FORBIDDEN.value(), e.getMessage()).of();
+  }
+
+  @ExceptionHandler(AuthorizationDeniedException.class)
+  public ResponseEntity<ResponseDto<Object>> handleAuthorizationDeniedException(AuthorizationDeniedException e) {
+    return new ResponseDto<>(HttpStatus.FORBIDDEN.value(), e.getMessage()).of();
   }
 
 }
