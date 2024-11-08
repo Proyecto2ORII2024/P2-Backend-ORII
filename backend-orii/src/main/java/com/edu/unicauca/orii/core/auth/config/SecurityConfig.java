@@ -31,7 +31,7 @@ public class SecurityConfig {
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/users/**").permitAll()
                         .requestMatchers("/agreement/**").permitAll()
-                        .requestMatchers("/forms/**").permitAll()
+                        .requestMatchers("/form/**").permitAll()
                         .requestMatchers("/email/confirmEmail/**").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session
