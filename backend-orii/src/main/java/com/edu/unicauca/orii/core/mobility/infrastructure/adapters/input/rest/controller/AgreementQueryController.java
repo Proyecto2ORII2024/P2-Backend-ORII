@@ -31,6 +31,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/agreement")
 @CrossOrigin(origins = "http://localhost:5173/", allowCredentials = "true")
+@PreAuthorize("hasRole('ADMIN') OR hasRole('USER')")
 public class AgreementQueryController {
     
     private final AgreementQueryService agreementQueryService;
@@ -42,10 +43,7 @@ public class AgreementQueryController {
      * @param pageable we send the size of elements that will have the page and the page number
      * @return ResponseEntity with the data of the agreements
      */
-
-     
     @GetMapping("/allAgreements")
-    @PreAuthorize("hasRole('ADMIN') OR hasRole('USER')")
     public ResponseEntity<Page<AgreementData>> getAgreements(Pageable pageable) {
        Page<Agreement> objAgreement=agreementQueryService.getAgreement(pageable);
            Page<AgreementData> objResponse = objAgreement.map(agreementRestMapper::toAgreementData);
@@ -61,7 +59,6 @@ public class AgreementQueryController {
      * @return ResponseEntity with the data of the agreements or agreement that you send in the parameter
      */
     @GetMapping("filterbynumberorname/{search}")
-    @PreAuthorize("hasRole('ADMIN') OR hasRole('USER')")
     public ResponseEntity<List<AgreementData>> getAgreenmentByNumberOrName(@PathVariable String search) {
         List<Agreement> objAgreements=agreementQueryService.getAgreementByNumberOrName(search);
         List<AgreementData> objResponse=agreementRestMapper.toListAgreementData(objAgreements);
@@ -79,7 +76,6 @@ public class AgreementQueryController {
      * The response has an HTTP status of 200 (OK) and includes the data of the active agreements.
      */
     @GetMapping("/all")
-    @PreAuthorize("hasRole('ADMIN') OR hasRole('USER')")
     public ResponseEntity<List<AgreementData>> getActivesAgreement(){
         List<Agreement> objAgreements = agreementQueryService.getActiveAgreements();
         List<AgreementData> objResponse = agreementRestMapper.toListAgreementData(objAgreements);

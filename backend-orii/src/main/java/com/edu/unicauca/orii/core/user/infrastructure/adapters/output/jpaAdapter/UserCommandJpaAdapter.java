@@ -78,6 +78,17 @@ public class UserCommandJpaAdapter implements IUserCommandPersistencePort {
 
     }
 
+    @Override
+    public void updatePassword(Long id, String newPassword) {
+        Optional<UserEntity> userEntity = userRepository.findById(id);
+
+        if(userEntity.isEmpty()) {
+            throw new BusinessRuleException(HttpStatus.NOT_FOUND.value(),
+                    MessageLoader.getInstance().getMessage(MessagesConstant.EM002, "User", id));
+        }
+        userRepository.updatePassword(id, newPassword);
+    }
+
     
     
 }

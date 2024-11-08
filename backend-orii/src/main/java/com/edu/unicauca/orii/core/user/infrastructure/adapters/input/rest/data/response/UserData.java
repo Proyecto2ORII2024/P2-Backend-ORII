@@ -4,6 +4,8 @@ import java.util.Date;
 
 import com.edu.unicauca.orii.core.common.domain.enums.FacultyEnum;
 import com.edu.unicauca.orii.core.user.domain.enums.RoleEnum;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,6 +26,7 @@ public class UserData {
 
     private RoleEnum role;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date updatePassword;
 
     private FacultyEnum faculty;

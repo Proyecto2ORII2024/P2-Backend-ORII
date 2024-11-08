@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.edu.unicauca.orii.core.user.application.service.UserCommandService;
 import com.edu.unicauca.orii.core.user.domain.model.User;
 import com.edu.unicauca.orii.core.user.infrastructure.adapters.input.rest.data.request.ForgotPasswordRequest;
+import com.edu.unicauca.orii.core.user.infrastructure.adapters.input.rest.data.request.UpdatePasswordRequest;
 import com.edu.unicauca.orii.core.user.infrastructure.adapters.input.rest.data.request.UserCommonRequest;
 import com.edu.unicauca.orii.core.user.infrastructure.adapters.input.rest.data.response.UserData;
 import com.edu.unicauca.orii.core.user.infrastructure.adapters.input.rest.mapper.IUserRestMapper;
@@ -89,16 +90,23 @@ public class UserCommandController {
         return ResponseEntity.ok().build();
     }
        /**
-     * Deletes a user by their ID.
      * 
-     * @param id the ID of the {@link User} to be deleted
-     * @return a {@link ResponseEntity} with a status of 200 OK if deletion was 
-     *         successful
+     *   recover password by email
+     * 
+     * @param ForgotPasswordRequest the email of the {@link User} who will recover your password
+     * @return a {@link ResponseEntity} with a status of 200 OK If the password was recovered correctly
+     * 
      */
 
     @PostMapping("/forgotpassword")
     public ResponseEntity<Boolean>  forgotPassword(@Valid @RequestBody  ForgotPasswordRequest forgotPasswordRequest){
         boolean result=this.userCommandService.forgotPassword(forgotPasswordRequest.getEmail());
         return  ResponseEntity.ok(result);
+    }
+
+    @PostMapping("/updatepassword")
+    public ResponseEntity<Boolean> updatePassword(@Valid @RequestBody UpdatePasswordRequest updatePasswordRequest) {
+        boolean result = this.userCommandService.updatePassword(updatePasswordRequest.getUserId(), updatePasswordRequest.getActualPassword(), updatePasswordRequest.getNewPassword());
+        return ResponseEntity.ok(result);
     }
 }
