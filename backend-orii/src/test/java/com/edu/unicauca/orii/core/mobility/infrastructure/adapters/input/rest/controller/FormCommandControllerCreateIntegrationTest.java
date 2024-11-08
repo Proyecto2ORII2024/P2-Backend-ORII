@@ -71,10 +71,7 @@ public class FormCommandControllerCreateIntegrationTest extends BaseTest{
 
   private UserEntity initialUserEntity;
 
-  @Autowired
-  JwtFilter jwtFilter;
 
-  JwtFilter spyJwtFilter;
 
 
 
@@ -84,27 +81,9 @@ public class FormCommandControllerCreateIntegrationTest extends BaseTest{
       return objectMapper.writeValueAsString(data);
   }
   
-  @BeforeAll
-    public void setupAll() {
-        UserEntity user = new UserEntity();
-        
-        user.setFaculty(FacultyEnum.FIET);
-        user.setEmail("admin@unicauca.edu.co");
-        user.setPassword("User1234!");
-        user.setRole(RoleEnum.USER);
-        user.setEmailVerified(true);
-        user.setUpdatePassword(new Date(4000000));
 
-        this.initialUserEntity = this.userRepository.save(user);
-                
-    }
 
-    @BeforeEach
-    public void mockUserEmail(){
-      spyJwtFilter = spy(jwtFilter);
 
-      when(spyJwtFilter.getEmail()).thenReturn(initialUserEntity.getEmail());
-    }
 
   @BeforeEach
     public void setup() {
