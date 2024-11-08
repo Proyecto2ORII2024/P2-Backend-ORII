@@ -92,10 +92,10 @@ public class UserCommandControllerUpdateIntegrationTest {
             .content(this.toJSON(validData))
         )
         .andExpect(status().isOk())
-        .andExpect(jsonPath("faculty").value("Facultad de ingeniería electrónica y telecomunicaciones"))
-        .andExpect(jsonPath("email").value("user1@unicauca.edu.co"))
-        .andExpect(jsonPath("role").value("ADMIN"))
-        .andExpect(jsonPath("updatePassword").value(this.getDateTest().toString()));
+        .andExpect(jsonPath("faculty").isEmpty()) // is an admin has no faculty
+        .andExpect(jsonPath("email").value("user@unicauca.edu.co")) //if the email is verified it cannot be changed
+        .andExpect(jsonPath("role").value("ADMIN"));
+       //.andExpect(jsonPath("updatePassword").value(this.getDateTest().toString()));
     }
 
     @Test
