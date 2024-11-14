@@ -1,6 +1,7 @@
 package com.edu.unicauca.orii.core.mobility.infrastructure.adapters.input.rest.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ public class StatisticsMobilityController {
     
     private final IStatisticsMobilityPort statisticsMobilityPort;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/faculty")
     public ResponseEntity<MobilityFaculty> getStatisticsByFaculty() {
         MobilityFaculty mobilityFaculty = statisticsMobilityPort.getStatisticsByFaculty();
