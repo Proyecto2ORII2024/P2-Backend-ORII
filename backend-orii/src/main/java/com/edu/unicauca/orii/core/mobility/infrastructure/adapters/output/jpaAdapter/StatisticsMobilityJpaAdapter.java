@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.edu.unicauca.orii.core.mobility.application.ports.output.IStatisticsMobilityOutputPort;
 import com.edu.unicauca.orii.core.mobility.domain.model.statistics.MobilityFaculty;
-import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.dto.MobilityFacultyDTO;
+import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.projection.MobilityFacultyProjection;
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.repository.IFormRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ public class StatisticsMobilityJpaAdapter implements IStatisticsMobilityOutputPo
 
     @Override
     public MobilityFaculty getStatisticsByFaculty() {
-        List<MobilityFacultyDTO> mobilityFacultyDTO = formRepository.getFacultyStatistics();
+        List<MobilityFacultyProjection> mobilityFacultyDTO = formRepository.getFacultyStatistics();
 
         List<String> facultyNames = mobilityFacultyDTO.stream()
             .map(stat -> stat.getFaculty().getDisplayName())
