@@ -33,6 +33,7 @@ public class SecurityConfig {
                         .requestMatchers("/agreement/**").permitAll()
                         .requestMatchers("/form/**").permitAll()
                         .requestMatchers("/email/confirmEmail/**").permitAll()
+                        .requestMatchers("/statistics/**").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
