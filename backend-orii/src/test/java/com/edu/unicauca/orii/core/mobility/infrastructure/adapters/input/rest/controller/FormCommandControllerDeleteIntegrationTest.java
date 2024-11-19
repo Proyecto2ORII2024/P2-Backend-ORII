@@ -1,10 +1,7 @@
 package com.edu.unicauca.orii.core.mobility.infrastructure.adapters.input.rest.controller;
 
 import com.edu.unicauca.orii.core.common.domain.enums.FacultyEnum;
-import com.edu.unicauca.orii.core.mobility.domain.enums.DirectionEnum;
-import com.edu.unicauca.orii.core.mobility.domain.enums.IdentificationTypeEnum;
-import com.edu.unicauca.orii.core.mobility.domain.enums.PersonTypeEnum;
-import com.edu.unicauca.orii.core.mobility.domain.enums.ScopeEnum;
+import com.edu.unicauca.orii.core.mobility.domain.enums.*;
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.entity.AgreementEntity;
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.entity.EventEntity;
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.entity.EventTypeEntity;
@@ -19,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -33,8 +31,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-
-public class FormCommandControllerDeleteIntegrationTest {
+@WithMockUser(username = "admin", roles = {"ADMIN"})
+public class FormCommandControllerDeleteIntegrationTest extends BaseTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -64,6 +62,7 @@ public class FormCommandControllerDeleteIntegrationTest {
                 .description("Intercambio")
                 .scope(ScopeEnum.NATIONAL)
                 .startDate(new Date())  // Current date
+                .status(StatusEnum.ACTIVE)
                 .build();
 
         initialAgreementEntity = agreementRepository.save(initialAgreementEntity);  // Save and get ID
