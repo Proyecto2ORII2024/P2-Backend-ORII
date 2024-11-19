@@ -106,13 +106,9 @@ public class UserCommandService implements IUserCommandPort {
     }
 
     private void validateFaculty(User user) {
-        if (user.getRole() == RoleEnum.USER) {
+        if (user.determineUserFaculty()) {
             if (user.getFaculty() == null) {
-                formFormatterResultOutputPort.returnResponseErrorTeacherRequired("Faculty is required");
-            } else {
-                if (user.getFaculty() != null) {
-                    user.setFaculty(null);
-                }
+                formFormatterResultOutputPort.returnResponseErrorRequired("Faculty is required");
             }
         }
     }
@@ -126,7 +122,7 @@ public class UserCommandService implements IUserCommandPort {
             userCommandPersistencePort.updatePassword(id, newPassword);
             return true;
         }
-        formFormatterResultOutputPort.returnResponseErrorTeacherRequired("Password actual incorrect");
+        formFormatterResultOutputPort.returnResponseErrorRequired("Password actual incorrect");
         return false;
     }
 
