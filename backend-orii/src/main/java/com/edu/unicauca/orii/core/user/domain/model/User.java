@@ -43,4 +43,12 @@ public class User {
         Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
         this.updatePassword = date;
     }
+
+    public boolean determineUserFaculty() {
+        if (role == RoleEnum.ADMIN) {
+            this.faculty = null;
+            return false;
+        }
+        return true;
+    }
 }
