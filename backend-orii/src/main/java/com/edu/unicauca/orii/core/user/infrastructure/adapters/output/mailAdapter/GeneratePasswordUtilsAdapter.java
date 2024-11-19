@@ -11,6 +11,11 @@ import java.util.Random;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+/**
+ * adapter class implemets the {@link IGeneratePasswordUtils} interface
+ * @author brayan142002
+ */
 @Component
 @AllArgsConstructor
 public class GeneratePasswordUtilsAdapter implements IGeneratePasswordUtils{
@@ -24,10 +29,14 @@ public class GeneratePasswordUtilsAdapter implements IGeneratePasswordUtils{
     private static final SecureRandom random = new SecureRandom();
 
 
-
+    /**
+     * {@inheritDoc}
+     * <p>This method generates a password with uppercase, lowercase, numbers and special characters. The purpose is to build a secure 12-character password.
+     * @return The password created
+     */
     @Override
     public String generatePassword() {
-        //passwordLenght=generateNumber();
+    
         ArrayList<Character> passwordChars=new ArrayList<>(passwordLenght);
 
         passwordChars.add(UPPERCASE.charAt(random.nextInt(UPPERCASE.length())));
@@ -47,7 +56,11 @@ public class GeneratePasswordUtilsAdapter implements IGeneratePasswordUtils{
         return password.toString();
     
     }
-
+    /**
+     * {@inheritDoc}
+     * <p>this method encryption the password used{@link PasswordEncoder} to be able to encrypt it
+     * @return The encryption password
+     */
     @Override
     public String encryptionPassword(String password) {
        return passwordEncoder.encode(password);
