@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.entity.FormEntity;
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.projection.MobilityFacultyProjection;
+import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.projection.MobilityTrendProjection;
 
 public interface IFormRepository extends JpaRepository<FormEntity, Long> {
 
@@ -25,4 +26,12 @@ public interface IFormRepository extends JpaRepository<FormEntity, Long> {
     "FROM FormEntity f " +
     "GROUP BY f.faculty")
     List<MobilityFacultyProjection> getFacultyStatistics();
+
+   @Query("SELECT EXTRACT(YEAR FROM f.entryDate) AS years, COUNT(f) AS amountMobility " +
+       "FROM FormEntity f " +
+       "WHERE EXTRACT(YEAR FROM f.entryDate) >= EXTRACT(YEAR FROM CURRENT_DATE) - 8 " +
+       "GROUP BY EXTRACT(YEAR FROM f.entryDate) " +
+       "ORDER BY EXTRACT(YEAR FROM f.entryDate) DESC")
+        List<MobilityTrendProjection> getAnnualMobilityTrend();
+
 }
