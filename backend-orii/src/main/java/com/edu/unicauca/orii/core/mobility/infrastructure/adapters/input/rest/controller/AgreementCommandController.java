@@ -23,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/agreement")
 @CrossOrigin(origins = "http://localhost:5173/", allowCredentials = "true")
+@PreAuthorize("hasRole('ADMIN')")
 public class AgreementCommandController {
 
     private final AgreementCommandService agreementCommandService;
@@ -34,6 +35,10 @@ public class AgreementCommandController {
      * @param agreementCreateRequest the request containing agreement data to create
      * @return ResponseEntity containing the created agreement data
      */
+<<<<<<< HEAD
+=======
+    @PreAuthorize("hasRole('ADMIN')")
+>>>>>>> 682d57db1c9b3b6c15218721d4546b1c3c7b8378
     @PostMapping("/create")
     public ResponseEntity<AgreementData> createAgreement(@Valid 
             @RequestBody AgreementData agreementCreateRequest) {
@@ -50,6 +55,10 @@ public class AgreementCommandController {
      * @param agreementUpdateRequest The updated data for the agreement.
      * @return A response entity containing the updated agreement data.
      */
+<<<<<<< HEAD
+=======
+    @PreAuthorize("hasRole('ADMIN')")
+>>>>>>> 682d57db1c9b3b6c15218721d4546b1c3c7b8378
     @PutMapping("/update/{id}")
     public ResponseEntity<AgreementData> updateAgreement(
             @PathVariable Long id, 
@@ -67,8 +76,8 @@ public class AgreementCommandController {
      * @return A response entity with no content.
      */
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete/{id}")
-    //@PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Void> deleteAgreement(@PathVariable Long id) {
         agreementCommandService.deleteAgreement(id);
         return ResponseEntity.noContent().build();

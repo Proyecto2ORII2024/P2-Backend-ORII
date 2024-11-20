@@ -57,7 +57,7 @@ public class FormCommandService implements IFormCommandPort {
         if (form.getPerson() != null && form.getPerson().getPersonType() != null && form.getPerson().getPersonType().equals(PersonTypeEnum.STUDENT)) {
             if (form.getDirection().equals(DirectionEnum.INCOMING_IN_PERSON) || form.getDirection().equals(DirectionEnum.INCOMING_VIRTUAL)) {
                 if (form.getTeacher() == null || form.getTeacher().isEmpty()) {
-                    formFormatterResultOutputPort.returnResponseErrorTeacherRequired(
+                    formFormatterResultOutputPort.returnResponseErrorRequired(
                         "The teacher is required because he/she is a student with Incoming Academic Mobility");
                 }
             }
@@ -78,7 +78,7 @@ public class FormCommandService implements IFormCommandPort {
         if (form.getPerson() != null && form.getPerson().getPersonType() != null && form.getPerson().getPersonType().equals(PersonTypeEnum.STUDENT)) {
             if (form.getDirection().equals(DirectionEnum.INCOMING_IN_PERSON) || form.getDirection().equals(DirectionEnum.INCOMING_VIRTUAL)) {
                 if (form.getTeacher() == null || form.getTeacher().isEmpty()) {
-                    formFormatterResultOutputPort.returnResponseErrorTeacherRequired(
+                    formFormatterResultOutputPort.returnResponseErrorRequired(
                         "The teacher is required because he/she is a student with Incoming Academic Mobility");
                 }
             }

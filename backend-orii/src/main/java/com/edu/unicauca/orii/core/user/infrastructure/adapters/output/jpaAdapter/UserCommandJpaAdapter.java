@@ -68,7 +68,7 @@ public class UserCommandJpaAdapter implements IUserCommandPersistencePort {
     @Override
     public boolean existByEmail(String email) {
         
-       boolean userExist=userRepository.existsByEmail(email);
+       boolean userExist=userRepository.existsByEmailAndEmailVerifiedTrue(email);
 
         if (userExist==false) {
             throw new BusinessRuleException(HttpStatus.NOT_FOUND.value(),
@@ -76,6 +76,17 @@ public class UserCommandJpaAdapter implements IUserCommandPersistencePort {
         }
         return userExist;
 
+    }
+
+    @Override
+    public void updatePassword(Long id, String newPassword) {
+        Optional<UserEntity> userEntity = userRepository.findById(id);
+
+        if(userEntity.isEmpty()) {
+            throw new BusinessRuleException(HttpStatus.NOT_FOUND.value(),
+                    MessageLoader.getInstance().getMessage(MessagesConstant.EM002, "User", id));
+        }
+        userRepository.updatePassword(id, newPassword);
     }
 
     

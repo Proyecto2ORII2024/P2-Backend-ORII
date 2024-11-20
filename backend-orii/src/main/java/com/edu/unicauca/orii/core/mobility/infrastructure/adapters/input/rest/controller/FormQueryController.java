@@ -31,7 +31,7 @@ public class FormQueryController {
     
     private final FormQueryService formQueryService;
     private final IFormRestMapper formRestMapper;
-
+ 
     /**
      * Retrieves a paginated list of all forms.
      * 
@@ -40,8 +40,10 @@ public class FormQueryController {
      */
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/allForms")
-    public Page<Form> findAllForms(Pageable pageable) {
-     return formQueryService.findAllForms(pageable);
+    public Page<FormResponse> findAllForms(Pageable pageable) {
+        Page<Form> form = formQueryService.findAllForms(pageable);
+        Page<FormResponse> formResponse = form.map(formRestMapper::toFormResponse);
+        return formResponse;
     }
 
     @PreAuthorize("hasRole('ADMIN')")

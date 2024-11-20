@@ -45,7 +45,7 @@ public class UserService {
             }
             if (passwordEncoder.matches(loginRequest.getPassword(), user.get().getPassword())) {
                 System.out.println("Generando el token...");
-                String token = jwtUtil.generateToken(user.get().getEmail(), user.get().getRole().name());
+                String token = jwtUtil.generateToken(user.get().getEmail(), user.get().getRole().name(), user.get().getUserId());
                 return Optional.of(token);
             }
         }

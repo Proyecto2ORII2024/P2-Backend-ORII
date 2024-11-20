@@ -10,7 +10,7 @@ import com.edu.unicauca.orii.core.common.exception.messages.MessagesConstant;
 public class FormFormatterResultAdapter implements IFormFormatterResultOutputPort {
 
     @Override
-    public void returnResponseErrorTeacherRequired(String message) {
+    public void returnResponseErrorRequired(String message) {
         throw new BusinessRuleException(400, 
          MessageLoader.getInstance().getMessage(MessagesConstant.EM013, message));
     }

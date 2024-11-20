@@ -1,12 +1,13 @@
 package com.edu.unicauca.orii.core.user.infrastructure.adapters.input.rest.controller;
 
 import com.edu.unicauca.orii.core.common.domain.enums.FacultyEnum;
-import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.input.rest.data.AgreementData;
 import com.edu.unicauca.orii.core.user.application.ports.output.IEmailConfirmationOutput;
 import com.edu.unicauca.orii.core.user.application.service.EmailService;
 import com.edu.unicauca.orii.core.user.domain.enums.RoleEnum;
 import com.edu.unicauca.orii.core.user.infrastructure.adapters.input.rest.data.request.UserCommonRequest;
+import com.edu.unicauca.orii.core.user.infrastructure.adapters.output.jpaAdapter.repository.IUserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -17,7 +18,6 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -38,10 +38,18 @@ public class UserCommandControllerCreateIntegrationTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private IUserRepository userRepository;
+
     private String ENDPOINT = "/users/create";
 
     private String toJson(UserCommonRequest data) throws Exception {
         return objectMapper.writeValueAsString(data);
+    }
+
+    @AfterEach
+    public void tearDown() {
+        userRepository.deleteAll();
     }
 
     @Test
@@ -147,7 +155,7 @@ public class UserCommandControllerCreateIntegrationTest {
         mockMvc.perform(post(ENDPOINT)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(toJson(invalidData)))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isCreated()); // the administrator has no faculty
     }
 
 

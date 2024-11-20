@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -22,6 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.edu.unicauca.orii.core.mobility.domain.enums.ScopeEnum;
+import com.edu.unicauca.orii.core.mobility.domain.enums.StatusEnum;
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.input.rest.data.AgreementData;
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.input.rest.mapper.IAgreementRestMapper;
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.entity.AgreementEntity;
@@ -32,9 +34,10 @@ import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAda
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
+@WithMockUser(username="admin",roles={"ADMIN"})
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class AgreementCommandControllerQueryIntegrationTest {
-    
+public class AgreementCommandControllerQueryIntegrationTest extends BaseTest{
+
     @Autowired
     MockMvc mockMvc;
 
@@ -71,6 +74,7 @@ public class AgreementCommandControllerQueryIntegrationTest {
                             .description("Programa de Doble Titulación")
                             .scope(ScopeEnum.INTERNATIONAL)
                             .startDate(dateTest)
+                            .status(StatusEnum.ACTIVE)
                             .build();
 
         AgreementEntity initialAgreementEntity2 = AgreementEntity.builder()
@@ -80,6 +84,7 @@ public class AgreementCommandControllerQueryIntegrationTest {
                         .description("Intercambio Cultural")
                         .scope(ScopeEnum.NATIONAL)
                         .startDate(dateTest)
+                        .status(StatusEnum.ACTIVE)
                         .build();
 
         AgreementEntity initialAgreementEntity3 = AgreementEntity.builder()
@@ -89,6 +94,7 @@ public class AgreementCommandControllerQueryIntegrationTest {
                         .description("Becas de Investigación")
                         .scope(ScopeEnum.NATIONAL)
                         .startDate(dateTest)
+                        .status(StatusEnum.ACTIVE)
                         .build();
 
         this.agreementRepository.saveAll(List.of(initialAgreementEntity1,initialAgreementEntity2,initialAgreementEntity3));
@@ -106,19 +112,18 @@ public class AgreementCommandControllerQueryIntegrationTest {
     @Test
     public void testGetgetAgreements() throws Exception{
 
-        
-
         ResultActions response = this.mockMvc.perform(get(this.END_POINT+"/all"))
         .andExpect(status().isOk());
 
         for(int i=0; i< this.lstAgreementsData.size(); i++){
             response
-            .andExpect(jsonPath("$.content["+i+"].institution").value(this.lstAgreementsData.get(i).getInstitution()))
-            .andExpect(jsonPath("$.content["+i+"].agreementNumber").value(this.lstAgreementsData.get(i).getAgreementNumber()))
-            .andExpect(jsonPath("$.content["+i+"].country").value(this.lstAgreementsData.get(i).getCountry()))
-            .andExpect(jsonPath("$.content["+i+"].description").value(this.lstAgreementsData.get(i).getDescription()))
-            .andExpect(jsonPath("$.content["+i+"].scope").value(this.lstAgreementsData.get(i).getScope().toString()))
-            .andExpect(jsonPath("$.content["+i+"].startDate").value(this.DATE_TEST));
+            .andExpect(jsonPath("$["+i+"].institution").value(this.lstAgreementsData.get(i).getInstitution()))
+            .andExpect(jsonPath("$["+i+"].agreementNumber").value(this.lstAgreementsData.get(i).getAgreementNumber()))
+            .andExpect(jsonPath("$["+i+"].country").value(this.lstAgreementsData.get(i).getCountry()))
+            .andExpect(jsonPath("$["+i+"].description").value(this.lstAgreementsData.get(i).getDescription()))
+            .andExpect(jsonPath("$["+i+"].scope").value(this.lstAgreementsData.get(i).getScope().toString()))
+            .andExpect(jsonPath("$["+i+"].startDate").value(this.DATE_TEST))
+            .andExpect(jsonPath("$["+i+"].status").value("ACTIVE"));
         }
     }
     

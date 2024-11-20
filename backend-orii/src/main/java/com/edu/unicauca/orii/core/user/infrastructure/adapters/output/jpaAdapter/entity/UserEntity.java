@@ -44,13 +44,13 @@ public class UserEntity {
     @Column(nullable = false)
     private Boolean emailVerified;
 
-    @Column(name="user_role", nullable = false, length = 24)
+    @Column(name = "user_role", nullable = false, length = 24)
     private RoleEnum role;
 
-    @Column(nullable = false)   
+    @Column(nullable = false)
     private Date updatePassword;
 
-    @Column(name="faculty", nullable = false, length = 24)
+    @Column(name = "faculty", nullable = true, length = 24)
     private FacultyEnum faculty;
 
     @OneToOne(mappedBy = "user")

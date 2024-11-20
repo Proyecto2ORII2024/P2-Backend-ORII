@@ -27,7 +27,7 @@ public class UserCommonRequest {
 
     @NotBlank(message = "The email is required")
     @Email(message = "The email is not valid")
-    @Pattern(regexp = "^[A-Za-z0-9._%+-]+@unicauca\\.edu\\.co$", message = "The email domain is not allowed")
+    @Pattern(regexp = "^[A-Za-z0-9]+@unicauca\\.edu\\.co$", message = "The email domain is not allowed or the format is invalid")
     private String email;
 
     @NotNull(message ="The role is required")

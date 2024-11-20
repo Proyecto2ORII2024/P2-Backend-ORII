@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class BackendOriiApplication {
 
+	
 	public static void main(String[] args) {
 		SpringApplication.run(BackendOriiApplication.class, args);
 	}
