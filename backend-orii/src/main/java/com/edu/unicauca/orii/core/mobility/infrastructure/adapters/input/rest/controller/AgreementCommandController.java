@@ -35,10 +35,7 @@ public class AgreementCommandController {
      * @param agreementCreateRequest the request containing agreement data to create
      * @return ResponseEntity containing the created agreement data
      */
-<<<<<<< HEAD
-=======
     @PreAuthorize("hasRole('ADMIN')")
->>>>>>> 682d57db1c9b3b6c15218721d4546b1c3c7b8378
     @PostMapping("/create")
     public ResponseEntity<AgreementData> createAgreement(@Valid 
             @RequestBody AgreementData agreementCreateRequest) {
@@ -55,10 +52,8 @@ public class AgreementCommandController {
      * @param agreementUpdateRequest The updated data for the agreement.
      * @return A response entity containing the updated agreement data.
      */
-<<<<<<< HEAD
-=======
+
     @PreAuthorize("hasRole('ADMIN')")
->>>>>>> 682d57db1c9b3b6c15218721d4546b1c3c7b8378
     @PutMapping("/update/{id}")
     public ResponseEntity<AgreementData> updateAgreement(
             @PathVariable Long id, 
