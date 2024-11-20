@@ -6,7 +6,9 @@ import org.springframework.stereotype.Component;
 
 import com.edu.unicauca.orii.core.mobility.application.ports.output.IStatisticsMobilityOutputPort;
 import com.edu.unicauca.orii.core.mobility.domain.model.statistics.MobilityFaculty;
+import com.edu.unicauca.orii.core.mobility.domain.model.statistics.MobilityTrend;
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.projection.MobilityFacultyProjection;
+import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.projection.MobilityTrendProjection;
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.repository.IFormRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -39,5 +41,24 @@ public class StatisticsMobilityJpaAdapter implements IStatisticsMobilityOutputPo
             .output(output)
             .build();   
     }
+
+    @Override
+    public MobilityTrend getAnnualMobilityTrend() {
+       List<MobilityTrendProjection> mobilityTrendDTO=this.formRepository.getAnnualMobilityTrend();
+
+       List<Integer> years=mobilityTrendDTO.stream()
+        .map(dto->dto.getYears().intValue())
+        .toList();
+
+        List<Integer> amountMobility=mobilityTrendDTO.stream()
+        .map(dto->dto.getAmountMobility().intValue())
+        .toList();
+
+        return MobilityTrend.builder()
+                .years(years)
+                .amountMobility(amountMobility)
+                .build();
+    }
+
     
 }

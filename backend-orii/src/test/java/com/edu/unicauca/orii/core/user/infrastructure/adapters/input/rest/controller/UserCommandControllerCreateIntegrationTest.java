@@ -1,7 +1,6 @@
 package com.edu.unicauca.orii.core.user.infrastructure.adapters.input.rest.controller;
 
 import com.edu.unicauca.orii.core.common.domain.enums.FacultyEnum;
-import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.input.rest.data.AgreementData;
 import com.edu.unicauca.orii.core.user.application.ports.output.IEmailConfirmationOutput;
 import com.edu.unicauca.orii.core.user.application.service.EmailService;
 import com.edu.unicauca.orii.core.user.domain.enums.RoleEnum;
@@ -19,7 +18,6 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
