@@ -1,5 +1,6 @@
 package com.edu.unicauca.orii.core.mobility.infrastructure.adapters.input.rest.controller;
 
+import com.edu.unicauca.orii.core.mobility.domain.model.statistics.MobilityAgreementType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -32,6 +33,13 @@ public class StatisticsMobilityController {
     public ResponseEntity<MobilityTrend> getAnnualMobilityTrend(){
         MobilityTrend mobilityTrend=this.statisticsMobilityPort.getAnnualMobilityTrend();
         return ResponseEntity.ok(mobilityTrend);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/mobilitybyevent")
+    public ResponseEntity<MobilityAgreementType> getMobilityByAgreementType(){
+        MobilityAgreementType mobilityAgreementType=this.statisticsMobilityPort.getDistributionByTypeOfAgreement();
+        return ResponseEntity.ok(mobilityAgreementType); // Replace with actual implementation
     }
 
 }
