@@ -2,6 +2,7 @@ package com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAd
 
 import java.util.List;
 
+import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.projection.MobilityAgreementTypeProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -38,4 +39,10 @@ public interface IFormRepository extends JpaRepository<FormEntity, Long> {
        "ORDER BY EXTRACT(YEAR FROM f.entryDate) DESC")
         List<MobilityTrendProjection> getAnnualMobilityTrend();
 
+   @Query("SELECT et.name AS eventType, COUNT(DISTINCT f.id) AS totalFormsByEvent " +
+       "FROM FormEntity f " +
+       "JOIN EventEntity e ON f.event_id = e.id " +
+           "JOIN EventType et ON e.event_type_id = et.id " +
+       "GROUP BY et.name")
+   List<MobilityAgreementTypeProjection> getDistributionByTypeOfAgreement();
 }
