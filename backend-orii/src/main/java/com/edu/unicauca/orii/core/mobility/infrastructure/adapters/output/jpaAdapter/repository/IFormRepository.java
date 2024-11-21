@@ -39,10 +39,14 @@ public interface IFormRepository extends JpaRepository<FormEntity, Long> {
        "ORDER BY EXTRACT(YEAR FROM f.entryDate) DESC")
         List<MobilityTrendProjection> getAnnualMobilityTrend();
 
-   @Query("SELECT et.name AS eventType, COUNT(DISTINCT f.id) AS totalFormsByEvent " +
+   /*@Query("SELECT et.name AS eventType, COUNT(DISTINCT f.id) AS totalFormsByEvent " +
        "FROM FormEntity f " +
-       "JOIN EventEntity e ON f.event_id = e.id " +
-           "JOIN EventType et ON e.event_type_id = et.id " +
-       "GROUP BY et.name")
+       "JOIN EventEntity e ON f.event = e.eventId " +
+           "JOIN EventType et ON e.eventId = et.eventTypeId " +
+       "GROUP BY et.name")*/
+    @Query("SELECT e.eventType.name AS agreementType, COUNT(DISTINCT f) AS totalAgreementType " +
+       "FROM FormEntity f " +
+       "JOIN f.event e " +
+       "GROUP BY e.eventType.name")
    List<MobilityAgreementTypeProjection> getDistributionByTypeOfAgreement();
 }
