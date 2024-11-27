@@ -17,4 +17,7 @@ public interface IAgreementRepository extends JpaRepository<AgreementEntity, Lon
     
     @Query("SELECT a FROM AgreementEntity a WHERE a.status = 0")
     List<AgreementEntity>findActiveAgreements();
+
+    @Query("SELECT a FROM Agreement a WHERE a.country = :country")
+    List<AgreementEntity> findByCountry(@Param("country") String country);
 }
