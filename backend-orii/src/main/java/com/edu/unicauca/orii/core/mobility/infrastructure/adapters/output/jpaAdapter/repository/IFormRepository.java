@@ -2,13 +2,14 @@ package com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAd
 
 import java.util.List;
 
-import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.projection.MobilityAgreementTypeProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.entity.FormEntity;
+import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.projection.MobilityAgreementTypeProjection;
+import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.projection.MobilityCountryProjection;
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.projection.MobilityFacultyProjection;
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.projection.MobilityTrendProjection;
 
@@ -48,4 +49,11 @@ public interface IFormRepository extends JpaRepository<FormEntity, Long> {
        "JOIN f.event e " +
        "GROUP BY e.eventType.name")
    List<MobilityAgreementTypeProjection> getDistributionByTypeOfAgreement();
+
+   @Query("SELECT f.country AS country, COUNT(f) AS mobilities " +
+       "FROM FormEntity f " +
+       "GROUP BY f.country " +
+       "ORDER BY mobilities DESC")
+    List<MobilityCountryProjection> getMobilitiesByCountry();
+
 }

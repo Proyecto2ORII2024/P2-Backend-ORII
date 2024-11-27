@@ -51,7 +51,4 @@ public interface IAgreementQueryPort {
      */
     List<Agreement> getActiveAgreements();
 
-
-    //nuevo metodo para la consulta de movilidades por paises
-    List<Agreement> getAgreementsByCountry(String country);
 }

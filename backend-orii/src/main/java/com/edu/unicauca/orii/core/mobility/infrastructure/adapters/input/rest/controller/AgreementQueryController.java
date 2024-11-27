@@ -82,10 +82,5 @@ public class AgreementQueryController {
         return ResponseEntity.ok(objResponse);
     }
 
-    @GetMapping("/agreements/country/{country}")
-    public ResponseEntity<List<Agreement>> getAgreementsByCountry(@PathVariable String country) {
-        List<Agreement> agreements = agreementQueryService.getAgreementsByCountry(country);
-        return ResponseEntity.ok(agreements);
-    }
 }
     

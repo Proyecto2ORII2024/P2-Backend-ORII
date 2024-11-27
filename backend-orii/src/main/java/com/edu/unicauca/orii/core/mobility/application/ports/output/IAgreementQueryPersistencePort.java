@@ -51,5 +51,4 @@ public interface IAgreementQueryPersistencePort {
      */
     List<Agreement> getAgreementsActives();
 
-    List<Agreement> getAgreementsByCountry(String country);
 }

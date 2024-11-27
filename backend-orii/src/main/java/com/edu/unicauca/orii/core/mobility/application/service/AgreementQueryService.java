@@ -61,10 +61,4 @@ public class AgreementQueryService implements IAgreementQueryPort {
         return agreementQueryPersistencePort.getAgreementsActives();
     }
 
-    @Override
-    public List<Agreement> getAgreementsByCountry(String country) {
-        return agreementQueryPersistencePort.getAgreementsByCountry(country);
-    }
-    
-  
 }
