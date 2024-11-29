@@ -172,7 +172,7 @@ public class FormCommandControllerUpdateIntegrationTest extends BaseTest {
                 .andExpect(jsonPath("$.destinationProgram").value("Ciencia de Datos"))
                 .andExpect(jsonPath("$.city").value("Bogotá"))
                 .andExpect(jsonPath("$.country").value("Colombia"))
-                .andExpect(jsonPath("$.teacher").value("Dr. Juan Pérez"))
+                .andExpect(jsonPath("$.teacher").value("N.A."))
                 .andExpect(jsonPath("$.faculty").value(FacultyEnum.FIET.name()))
                 .andExpect(jsonPath("$.funding").value(2000.00))
                 .andExpect(jsonPath("$.fundingSource").value("Beca Colciencias"))
