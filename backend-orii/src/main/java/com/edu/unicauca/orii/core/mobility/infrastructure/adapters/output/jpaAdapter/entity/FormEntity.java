@@ -3,8 +3,11 @@ package com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAd
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.edu.unicauca.orii.core.common.domain.enums.FacultyEnum;
 import com.edu.unicauca.orii.core.mobility.domain.enums.DirectionEnum;
+import com.edu.unicauca.orii.core.user.infrastructure.adapters.output.jpaAdapter.entity.UserEntity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -43,6 +46,9 @@ public class FormEntity {
     @Column(length = 255)
     private DirectionEnum direction;
 
+    @Column(length = 100)
+    private String gender;
+
     private Integer cta;
 
     @Temporal(TemporalType.DATE)
@@ -67,7 +73,7 @@ public class FormEntity {
     private String teacher;
 
     @Column(length = 150)
-    private String faculty;
+    private FacultyEnum faculty;
 
     @Column(precision = 10, scale = 2)
     private BigDecimal funding;
@@ -82,15 +88,20 @@ public class FormEntity {
     private String origin;
     
     // Relationships with Agreement, Event, and Person
-    @ManyToOne
-    @JoinColumn(name = "id_agreement")
-    private AgreementEntity agreement;
-
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "id_event")
     private EventEntity event;
-
+    
     @ManyToOne
+    @JoinColumn(name = "id_agreement", nullable = true)
+    private AgreementEntity agreement;
+
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_person")
     private PersonEntity person;
+
+    @ManyToOne
+    @JoinColumn(name = "id_user", nullable = true)
+    private UserEntity user;
+   
 }

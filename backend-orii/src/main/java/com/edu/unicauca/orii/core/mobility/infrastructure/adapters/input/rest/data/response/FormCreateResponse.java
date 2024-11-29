@@ -3,6 +3,7 @@ package com.edu.unicauca.orii.core.mobility.infrastructure.adapters.input.rest.d
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.edu.unicauca.orii.core.common.domain.enums.FacultyEnum;
 import com.edu.unicauca.orii.core.mobility.domain.enums.DirectionEnum;
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.input.rest.data.AgreementData;
 import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.input.rest.data.PersonData;
@@ -24,6 +25,7 @@ public class FormCreateResponse {
 
     private Boolean orii;
     private DirectionEnum direction;
+    private String gender;
     private Integer cta;
     private Date entryDate;
     private Date exitDate;
@@ -32,7 +34,7 @@ public class FormCreateResponse {
     private String city;
     private String country;
     private String teacher;
-    private String faculty;
+    private FacultyEnum faculty;
     private BigDecimal funding;
     private String fundingSource;
     private String destination;

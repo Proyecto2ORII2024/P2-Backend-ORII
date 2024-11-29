@@ -1,5 +1,7 @@
 package com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.mapper;
 
+import java.util.List;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -14,4 +16,6 @@ public interface IAgreementAdapterMapper {
 
     @Mapping(target = "forms", ignore = true)
     AgreementEntity toAgreementEntity(Agreement agreement);
+
+    List<Agreement> toAgreementList(List<AgreementEntity> agreementEntities);
 }

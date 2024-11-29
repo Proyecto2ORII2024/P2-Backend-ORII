@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: backend-orii
+
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    driver-class-name: oracle.jdbc.OracleDriver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true  
+
+  jackson:
+    date-format: dd-MM-yyyy
+    time-zone: UTC
+
+# Gmail configuration
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${spring.mail.username}
+    password: ${spring.mail.password}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
+
+server:
+  servlet:
+    context-path: /api/v1
+
+api_url: http://localhost:8080${server.servlet.context-path}
+jwt.secret: ${JWT_SECRET}
