@@ -26,6 +26,11 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable()) // Nueva configuración para deshabilitar CSRF
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/users/**").hasRole("ADMIN")
+                        .requestMatchers("/agreement/**").hasRole("ADMIN")
+                        .requestMatchers("/form/**").hasRole("ADMIN")
+                        .requestMatchers("/form/**").hasRole("USER")
+                        .requestMatchers("/password-reset/**").permitAll()
                         .requestMatchers("/api-docs/**").permitAll()
                         .requestMatchers("/swagger-ui/**").permitAll()
                         .requestMatchers("/auth/**").permitAll()
