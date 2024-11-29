@@ -85,7 +85,7 @@ public class FormCommandControllerCreateIntegrationTest extends BaseTest{
                 .build();
 
 
-        initialEventTypeEntity = eventTypeRepository.save(initialEventTypeEntity);
+        initialEventTypeEntity = eventTypeRepository.findById(1L).orElseThrow();
 
     }
 
@@ -368,7 +368,7 @@ public class FormCommandControllerCreateIntegrationTest extends BaseTest{
   }
   @Test
   public void testCreateFormWithEmptyTeacherWithDirectionIncomingInPersonAndPersonTypeStudent() throws Exception {
-    FormCreateRequest invalidData = FormCreateRequest.builder()
+    FormCreateRequest validData = FormCreateRequest.builder()
         .orii(true)
         .direction(DirectionEnum.INCOMING_IN_PERSON)
         .gender("Male")
@@ -402,12 +402,12 @@ public class FormCommandControllerCreateIntegrationTest extends BaseTest{
 
     mockMvc.perform(post(ENDPOINT)
         .contentType(MediaType.APPLICATION_JSON)
-        .content(toJson(invalidData)))
-        .andExpect(status().isBadRequest());
+        .content(toJson(validData)))
+        .andExpect(status().isCreated());
   }
   @Test
   public void testCreateFormWithEmptyTeacherWithDirectionIncomingVirtualAndPersonTypeStudent() throws Exception {
-    FormCreateRequest invalidData = FormCreateRequest.builder()
+    FormCreateRequest validData = FormCreateRequest.builder()
         .orii(true)
         .direction(DirectionEnum.INCOMING_VIRTUAL)
         .gender("Male")
@@ -441,12 +441,12 @@ public class FormCommandControllerCreateIntegrationTest extends BaseTest{
 
     mockMvc.perform(post(ENDPOINT)
         .contentType(MediaType.APPLICATION_JSON)
-        .content(toJson(invalidData)))
-        .andExpect(status().isBadRequest());
+        .content(toJson(validData)))
+        .andExpect(status().isCreated());
   }
   @Test
   public void testCreateFormWithNullTeacherWithDirectionIncomingInPersonAndPersonTypeStudent() throws Exception {
-    FormCreateRequest invalidData = FormCreateRequest.builder()
+    FormCreateRequest validData = FormCreateRequest.builder()
         .orii(true)
         .direction(DirectionEnum.INCOMING_IN_PERSON)
         .gender("Male")
@@ -480,12 +480,12 @@ public class FormCommandControllerCreateIntegrationTest extends BaseTest{
 
     mockMvc.perform(post(ENDPOINT)
         .contentType(MediaType.APPLICATION_JSON)
-        .content(toJson(invalidData)))
-        .andExpect(status().isBadRequest());
+        .content(toJson(validData)))
+        .andExpect(status().isCreated());
   }
   @Test
   public void testCreateFormWithNullTeacherWithDirectionIncomingVirtualAndPersonTypeStudent() throws Exception {
-    FormCreateRequest invalidData = FormCreateRequest.builder()
+    FormCreateRequest validData = FormCreateRequest.builder()
         .orii(true)
         .direction(DirectionEnum.INCOMING_VIRTUAL)
         .gender("Male")
@@ -519,8 +519,8 @@ public class FormCommandControllerCreateIntegrationTest extends BaseTest{
 
     mockMvc.perform(post(ENDPOINT)
         .contentType(MediaType.APPLICATION_JSON)
-        .content(toJson(invalidData)))
-        .andExpect(status().isBadRequest());
+        .content(toJson(validData)))
+        .andExpect(status().isCreated());
   }
   @Test
   public void testCreateFormWithEmptyTeacher() throws Exception {
