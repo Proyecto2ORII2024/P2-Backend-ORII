@@ -2,6 +2,8 @@ package com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAd
 
 import java.util.List;
 
+import com.edu.unicauca.orii.core.mobility.domain.model.statistics.MobilityAgreementType;
+import com.edu.unicauca.orii.core.mobility.infrastructure.adapters.output.jpaAdapter.projection.MobilityAgreementTypeProjection;
 import org.springframework.stereotype.Component;
 
 import com.edu.unicauca.orii.core.mobility.application.ports.output.IStatisticsMobilityOutputPort;
@@ -60,5 +62,22 @@ public class StatisticsMobilityJpaAdapter implements IStatisticsMobilityOutputPo
                 .build();
     }
 
-    
+    @Override
+    public MobilityAgreementType getDistributionByTypeOfAgreement() {
+        List<MobilityAgreementTypeProjection> mobilityEventTypes = this.formRepository.getDistributionByTypeOfAgreement();
+
+        List<String> agreementTypes = mobilityEventTypes.stream()
+                .map(dto -> dto.getAgreementType())
+                .toList();
+
+        List<Integer> counts = mobilityEventTypes.stream()
+                .map(dto -> dto.getTotalAgreementType().intValue())
+                .toList();
+        return MobilityAgreementType.builder()
+                .agreementType(agreementTypes)
+                .totalMobilityByAgreementsType(counts)
+                .build();
+    }
+
+
 }

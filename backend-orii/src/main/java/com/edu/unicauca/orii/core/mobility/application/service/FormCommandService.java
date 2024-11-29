@@ -56,13 +56,15 @@ public class FormCommandService implements IFormCommandPort {
 
         if (form.getPerson() != null && form.getPerson().getPersonType() != null && form.getPerson().getPersonType().equals(PersonTypeEnum.STUDENT)) {
             if (form.getDirection().equals(DirectionEnum.INCOMING_IN_PERSON) || form.getDirection().equals(DirectionEnum.INCOMING_VIRTUAL)) {
-                if (form.getTeacher() == null || form.getTeacher().isEmpty()) {
-                    formFormatterResultOutputPort.returnResponseErrorRequired(
-                        "The teacher is required because he/she is a student with Incoming Academic Mobility");
+                if(form.getEvent().getEventType().getEventTypeId()==4||form.getEvent().getEventType().getEventTypeId()==7){
+                    if (form.getTeacher() == null || form.getTeacher().isEmpty()) {
+                        formFormatterResultOutputPort.returnResponseErrorRequired(
+                            "The teacher is required because he/she is a student with Incoming Academic Mobility");
+                    }
+                }else{
+                    form.setTeacher("N.A.");
                 }
             }
-        }else{
-            form.setTeacher("N.A.");
         }
 
         form.setUser(getUserFromToken());
@@ -77,13 +79,15 @@ public class FormCommandService implements IFormCommandPort {
     public Form updateForm(Long id, Form form) {
         if (form.getPerson() != null && form.getPerson().getPersonType() != null && form.getPerson().getPersonType().equals(PersonTypeEnum.STUDENT)) {
             if (form.getDirection().equals(DirectionEnum.INCOMING_IN_PERSON) || form.getDirection().equals(DirectionEnum.INCOMING_VIRTUAL)) {
-                if (form.getTeacher() == null || form.getTeacher().isEmpty()) {
-                    formFormatterResultOutputPort.returnResponseErrorRequired(
-                        "The teacher is required because he/she is a student with Incoming Academic Mobility");
+                if(form.getEvent().getEventType().getEventTypeId()==4||form.getEvent().getEventType().getEventTypeId()==7){
+                    if (form.getTeacher() == null || form.getTeacher().isEmpty()) {
+                        formFormatterResultOutputPort.returnResponseErrorRequired(
+                            "The teacher is required because he/she is a student with Incoming Academic Mobility");
+                    }
+                }else{
+                    form.setTeacher("N.A.");
                 }
             }
-        }else{
-            form.setTeacher("N.A.");
         }
         
         return persistencePort.updateForm(id, form);

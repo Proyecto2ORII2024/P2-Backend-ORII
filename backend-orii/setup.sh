@@ -20,7 +20,7 @@ echo "ORACLE_BASE: $ORACLE_BASE"
 echo "ORACLE_SID: $ORACLE_SID"
 
 echo "Ejecutando script de inicialización..."
-echo "Usuario a crear: c##${ORACLE_USER}"
+echo "Usuario a crear:${ORACLE_USER}"
 
 # Ejecutar sqlplus con la configuración completa
 sqlplus -S / as sysdba << EOF

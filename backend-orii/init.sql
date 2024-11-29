@@ -8,11 +8,20 @@ DEFINE password = "&2"
 ALTER SESSION SET "_ORACLE_SCRIPT" = TRUE;
 
 DECLARE
-    v_username VARCHAR2(30) := 'c##' || '&&usuario';
+    v_username VARCHAR2(30) := '&&usuario';
     v_password VARCHAR2(30) := '&&password';
+    v_exists NUMBER;
 BEGIN
+    SELECT COUNT(*) INTO v_exists
+    FROM all_users
+    WHERE username = UPPER(v_username);
     -- Crear el usuario
-    EXECUTE IMMEDIATE 'CREATE USER ' || v_username || ' IDENTIFIED BY ' || v_password;
+    IF v_exists = 0 THEN
+        EXECUTE IMMEDIATE 'CREATE USER ' || v_username || ' IDENTIFIED BY ' || v_password;
+        DBMS_OUTPUT.PUT_LINE('Usuario ' || v_username || ' creado exitosamente');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('El usuario ' || v_username || ' ya existe');
+    END IF;
     
     -- Otorgar permisos
     EXECUTE IMMEDIATE 'GRANT CONNECT TO ' || v_username;
