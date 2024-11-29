@@ -1,8 +1,4 @@
 spring:
   profiles:
     active:
-<<<<<<< HEAD
-    - dev
-=======
     - ${profile}
->>>>>>> 682d57db1c9b3b6c15218721d4546b1c3c7b8378

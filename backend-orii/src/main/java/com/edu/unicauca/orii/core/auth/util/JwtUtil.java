@@ -16,13 +16,15 @@ public class JwtUtil {
     private String SECRET_KEY;
 
     // Método para generar el token
-    public String generateToken(String email, String role, Long id) {
+    public String generateToken(String email, String role, Long id, String faculty, Date updatePassword) {
         Key signingKey = new SecretKeySpec(SECRET_KEY.getBytes(), SignatureAlgorithm.HS256.getJcaName());
 
         String token = Jwts.builder()
                 .claim("userId", id)
                 .setSubject(email)
                 .claim("role", role)
+                .claim("faculty", faculty)
+                .claim("updatePassword", updatePassword.toString())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10 horas de expiración
                 .signWith(signingKey)
