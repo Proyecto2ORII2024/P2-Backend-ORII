@@ -1,10 +1,11 @@
 package com.edu.unicauca.orii.core.mobility.application.service;
 
-import com.edu.unicauca.orii.core.mobility.domain.model.statistics.MobilityAgreementType;
 import org.springframework.stereotype.Service;
 
 import com.edu.unicauca.orii.core.mobility.application.ports.input.IStatisticsMobilityPort;
 import com.edu.unicauca.orii.core.mobility.application.ports.output.IStatisticsMobilityOutputPort;
+import com.edu.unicauca.orii.core.mobility.domain.model.statistics.MobilityAgreementType;
+import com.edu.unicauca.orii.core.mobility.domain.model.statistics.MobilityCountry;
 import com.edu.unicauca.orii.core.mobility.domain.model.statistics.MobilityFaculty;
 import com.edu.unicauca.orii.core.mobility.domain.model.statistics.MobilityTrend;
 
@@ -30,6 +31,13 @@ public class StatisticsMobilityService implements IStatisticsMobilityPort {
     public MobilityAgreementType getDistributionByTypeOfAgreement() {
         return statisticsMobilityOutputPort.getDistributionByTypeOfAgreement();
     }
+
+    @Override
+    public MobilityCountry getStatisticsByCountry() {
+        return statisticsMobilityOutputPort.getStatisticsByCountry();
+    }
+
+    
 
 
 }

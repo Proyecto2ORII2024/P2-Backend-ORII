@@ -1,6 +1,5 @@
 package com.edu.unicauca.orii.core.mobility.infrastructure.adapters.input.rest.controller;
 
-import com.edu.unicauca.orii.core.mobility.domain.model.statistics.MobilityAgreementType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -9,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.edu.unicauca.orii.core.mobility.application.ports.input.IStatisticsMobilityPort;
+import com.edu.unicauca.orii.core.mobility.domain.model.statistics.MobilityAgreementType;
+import com.edu.unicauca.orii.core.mobility.domain.model.statistics.MobilityCountry;
 import com.edu.unicauca.orii.core.mobility.domain.model.statistics.MobilityFaculty;
 import com.edu.unicauca.orii.core.mobility.domain.model.statistics.MobilityTrend;
 
@@ -40,6 +41,13 @@ public class StatisticsMobilityController {
     public ResponseEntity<MobilityAgreementType> getMobilityByAgreementType(){
         MobilityAgreementType mobilityAgreementType=this.statisticsMobilityPort.getDistributionByTypeOfAgreement();
         return ResponseEntity.ok(mobilityAgreementType); // Replace with actual implementation
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/country")
+    public ResponseEntity<MobilityCountry> getStatisticsByCountry() {
+        MobilityCountry mobilityCountry = statisticsMobilityPort.getStatisticsByCountry();
+        return ResponseEntity.ok(mobilityCountry);
     }
 
 }

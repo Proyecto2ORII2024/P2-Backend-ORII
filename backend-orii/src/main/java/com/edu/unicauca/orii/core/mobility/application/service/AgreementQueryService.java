@@ -60,6 +60,5 @@ public class AgreementQueryService implements IAgreementQueryPort {
     public List<Agreement> getActiveAgreements() {
         return agreementQueryPersistencePort.getAgreementsActives();
     }
-    
-  
+
 }

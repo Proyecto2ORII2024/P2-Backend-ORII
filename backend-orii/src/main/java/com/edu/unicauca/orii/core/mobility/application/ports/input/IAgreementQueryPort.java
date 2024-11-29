@@ -50,4 +50,5 @@ public interface IAgreementQueryPort {
      *         active in the system.
      */
     List<Agreement> getActiveAgreements();
+
 }

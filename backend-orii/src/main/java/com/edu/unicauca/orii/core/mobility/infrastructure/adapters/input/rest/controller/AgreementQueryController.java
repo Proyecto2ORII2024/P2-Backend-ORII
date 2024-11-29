@@ -81,5 +81,6 @@ public class AgreementQueryController {
         List<AgreementData> objResponse = agreementRestMapper.toListAgreementData(objAgreements);
         return ResponseEntity.ok(objResponse);
     }
+
 }
     

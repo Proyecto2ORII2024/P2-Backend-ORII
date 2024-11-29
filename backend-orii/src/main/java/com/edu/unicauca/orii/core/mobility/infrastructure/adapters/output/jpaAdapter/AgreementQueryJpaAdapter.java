@@ -84,5 +84,4 @@ public class AgreementQueryJpaAdapter implements IAgreementQueryPersistencePort{
         List<Agreement> listAgreement=agreementAdapterMapper.toAgreementList(agreementEntities);
         return listAgreement;
     }
-    
 }
