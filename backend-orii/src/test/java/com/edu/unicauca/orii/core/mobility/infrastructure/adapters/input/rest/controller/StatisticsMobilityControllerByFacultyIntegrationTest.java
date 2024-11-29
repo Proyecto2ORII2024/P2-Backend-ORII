@@ -20,13 +20,14 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+
 import java.math.BigDecimal;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -35,22 +36,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @WithMockUser(username = "admin", roles = {"ADMIN"})
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class StatisticsMobilityControllerByFacultyIntegrationTest extends BaseTest{
+class StatisticsMobilityControllerByFacultyIntegrationTest extends BaseTest {
 
+    private final String ENDPOINT = "/statistics/faculty";
     @Autowired
     private MockMvc mockMvc;
-
     @Autowired
     private IAgreementRepository agreementRepository;
-
     @Autowired
     private ObjectMapper objectMapper;
-
-
     @Autowired
     private IFormRepository formRepository;
-    private final String ENDPOINT = "/statistics/faculty";
-
     @Autowired
     private IEventTypeRepository eventTypeRepository;
 
@@ -62,6 +58,11 @@ class StatisticsMobilityControllerByFacultyIntegrationTest extends BaseTest{
         return objectMapper.writeValueAsString(data);
     }
 
+    @AfterAll
+    void tearAll(){
+        this.formRepository.deleteAll();
+        this.agreementRepository.deleteAll();
+    }
     @BeforeAll
     void setUp() {
         this.formRepository.deleteAll();
@@ -124,5 +125,26 @@ class StatisticsMobilityControllerByFacultyIntegrationTest extends BaseTest{
                         .content(toJson(validData)))
                 .andExpect(status().isCreated());
 
+        mockMvc.perform(get(ENDPOINT)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.faculty").exists())
+                .andExpect(jsonPath("$.input").exists())
+                .andExpect(jsonPath("$.output").exists())
+                .andExpect(jsonPath("$.faculty").isArray())
+                .andExpect(jsonPath("$.input").isArray())
+                .andExpect(jsonPath("$.output").isArray())
+                .andExpect(jsonPath("$.faculty").isNotEmpty())
+                .andExpect(jsonPath("$.input").isNotEmpty())
+                .andExpect(jsonPath("$.output").isNotEmpty())
+                .andExpect(jsonPath("$.faculty[0]").value("Facultad de Ingeniería Electrónica y Telecomunicaciones"))
+                .andExpect(jsonPath("$.output[0]").value(1))
+                .andExpect(jsonPath("$.input[0]").value(0));
+    }
+
+    @Test
+    @WithMockUser(username = "user", roles = {"USER"})
+    void testGetStatisticsByFacultyWithoutPermission() throws Exception {
+        mockMvc.perform(get(this.ENDPOINT)).andExpect(status().isForbidden());
     }
 }
