@@ -85,7 +85,7 @@ public class FormCommandControllerUpdateIntegrationTest extends BaseTest {
                 .name("Evento Presencial")
                 .build();
 
-        initialEventTypeEntity = eventTypeRepository.save(initialEventTypeEntity); // Save and get ID
+        initialEventTypeEntity = eventTypeRepository.findById(1L).orElseThrow(); // Save and get ID
 
         // Create and save the initial FormEntity in the database before each test
         initialFormEntity = FormEntity.builder()
