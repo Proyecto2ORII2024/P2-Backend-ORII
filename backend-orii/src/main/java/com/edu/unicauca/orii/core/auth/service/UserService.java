@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.edu.unicauca.orii.core.auth.dto.LoginRequest;
 import com.edu.unicauca.orii.core.auth.util.JwtUtil;
+import com.edu.unicauca.orii.core.common.domain.enums.FacultyEnum;
 import com.edu.unicauca.orii.core.common.exception.EmailNotVerifiedException;
 import com.edu.unicauca.orii.core.user.infrastructure.adapters.output.jpaAdapter.entity.UserEntity;
 import com.edu.unicauca.orii.core.user.infrastructure.adapters.output.jpaAdapter.repository.IUserRepository;
@@ -45,7 +46,12 @@ public class UserService {
             }
             if (passwordEncoder.matches(loginRequest.getPassword(), user.get().getPassword())) {
                 System.out.println("Generando el token...");
-                String token = jwtUtil.generateToken(user.get().getEmail(), user.get().getRole().name(), user.get().getUserId());
+                FacultyEnum facultyE = user.get().getFaculty();
+                String faculty = "";
+                if(facultyE!=null){
+                    faculty=facultyE.getDisplayName();
+                }
+                String token = jwtUtil.generateToken(user.get().getEmail(), user.get().getRole().name(), user.get().getUserId(), faculty);
                 return Optional.of(token);
             }
         }
